@@ -1,0 +1,33 @@
+@import "./_reset";
+
+.register-box {
+  display: flex;
+  position: relative;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  // align-items: center;
+  width: 500px;
+  background-color: aliceblue;
+  padding: 30px;
+  
+  .required {
+    color: red;
+  }
+
+  .info-top {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #555;
+  }
+
+  .register-form {
+    padding: 20px;
+    .name-info, .gender-info, .birth-info, .tel-info, .id-info, .password-info, .nickName-info{
+      display: flex;
+      justify-content: space-between;
+      margin: 10px;
+    }
+ 
+  }
+}
