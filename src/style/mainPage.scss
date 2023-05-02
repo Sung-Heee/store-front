@@ -1,0 +1,34 @@
+@import './_reset';
+
+.swiper {
+  background-color: aquamarine;
+  height: 622px;
+  img {
+    width: 802px;
+    height: 622px;
+    background-color: orange;
+  }
+}
+
+.view-more {
+  width: 802px;
+  margin-left: 700px;
+  text-align: right;
+}
+
+// 페이지 상단으로 위치하는 버튼
+.top_btn {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #888;
+  cursor: pointer;
+  .top_btn_arrow {
+    font-size: 30px;
+    color: #eee;
+    margin-top: 15px;
+  }
+}
