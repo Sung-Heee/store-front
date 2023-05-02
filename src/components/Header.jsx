@@ -18,7 +18,7 @@ export default function Header() {
                 <Link to="/login">LOGIN</Link>
               </li>
               <li>
-                <Link to="/join">JOIN</Link>
+                <Link to="/register">JOIN</Link>
               </li>
               <li className="header_dropdown_menu">
                 <p>SALE</p>
