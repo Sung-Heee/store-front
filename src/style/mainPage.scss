@@ -2,16 +2,18 @@
 
 .swiper {
   background-color: aquamarine;
-  height: 622px;
-  img {
-    width: 802px;
-    height: 622px;
+  height: 630px;
+  .swiper-slide{
+    img {
+    width: 800px;
+    height: 630px;
     background-color: orange;
+    }
   }
 }
 
 .view-more {
-  width: 802px;
+  width: 800px;
   margin-left: 700px;
   text-align: right;
 }

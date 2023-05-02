@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import logo from '../style/logo.png';
+// import logo from '../images/logo.png';
 
 export default function Header() {
   return (
@@ -41,7 +41,11 @@ export default function Header() {
             </ul>
           </div>
           <div className="header_logo">
-            <img src={logo} alt="로고" className="header_logo_img" />
+            <img
+              src="/images/logo.png"
+              alt="로고"
+              className="header_logo_img"
+            />
           </div>
           <div className="header_icon_menu">
             <ul>
