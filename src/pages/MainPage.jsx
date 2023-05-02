@@ -22,6 +22,7 @@ export default function MainPage() {
       <Swiper
         className="swiper"
         loop={true}
+        loopAdditionalSlides={1}
         spaceBetween={300}
         slidesPerView={2}
         centeredSlides={true}
