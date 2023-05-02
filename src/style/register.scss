@@ -1,33 +1,119 @@
 @import "./_reset";
 
-.register-box {
+body {
+  background-color: #f5f5f5;
+}
+.register {
   display: flex;
   position: relative;
-  margin: 0 auto;
   flex-direction: column;
-  justify-content: center;
-  // align-items: center;
-  width: 500px;
-  background-color: aliceblue;
-  padding: 30px;
-  
-  .required {
-    color: red;
-  }
+  width: 600px;
+  margin: 50px auto;
 
-  .info-top {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #555;
-  }
+  .register-box {
+    padding: 60px 50px 30px 50px;
+    border: 0.5px solid #555;
+    background-color: white;
 
-  .register-form {
-    padding: 20px;
-    .name-info, .gender-info, .birth-info, .tel-info, .id-info, .password-info, .nickName-info{
+    .required {
+      color: red;
+      margin-right: 10px;
+    }
+
+    .info-top {
       display: flex;
       justify-content: space-between;
-      margin: 10px;
+      border-bottom: 2px solid #555;
+      font-size: 17px;
+      padding-bottom: 10px;
+      font-weight: 500;
+
+      p {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+      }
     }
- 
+
+    .register-form {
+      padding: 30px 0;
+
+      .gender-info {
+        display: flex;
+        //justify-content: space-between;
+        // flex-wrap: wrap;
+        // align-content: center;
+        margin-bottom: 30px;
+        & > label {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          width: 200px;
+        }
+        .gender-input {
+          display: inline-block;
+
+          input {
+          }
+          & > label {
+            padding: 0 10px;
+          }
+        }
+      }
+
+      .name-info,
+      .birth-info,
+      .tel-info,
+      .id-info,
+      .password-info,
+      .nickName-info {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-content: center;
+        margin-bottom: 30px;
+
+        input {
+          width: 300px;
+          border: none;
+          border-bottom: solid #aaaaaa 1px;
+          background-color: transparent;
+          &:focus {
+            outline: none;
+            border-bottom: 1px solid rgb(33, 90, 137);
+          }
+        }
+
+        label {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          width: 150px;
+        }
+
+        .gender-input {
+        }
+      }
+
+      .btn {
+        cursor: pointer;
+        background-color: transparent;
+        border-radius: 30px;
+        padding: 10px 30px;
+        width: 200px;
+        margin-top: 20px;
+      }
+      .cancel--btn {
+        border: 1px solid #9f9f9f;
+        margin-right: 5px;
+        color: #333;
+      }
+      .join--btn {
+        background-color: #9f9f9f;
+        color: white;
+        border: 1px solid #9f9f9f;
+        margin-left: 5px;
+      }
+    }
   }
 }
