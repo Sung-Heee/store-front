@@ -1,10 +1,11 @@
+import React from 'react';
+import '../style/login.scss';
 import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { login } from '../store/modules/user';
 import { Link } from 'react-router-dom';
-
 
 export default function LoginPage() {
   const loginIdInput = useRef();
