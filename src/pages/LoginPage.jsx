@@ -1,7 +1,7 @@
 import React from 'react';
 import '../style/login.scss';
 import axios from 'axios';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { login } from '../store/modules/user';
@@ -54,23 +54,38 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="login-part">
-      <h1>Login</h1>
-      <p>
-        아이디
-        <input type="text" ref={loginIdInput} />
-      </p>
-      <p>
-        비밀번호
-        <input type="text" ref={loginPwInput} />
-      </p>
-      <button onClick={loginUser}>로그인</button>
-      <Link to="/register">회원가입</Link>
-      <br />
-      <span>아이디 찾기</span> | <span>비밀번호 찾기</span> |
-      <span>비회원 주문조회</span>
-      <div>카카오톡으로 로그인</div>
-      <div>네이버로 로그인</div>
-    </div>
+    <>
+      <div className="login_container minMax">
+        <div className="login_part">
+          <p className="login_title">LOGIN</p>
+          <div className="login_id_input">
+            <input type="text" ref={loginIdInput} placeholder="ID" />
+          </div>
+          <div className="login_password_input">
+            <input type="text" ref={loginPwInput} placeholder="PASSWORD" />
+          </div>
+          <div className="login_btn">
+            <button onClick={loginUser}>LOGIN</button>
+          </div>
+          <div className="register_btn">
+            <Link to="/register">JOIN US</Link>
+          </div>
+          <div className="user_info_btn">
+            <p className="id_search">아이디 찾기</p>
+            <p>|</p>
+            <p className="password_search">비밀번호 찾기</p>
+            <p>|</p>
+            <p className="order_inquiry">비회원 주문조회</p>
+          </div>
+          <p className="kakao_naver_login">간편 로그인</p>
+          <div className="kakao_login">
+            <Link to="">카카오톡으로 로그인</Link>
+          </div>
+          <div className="naver_login">
+            <Link to="">네이버로 로그인</Link>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
