@@ -5,8 +5,12 @@ import MainPage from './pages/MainPage';
 import Footer from './components/Footer';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function App() {
+  console.log('ㅎㅇㅎㅇ');
+  console.log('footer');
   return (
     <div className="App">
       <Header />
