@@ -41,11 +41,13 @@ export default function Header() {
             </ul>
           </div>
           <div className="header_logo">
-            <img
-              src="/images/logo.png"
-              alt="로고"
-              className="header_logo_img"
-            />
+            <Link to="/">
+              <img
+                src="/images/logo.png"
+                alt="로고"
+                className="header_logo_img"
+              />
+            </Link>
           </div>
           <div className="header_icon_menu">
             <ul>
