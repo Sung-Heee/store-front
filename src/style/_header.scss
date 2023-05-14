@@ -39,10 +39,12 @@
     .header_logo{ 
       position: relative;
       top: -15px; 
-      .header_logo_img{
+      a{
+        .header_logo_img{
         width: 177px;
         height: 90px;
         margin: 0 auto;
+        }
       }
     }
     .header_icon_menu{
