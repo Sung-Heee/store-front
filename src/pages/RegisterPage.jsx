@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { login } from '../store/modules/user';
 import Select from 'react-select';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function RegisterPage() {
   const genderOptions = [
@@ -15,7 +15,7 @@ export default function RegisterPage() {
   const registerIdInput = useRef();
   const registerPwInput = useRef();
   const registerPwCheckInput = useRef();
-  const userSexInput = useRef();
+  const userGenderInput = useRef();
   const userNameInput = useRef();
   const phoneNumberInput = useRef();
   const nickNameInput = useRef();
@@ -51,7 +51,9 @@ export default function RegisterPage() {
     return true;
   };
 
-  const registerUser = async () => {
+  const registerUser = async (e) => {
+    e.preventDefault(); // 자동 새로고침 방지
+
     if (
       !registerIdInput.current.value ||
       !registerPwInput.current.value ||
@@ -74,43 +76,35 @@ export default function RegisterPage() {
       return;
     }
 
-    const resRegister = await axios.post('/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    try {
+      const resRegister = await axios.post('/register', {
         id: registerIdInput.current.value,
         password: registerPwInput.current.value,
-        sex: userSexInput.current.value,
+        gender: userGenderInput.current.value,
         name: userNameInput.current.value,
         phone: phoneNumberInput.current.value,
         nickName: nickNameInput.current.value,
-      }),
-    });
-    if (resRegister.status === 200) {
-      // 성공 했따. 라는 의미입니다.
-      dispatch(
-        login({
-          id: registerIdInput.current.value,
-          password: registerPwInput.current.value,
-          sex: userSexInput.current.value,
-          name: userNameInput.current.value,
-          phone: phoneNumberInput.current.value,
-          nickName: nickNameInput.current.value,
-        }),
-      );
-      registerIdInput.current.value = '';
-      registerPwInput.current.value = '';
-      userSexInput.current.value = '';
-      userNameInput.current.value = '';
-      phoneNumberInput.current.value = '';
-      nickNameInput.current.value = '';
-      // window.location.href = '/';
-      navigate('/');
-      return alert(await resRegister.json());
-    } else {
-      return alert(await resRegister.json());
+      });
+      if (resRegister.status === 200) {
+        // 성공 했다. 라는 의미
+        dispatch(
+          login({
+            id: registerIdInput.current.value,
+            // password: registerPwInput.current.value,
+            // gender: userGenderInput.current.value,
+            // name: userNameInput.current.value,
+            // phone: phoneNumberInput.current.value,
+            // nickName: nickNameInput.current.value,
+          }),
+        );
+        navigate('/');
+        return alert(await resRegister.json());
+      } else {
+        return alert(await resRegister.json());
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data);
     }
   };
 
@@ -125,33 +119,6 @@ export default function RegisterPage() {
             </p>
           </div>
           <form className="register-form">
-            <div className="name-info">
-              <label>
-                <span className="required">*</span>
-                이름
-              </label>
-              <input id="nameInput" type="text" ref={userNameInput} />
-            </div>
-            <div className="gender-info">
-              <label>
-                <span className="required">*</span>
-                성별
-              </label>
-              <div className="gender-input">
-                <Select
-                  options={genderOptions}
-                  ref={userSexInput}
-                  placeholder="성별"
-                />
-              </div>
-            </div>
-            <div className="tel-info">
-              <label>
-                <span className="required">*</span>
-                휴대폰
-              </label>
-              <input id="telInput" type="tel" ref={phoneNumberInput} />
-            </div>
             <div className="id-info">
               <label>
                 <span className="required">*</span>
@@ -187,6 +154,34 @@ export default function RegisterPage() {
                 ref={registerPwCheckInput}
               />
             </div>
+            <div className="name-info">
+              <label>
+                <span className="required">*</span>
+                이름
+              </label>
+              <input id="nameInput" type="text" ref={userNameInput} />
+            </div>
+            <div className="gender-info">
+              <label>
+                <span className="required">*</span>
+                성별
+              </label>
+              <div className="gender-input">
+                <Select
+                  options={genderOptions}
+                  ref={userGenderInput}
+                  placeholder="성별"
+                />
+              </div>
+            </div>
+            <div className="tel-info">
+              <label>
+                <span className="required">*</span>
+                휴대폰
+              </label>
+              <input id="telInput" type="tel" ref={phoneNumberInput} />
+            </div>
+
             <div className="nickName-info">
               <label>
                 <span className="required">*</span>
@@ -200,10 +195,22 @@ export default function RegisterPage() {
               />
             </div>
             <button className="cancel--btn btn">CANCEL</button>
-            <button className="join--btn btn" onClick={registerUser}>
+            <button
+              className="join--btn btn"
+              type="submit"
+              onClick={registerUser}
+            >
               JOIN
             </button>
           </form>
+          <p className="kakao_naver_login">간편 로그인</p>
+
+          <div className="kakao_login">
+            <Link to="">카카오톡으로 로그인</Link>
+          </div>
+          <div className="naver_login">
+            <Link to="">네이버로 로그인</Link>
+          </div>
         </div>
       </div>
     </>
