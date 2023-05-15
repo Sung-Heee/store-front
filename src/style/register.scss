@@ -116,5 +116,56 @@ body {
         margin-left: 5px;
       }
     }
+
+    .kakao_naver_login {
+      color: #333;
+      display: flex;
+      flex-basis: 100%;
+      align-items: center;
+      padding: 1vh 0;
+      &:before {
+        content: "";
+        flex-grow: 1;
+        height: 0.5px;
+        background-color: #333;
+        margin-right: 1vw;
+      }
+      &::after {
+        content: "";
+        flex-grow: 1;
+        height: 0.5px;
+        background-color: #333;
+        margin-left: 1vw;
+      }
+    }
+
+    .kakao_login {
+      padding-top: 2vh;
+      a {
+        display: inline-block;
+        width: 290px;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 30px;
+        background-color: #f7e600;
+        color: #000;
+        border: none;
+        font-size: 14px;
+      }
+    }
+    .naver_login {
+      padding-top: 1vh;
+      a {
+        display: inline-block;
+        width: 290px;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 30px;
+        background-color: #00c73c;
+        color: #fff;
+        border: none;
+        font-size: 14px;
+      }
+    }
   }
 }
