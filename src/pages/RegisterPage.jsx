@@ -80,12 +80,15 @@ export default function RegisterPage() {
       const resRegister = await axios.post('/register', {
         id: registerIdInput.current.value,
         password: registerPwInput.current.value,
-        gender: userGenderInput.current.value,
+        gender: userGenderInput.current.props.value.value,
         name: userNameInput.current.value,
         phone: phoneNumberInput.current.value,
         nickName: nickNameInput.current.value,
       });
-      if (resRegister.status === 200) {
+      console.log(resRegister.data.status);
+
+      if (resRegister.data.status === '200') {
+        console.log('확인');
         // 성공 했다. 라는 의미
         dispatch(
           login({
@@ -93,7 +96,6 @@ export default function RegisterPage() {
           }),
         );
         navigate('/');
-        return alert(await resRegister.json());
       } else {
         return alert(await resRegister.json());
       }

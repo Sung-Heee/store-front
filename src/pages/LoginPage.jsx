@@ -41,7 +41,7 @@ export default function LoginPage() {
         // const data = await resLogin.json();
         const token = resLogin.data.token;
         window.localStorage.setItem('token', token);
-        alert(resLogin.data); // 로그인 성공 하였습니다 라는 값 받아왔음.
+        console.log(resLogin.data);
         navigate('/');
       }
     } catch (error) {
