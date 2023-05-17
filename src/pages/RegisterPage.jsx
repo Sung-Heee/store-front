@@ -75,18 +75,12 @@ export default function RegisterPage() {
     }
 
     const resRegister = await axios.post('/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: registerIdInput.current.value,
-        password: registerPwInput.current.value,
-        sex: userSexInput.current.value,
-        name: userNameInput.current.value,
-        phone: phoneNumberInput.current.value,
-        nickName: nickNameInput.current.value,
-      }),
+      id: registerIdInput.current.value,
+      password: registerPwInput.current.value,
+      sex: userSexInput.current.value,
+      name: userNameInput.current.value,
+      phone: phoneNumberInput.current.value,
+      nickName: nickNameInput.current.value,
     });
     if (resRegister.status === 200) {
       // 성공 했따. 라는 의미입니다.
