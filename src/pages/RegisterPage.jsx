@@ -90,11 +90,6 @@ export default function RegisterPage() {
         dispatch(
           login({
             id: registerIdInput.current.value,
-            // password: registerPwInput.current.value,
-            // gender: userGenderInput.current.value,
-            // name: userNameInput.current.value,
-            // phone: phoneNumberInput.current.value,
-            // nickName: nickNameInput.current.value,
           }),
         );
         navigate('/');
@@ -105,7 +100,6 @@ export default function RegisterPage() {
     } catch (error) {
       console.error(error);
       alert(error.response.data);
-
     }
   };
 
