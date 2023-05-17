@@ -51,6 +51,50 @@ export default function RegisterPage() {
     return true;
   };
 
+  const checkEmail = async (e) => {
+    e.preventDefault(); // 자동 새로고침 방지
+
+    if (!registerIdInput.current.value) return alert('이메일을 입력 하세요');
+
+    try {
+      const resCheckEmail = await axios.post('/checkEmail', {
+        id: registerIdInput.current.value,
+      });
+      const message = resCheckEmail.data.message;
+      if (resCheckEmail.data.status === '200') {
+        console.log('중복 안 됨. 사용 가능한 아이디 입니다.');
+        alert(message); // 사용 가능한 아이디
+      } else {
+        return alert(message); // 실패. 사용 불가능한 아이디
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data);
+    }
+  };
+
+  const checkNickName = async (e) => {
+    e.preventDefault(); // 자동 새로고침 방지
+
+    if (!nickNameInput.current.value) return alert('닉네임을 입력 하세요');
+
+    try {
+      const resCheckNickName = await axios.post('/checkNickName', {
+        nickName: nickNameInput.current.value,
+      });
+      const message = resCheckNickName.data.message;
+      if (resCheckNickName.data.status === '200') {
+        console.log('중복 안 됨. 사용 가능한 닉네임 입니다.');
+        alert(message); // 사용 가능한 닉네임
+      } else {
+        return alert(message); // 실패. 사용 불가능한 닉네임
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data);
+    }
+  };
+
   const registerUser = async (e) => {
     e.preventDefault(); // 자동 새로고침 방지
 
@@ -86,10 +130,10 @@ export default function RegisterPage() {
         nickName: nickNameInput.current.value,
       });
       console.log(resRegister.data.status);
-
+      const message = resRegister.data.message; // 객체에 있는 message
       if (resRegister.data.status === '200') {
-        console.log('확인');
-        // 성공 했다. 라는 의미
+        alert(message);
+
         dispatch(
           login({
             id: registerIdInput.current.value,
@@ -97,7 +141,7 @@ export default function RegisterPage() {
         );
         navigate('/');
       } else {
-        return alert(await resRegister.json());
+        return alert('회원가입 실패\n 다시 시도해주세요');
       }
     } catch (error) {
       console.error(error);
@@ -127,6 +171,7 @@ export default function RegisterPage() {
                 name="email"
                 ref={registerIdInput}
               />
+              <button onClick={checkEmail}>중복확인</button>
             </div>
             <div className="password-info">
               <label>
@@ -190,6 +235,7 @@ export default function RegisterPage() {
                 maxLength={8}
                 ref={nickNameInput}
               />
+              <button onClick={checkNickName}>중복확인</button>
             </div>
             <button className="cancel--btn btn">CANCEL</button>
             <button
