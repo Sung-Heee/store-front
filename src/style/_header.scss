@@ -1,33 +1,34 @@
-@import "./_reset";
+@import './_reset';
 @font-face {
   font-family: 'YdestreetB';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/YdestreetB.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/YdestreetB.woff2')
+    format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 
-.all_container{
+.all_container {
   background-color: #f5f5f5;
-  .header_main_container{
+  .header_main_container {
     display: flex;
     height: 90px;
-    .header_main_menu{
+    .header_main_menu {
       width: 34vw;
       height: 90px;
       margin: 0 auto;
       position: relative;
       top: -10px;
-      ul{
-        height: 100%; 
-        display: flex;   
-        li{
+      ul {
+        height: 100%;
+        display: flex;
+        li {
           float: left;
           height: 90px;
           line-height: 90px;
           padding: 0;
           margin-right: 35px;
           position: relative;
-          a{
+          a {
             font-weight: 400;
             font-size: 18px;
             color: #2d2f43;
@@ -36,72 +37,175 @@
       }
     }
   }
-    .header_logo{ 
-      position: relative;
-      top: -15px; 
-      a{
-        .header_logo_img{
+  .header_logo {
+    position: relative;
+    top: -15px;
+    a {
+      .header_logo_img {
         width: 177px;
         height: 90px;
         margin: 0 auto;
-        }
-      }
-    }
-    .header_icon_menu{
-      width: 34vw; 
-      height: 90px;
-      margin: 0 auto;
-      position: relative;
-      top: -13px;
-      ul{
-        height: 100%;
-        float: right;
-        display: flex;
-        align-items: center;
-        li{
-          a,p{
-            float: left;
-            margin-left: 40px;
-            color: #2d2f43;
-            font-size: 30px;
-            cursor: pointer;
-            .header_user_icon,
-            .header_heart_icon{
-              stroke-width: 20px;
-              stroke: #f5f5f5;
-            }
-            .header_search_icon{
-              stroke-width: 35px;
-              stroke: #f5f5f5;
-            }
-          }
-        }
       }
     }
   }
-
-  .header_sub_container{
-    .header_sub_menu{
-      width: 1200px;
-      margin: 0 auto;
-      height: 30px;
-      ul{
-        float: right;
-        li{
+  .header_icon_menu {
+    width: 34vw;
+    height: 90px;
+    margin: 0 auto;
+    position: relative;
+    top: -13px;
+    ul {
+      height: 100%;
+      float: right;
+      display: flex;
+      align-items: center;
+      li {
+        a,
+        p {
           float: left;
-          position: relative;
-          padding-left: 40px;
-          z-index: 2;
-          a,p{
-            line-height: 30px;
-            font-size: 11px;
-            font-weight: 100;
-            color: #9d979e;
-            background: none;
-            letter-spacing: 0.5px;
+          margin-left: 40px;
+          color: #2d2f43;
+          font-size: 30px;
+          cursor: pointer;
+          .header_user_icon,
+          .header_heart_icon {
+            stroke-width: 20px;
+            stroke: #f5f5f5;
+          }
+          .header_search_icon {
+            stroke-width: 35px;
+            stroke: #f5f5f5;
           }
         }
       }
     }
   }
+}
 
+.header_sub_container {
+  .header_sub_menu {
+    width: 1200px;
+    margin: 0 auto;
+    height: 30px;
+    ul {
+      float: right;
+      li {
+        float: left;
+        position: relative;
+        padding-left: 40px;
+        z-index: 2;
+        a,
+        p {
+          line-height: 30px;
+          font-size: 11px;
+          font-weight: 100;
+          color: #9d979e;
+          background: none;
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+  }
+}
+
+// 검색창 토글
+.hide_search {
+  display: none;
+}
+.show_search {
+  position: absolute;
+  z-index: 3;
+  top: 120px;
+  width: 100vw;
+  background-color: #fbeff1;
+  .search-container {
+    width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    .keyword {
+      display: flex;
+      height: 12vh;
+      p {
+        width: 5vw;
+        height: 3vh;
+        line-height: 3vh;
+        border: 1px solid #2d2f43;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        color: #2d2f43;
+        margin-right: 1vw;
+        margin-top: 4vh;
+        &:hover {
+          background-color: #2d2f43;
+          color: #f5f5f5;
+          cursor: pointer;
+        }
+      }
+      .close {
+        position: absolute;
+        top: 4vh;
+        right: 1.2vw;
+        cursor: pointer;
+        &::after,
+        &::before {
+          position: absolute;
+          left: 0;
+          content: ' ';
+          height: 1.5rem;
+          width: 2px;
+          background-color: #2d2f43;
+        }
+        &::after {
+          transform: rotate(-45deg);
+        }
+        &::before {
+          transform: rotate(45deg);
+        }
+      }
+    }
+    // 최근 검색어
+    .recent-search {
+      margin-bottom: 4vh;
+      ul {
+        text-align: left;
+        color: #2d2f43;
+        line-height: 4vh;
+        li {
+          &:first-child {
+            font-weight: 700;
+            font-size: 1.1rem;
+          }
+          &:nth-child(2) {
+            color: #888888;
+          }
+        }
+      }
+    }
+    // 최근 본 상품
+    .recent-look-product {
+      ul {
+        text-align: left;
+        color: #2d2f43;
+        line-height: 4vh;
+        li {
+          &:first-child {
+            font-weight: 700;
+            font-size: 1.1rem;
+          }
+          &:nth-child(2) {
+            margin-bottom: 1vh;
+            color: #888888;
+          }
+          img {
+            width: 8vw;
+            height: 8vw;
+            border: 1px solid #2d2f43;
+            border-radius: 5px;
+            margin-right: 3vw;
+            margin-bottom: 5vh;
+          }
+        }
+      }
+    }
+  }
+}
