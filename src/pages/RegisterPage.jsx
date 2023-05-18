@@ -51,20 +51,25 @@ export default function RegisterPage() {
     return true;
   };
 
+  // id 중복 확인.
   const checkEmail = async (e) => {
     e.preventDefault(); // 자동 새로고침 방지
-
     if (!registerIdInput.current.value) return alert('이메일을 입력 하세요');
-
+    console.log('여기는 이메일 중복 확인 칸입니다.');
     try {
       const resCheckEmail = await axios.post('/checkEmail', {
         id: registerIdInput.current.value,
       });
+      // 성희야 항상 어떤 데이터값이 넘어왔는지 찍어보고 ㄱ.ㄱ 성공 : status 200 / 실패 : status 500
+      console.log('백엔드에서 넘어온 데이터 : ', resCheckEmail.data);
+
+      //성희 코드 <message 값을 먼저 지정해두기>
       const message = resCheckEmail.data.message;
+
       if (resCheckEmail.data.status === '200') {
-        console.log('중복 안 됨. 사용 가능한 아이디 입니다.');
         alert(message); // 사용 가능한 아이디
       } else {
+        registerIdInput.current.value = '';
         return alert(message); // 실패. 사용 불가능한 아이디
       }
     } catch (error) {
@@ -73,18 +78,21 @@ export default function RegisterPage() {
     }
   };
 
+  // NickName 중복 확인.
   const checkNickName = async (e) => {
     e.preventDefault(); // 자동 새로고침 방지
-
     if (!nickNameInput.current.value) return alert('닉네임을 입력 하세요');
-
     try {
       const resCheckNickName = await axios.post('/checkNickName', {
         nickName: nickNameInput.current.value,
       });
+
+      // 어떤 데이터값이 넘어왔는지 확인
+      console.log('백엔드에서 넘어온 데이터 : ', resCheckNickName.data);
+
       const message = resCheckNickName.data.message;
+
       if (resCheckNickName.data.status === '200') {
-        console.log('중복 안 됨. 사용 가능한 닉네임 입니다.');
         alert(message); // 사용 가능한 닉네임
       } else {
         return alert(message); // 실패. 사용 불가능한 닉네임
