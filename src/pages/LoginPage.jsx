@@ -22,27 +22,30 @@ export default function LoginPage() {
         id: loginIdInput.current.value,
         password: loginPwInput.current.value,
       });
+      const message = resLogin.data.message; // 객체에 있는 message
 
-      console.log(resLogin.data);
       // 로그인이 성공하면 응답 데이터 token 프로퍼티에 accessToken 이 전달 되어 오므로
       // 로컬 스토리지에 로그인 정보가 저장 된 토큰을 저장
       // 해당 정보를 통하여 리액트 실행 시, 토큰을 백엔드 서버에 검증하여 자동 로그인을 처리
 
-      if (resLogin.status === 200) {
+      if (resLogin.data.status === '200') {
         dispatch(
           login({
             id: loginIdInput.current.value,
-            // password: loginPwInput.current.value,
           }),
         );
         loginIdInput.current.value = '';
         loginPwInput.current.value = '';
 
+        // 토큰 처리 나중에 다시
         // const data = await resLogin.json();
-        const token = resLogin.data.token;
-        window.localStorage.setItem('token', token);
-        console.log(resLogin.data);
+        // const token = resLogin.data.token;
+        // window.localStorage.setItem('token', token);
+
+        console.log(message); // 로그인 성공
         navigate('/');
+      } else {
+        return alert(message); // '로그인 실패\n 다시 시도해주세요'
       }
     } catch (error) {
       console.error(error);
@@ -62,10 +65,10 @@ export default function LoginPage() {
         <div className="login_part">
           <p className="login_title">LOGIN</p>
           <div className="login_id_input">
-            <input type="text" ref={loginIdInput} placeholder="ID" />
+            <input type="email" ref={loginIdInput} placeholder="ID" />
           </div>
           <div className="login_password_input">
-            <input type="text" ref={loginPwInput} placeholder="PASSWORD" />
+            <input type="password" ref={loginPwInput} placeholder="PASSWORD" />
           </div>
           <div className="login_btn">
             <button onClick={loginUser}>LOGIN</button>
