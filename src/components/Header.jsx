@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../style/_header.scss';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { faTrashCan, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios';
@@ -35,7 +35,6 @@ export default function Header() {
 
   // 상품 검색 함수
   const searchInputRef = useRef();
-
   const searchProduct = async () => {
     if (!searchInputRef.current.value) return alert('검색어를 입력하세요');
 
@@ -175,34 +174,38 @@ export default function Header() {
             {/* 닫기 버튼 */}
             <div className="close" onClick={() => closeSearchWindow()}></div>
           </div>
-          {/* 최근 검색어 */}
-          <div className="recent-search">
-            <p>최근 검색어</p>
-            <ul>
-              {recentSearches.length > 0 ? (
-                recentSearches.map((search, index) => (
-                  <li key={index}>{search}</li>
-                ))
-              ) : (
-                <li className="no-recent-search">
-                  최근 검색어 내역이 없습니다.
+          <div className="recent-container">
+            {/* 최근 검색어 */}
+            <div className="recent-search">
+              <p>최근 검색어</p>
+              <ul>
+                {recentSearches.length > 0 ? (
+                  recentSearches.map((search, index) => (
+                    <li key={index}>{search}</li>
+                  ))
+                ) : (
+                  <li className="no-recent-search">
+                    최근 검색어 내역이 없습니다.
+                  </li>
+                )}
+                <button className="delete-recent-search">
+                  <FontAwesomeIcon icon={faTrashCan} />
+                </button>
+              </ul>
+            </div>
+            {/* 최근 본 상품 */}
+            <div className="recent-look-product">
+              <ul>
+                <li>최근 본 상품</li>
+                <li>최근 본 상품이 없습니다.</li>
+                <li>
+                  <img></img>
+                  <img></img>
+                  <img></img>
+                  <img></img>
                 </li>
-              )}
-            </ul>
-          </div>
-          {/* 최근 본 상품 */}
-          <div className="recent-look-product">
-            <ul>
-              <li>최근 본 상품</li>
-              <li>최근 본 상품이 없습니다.</li>
-              <li>
-                <img></img>
-                <img></img>
-                <img></img>
-                <img></img>
-                <img></img>
-              </li>
-            </ul>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
