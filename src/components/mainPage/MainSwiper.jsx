@@ -15,7 +15,6 @@ export default function MainSwiper() {
         spaceBetween={0}
         slidesPerView={1.8}
         centeredSlides={true}
-        scrollbar={{ draggable: true }}
         navigation
         pagination={{ clickable: true }}
       >
