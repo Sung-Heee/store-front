@@ -115,17 +115,48 @@
 .show_search {
   position: absolute;
   z-index: 3;
-  top: 120px;
+  // top: 120px;
+  top: 0;
   width: 100vw;
   background-color: #fbeff1;
   .search-container {
     width: 1200px;
     margin: 0 auto;
     position: relative;
+    // 검색창
+    .search-div {
+      padding-top: 10vh;
+      width: 40vw;
+      margin: 0 auto;
+      border-bottom: 2px solid #2d2f43;
+      .search-input {
+        font-size: 1.3rem;
+        height: 5vh;
+        width: 37vw;
+        border: 0;
+        background-color: transparent;
+        &:focus {
+          outline: none;
+        }
+      }
+      .search_btn {
+        background-color: transparent;
+        border-style: none;
+        .header_search_icon {
+          color: #67687e;
+          stroke-width: 35px;
+          font-size: 30px;
+          stroke: #fbeff1;
+          cursor: pointer;
+        }
+      }
+    }
+
+    // 키워드(해시태그)
     .keyword {
       display: flex;
-      height: 12vh;
-      p {
+      height: 13vh;
+      a {
         width: 5vw;
         height: 3vh;
         line-height: 3vh;
@@ -134,14 +165,21 @@
         font-size: 0.8rem;
         color: #2d2f43;
         margin-right: 1vw;
-        margin-top: 4vh;
+        margin-top: 5vh;
+        &:first-child {
+          background-color: #2d2f43;
+          color: #f5f5f5;
+        }
         &:hover {
           background-color: #2d2f43;
           color: #f5f5f5;
           cursor: pointer;
         }
       }
+      // 닫기 버튼
       .close {
+        width: 15px;
+        height: 35px;
         position: absolute;
         top: 4vh;
         right: 1.2vw;
@@ -151,7 +189,7 @@
           position: absolute;
           left: 0;
           content: ' ';
-          height: 1.5rem;
+          height: 2.2rem;
           width: 2px;
           background-color: #2d2f43;
         }
@@ -166,18 +204,21 @@
     // 최근 검색어
     .recent-search {
       margin-bottom: 4vh;
+      text-align: left;
+      color: #2d2f43;
+      line-height: 4vh;
+      p {
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
       ul {
-        text-align: left;
-        color: #2d2f43;
-        line-height: 4vh;
+        display: flex;
         li {
-          &:first-child {
-            font-weight: 700;
-            font-size: 1.1rem;
-          }
-          &:nth-child(2) {
-            color: #888888;
-          }
+          padding-right: 15px;
+          color: #888888;
+        }
+        .no-recent-search {
+          color: #888888;
         }
       }
     }
