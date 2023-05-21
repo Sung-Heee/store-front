@@ -149,7 +149,7 @@ export default function RegisterPage() {
         );
         navigate('/');
       } else {
-        return alert('회원가입 실패\n 다시 시도해주세요');
+        return alert(message);
       }
     } catch (error) {
       console.error(error);
