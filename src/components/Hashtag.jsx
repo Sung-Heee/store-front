@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../style/hashtag.scss';
 
-const Tag = () => {
+export default function Hashtag() {
   const [tagItem, setTagItem] = useState('');
   const [tagList, setTagList] = useState([]);
 
@@ -25,6 +25,7 @@ const Tag = () => {
     );
     setTagList(filteredTagList);
   };
+
   return (
     <div className="WholeBox">
       {/* <Title text="Tag" /> */}
@@ -51,6 +52,4 @@ const Tag = () => {
       </div>
     </div>
   );
-};
-
-export default Tag;
+}

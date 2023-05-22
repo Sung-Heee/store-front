@@ -1,4 +1,5 @@
 @import './_reset';
+@import './hashtag.scss';
 
 .form_wrapper{
   padding-top: 2vh;
@@ -50,7 +51,8 @@
     min-height: 42vh;
     max-height: 42vh;
     overflow-y: scroll;
-    border: none;
+    // border: none;
+    border: 0.5px solid rgba(0, 0, 0, 0.2)
   }
 
   .ck.ck-editor__main>.ck-editor__editable{
@@ -73,7 +75,7 @@
   z-index: 1;
   width: 100%;
   height: 80px;
-  background-color: #fbeff1;
+  background-color: #f4f6ff;
   .salebar_btn{
     float: right;
     line-height: 80px;
