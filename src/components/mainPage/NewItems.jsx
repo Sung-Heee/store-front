@@ -1,15 +1,36 @@
-import React from 'react';
+import React, { useRef } from 'react';
+
 import '../../style/newItems.scss';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Scrollbar, Navigation, Pagination } from 'swiper';
+import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/scrollbar/scrollbar.scss';
 
-SwiperCore.use([Navigation, Scrollbar, Pagination]);
-import 'swiper/swiper.scss';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, {
+  Navigation,
+  Pagination,
+  Mousewheel,
+  Scrollbar,
+  Autoplay,
+} from 'swiper';
+SwiperCore.use([Navigation, Pagination, Mousewheel, Scrollbar, Autoplay]);
 
 export default function NewItems() {
+  const swiperRef = useRef(null);
+
+  const slideNext = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideNext();
+    }
+  };
+
+  const slidePrev = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slidePrev();
+    }
+  };
+
   return (
     <>
       <div className="new_items_container">
@@ -17,16 +38,17 @@ export default function NewItems() {
           <p>New Items</p>
         </div>
         <div>
+          {/* swiper navigation 버튼 */}
+          <button onClick={slidePrev}>이전</button>
+          <button onClick={slideNext}>다음</button>
+
           <Swiper
-            // install Swiper modules
-            modules={[Navigation, Scrollbar, Pagination]}
-            spaceBetween={10}
+            ref={swiperRef}
+            modules={[Navigation, Pagination, Mousewheel, Scrollbar, Autoplay]}
+            mousewheel={{ forceToAxis: true }}
+            spaceBetween={0}
             slidesPerView={5}
-            navigation={true}
-            // scrollbar={{ draggable: true }}
             scrollbar={{ draggable: true, dragSize: 100 }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log('slide change')}
           >
             <SwiperSlide>
               <img src="https://cdn.magloft.com/github/swiper/images/page-001.jpg" />
