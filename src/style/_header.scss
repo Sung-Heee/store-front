@@ -117,7 +117,7 @@
   z-index: 3;
   top: 0;
   width: 100vw;
-  background-color: #fbeff1;
+  background-color: #f4f6ff;
   .search-container {
     width: 1200px;
     margin: 0 auto;
@@ -145,7 +145,7 @@
           color: #67687e;
           stroke-width: 35px;
           font-size: 30px;
-          stroke: #fbeff1;
+          stroke: #f4f6ff;
           cursor: pointer;
         }
       }
@@ -157,24 +157,18 @@
       display: flex;
       width: 40.5vw;
       height: 10vh;
-      a {
+      p {
         width: 5vw;
         height: 3vh;
         line-height: 3vh;
-        // border: 1px solid #3d435f;
         background-color: #3d435f;
         color: #f5f5f5;
         border-radius: 30px;
         font-size: 0.8rem;
-        // color: #2d2f43;
         margin-right: 1vw;
         margin-top: 2vh;
-        // &:first-child {
-        //   background-color: #3d435f;
-        //   color: #f5f5f5;
-        // }
         &:hover {
-          background-color: #fbeff1;
+          background-color: #f4f6ff;
           color: #2d2f43;
           border: 1px solid #3d435f;
           cursor: pointer;
@@ -182,8 +176,8 @@
       }
       // 닫기 버튼
       .close {
-        width: 15px;
-        height: 35px;
+        width: 2.2rem;
+        height: 2.2rem;
         position: absolute;
         top: 4vh;
         right: 1.2vw;
@@ -191,7 +185,7 @@
         &::after,
         &::before {
           position: absolute;
-          left: 0;
+          right: 0.9vw;
           content: ' ';
           height: 2.2rem;
           width: 2px;
@@ -220,20 +214,27 @@
         }
         ul {
           display: flex;
-          width: 30vw;
+          width: 40vw;
+
+          &:hover {
+            background-color: #dbdde3;
+          }
           li {
-            padding-right: 15px;
+            padding-right: 25px;
             color: #888888;
           }
           .no-recent-search {
             color: #888888;
           }
           .delete-recent-search {
-            float: right;
             border: 0;
             background-color: transparent;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #888888;
+            flex-grow: 1;
+            text-align: right;
+            padding-right: 10px;
+            cursor: pointer;
           }
         }
       }
