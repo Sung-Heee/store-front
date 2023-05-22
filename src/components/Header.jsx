@@ -23,7 +23,7 @@ export default function Header() {
   };
 
   //검색창 키워드 랜덤 생성
-  const randomKeyWord = ['신발', '상의', '하의', '모자', '악세사리'];
+  const randomKeyWord = ['신발', '상의', '하의', '모자', '직거래'];
   const randomIndex = [];
   randomKeyWord.map(() => {
     let i = Math.floor(Math.random() * randomKeyWord.length);
@@ -37,14 +37,18 @@ export default function Header() {
   const searchInputRef = useRef();
   const searchProduct = async () => {
     if (!searchInputRef.current.value) return alert('검색어를 입력하세요');
-
     try {
       console.log('검색 했니');
-      // await axios.get('/searchproduct', {
-      //   searchProduct: searchInputRef.current.value,
-      // });
-
-      // 최근 검색어 저장
+      const response = await axios.post(
+        `/searchproduct/${searchInputRef.current.value}`,
+        {
+          params: {
+            searchProduct: searchInputRef.current.value,
+          },
+        },
+      );
+      console.log(response.data.status);
+      //최근 검색어 저장
       let getLocal = localStorage.getItem('data');
       if (getLocal === null) {
         getLocal = [];
@@ -55,7 +59,7 @@ export default function Header() {
       const uniqueData = [...new Set(getLocal)]; // 검색어 중복된거 제거
       localStorage.setItem('data', JSON.stringify(uniqueData));
     } catch (error) {
-      console.log(error);
+      console.error(error);
       console.log('검색 잘못되었따');
     }
 
@@ -74,6 +78,27 @@ export default function Header() {
     }
     setRecentSearches(getLocal); //최근 검색어 배열로 담은 state
   }, []);
+
+  // 최근 검색어 삭제 함수
+  const deleteRecentSearch = () => {
+    window.localStorage.removeItem('data');
+    setRecentSearches([]); // 최근 검색어 배열 초기화
+  };
+
+  // 키워드 클릭했을때 해당 키워드 이동
+  const keywordClick = async (clickedKeyword) => {
+    try {
+      console.log(clickedKeyword);
+      const resKeyWord = await axios.get('/keyword', {
+        params: {
+          clickedKeyword: clickedKeyword,
+        },
+      });
+      console.log(resKeyWord.data.status);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -169,8 +194,11 @@ export default function Header() {
           {/* 키워드(해시태그) */}
           <div className="keyword">
             {randomIndex.map((el, idx) => (
-              <Link key={idx}>#{randomKeyWord[el]}</Link>
+              <p key={idx} onClick={() => keywordClick(randomKeyWord[el])}>
+                #{randomKeyWord[el]}
+              </p>
             ))}
+
             {/* 닫기 버튼 */}
             <div className="close" onClick={() => closeSearchWindow()}></div>
           </div>
@@ -188,9 +216,17 @@ export default function Header() {
                     최근 검색어 내역이 없습니다.
                   </li>
                 )}
-                <button className="delete-recent-search">
-                  <FontAwesomeIcon icon={faTrashCan} />
-                </button>
+
+                {recentSearches.length > 0 ? (
+                  <button className="delete-recent-search">
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      onClick={deleteRecentSearch}
+                    />
+                  </button>
+                ) : (
+                  ''
+                )}
               </ul>
             </div>
             {/* 최근 본 상품 */}

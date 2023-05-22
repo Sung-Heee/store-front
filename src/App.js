@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import SalePage from './pages/SalePage';
+import AllProductPage from './pages/AllProductPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/sale" element={<SalePage />} />
+        <Route path="/allproduct/:product" element={<AllProductPage />} />
       </Routes>
       {/* <Footer /> */}
     </div>
