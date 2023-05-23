@@ -69,6 +69,7 @@ export default function SalePage() {
     console.log(cateObject);
 
     try {
+      console.log(data);
       const resSale = await axios.post('/sale', {
         categories: cateObject,
         saleTitle: saleTitleInput.current.value,
@@ -130,8 +131,17 @@ export default function SalePage() {
     setTagList(filteredTagList);
   };
 
-  const handleChange = (event, editor) => {
-    const data = editorTextInput.current.editor.getData();
+  const handleChange = (e) => {
+    var data = editorTextInput.current.editor.getData({
+      removePlugins: 'Paragraph',
+      enterMode: 'br',
+      entities: false,
+      basicEntities: false,
+    });
+    // const realData = data.split('p');
+    console.log(data);
+    // var result = data.substr(4, data.length - 4);
+    // console.log(result);
   };
 
   return (
@@ -243,7 +253,6 @@ export default function SalePage() {
             />
           </div>
         </div>
-
         <CKEditor
           editor={ClassicEditor}
           data=""

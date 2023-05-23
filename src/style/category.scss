@@ -1,3 +1,12 @@
+@keyframes cateAnimation {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .category_container {
   padding-top: 55px;
   margin: 50px 0;
@@ -21,15 +30,14 @@
       justify-content: space-between;
       font-size: 20px;
       color: #3d435f;
-
       li {
         cursor: pointer;
         position: relative;
         display: flex;
         align-items: center;
         width: 100px;
-        justify-content: center;
-
+        justify-content: center; 
+        
         &.selected {
           font-weight: 900;
           .category_dot {
@@ -39,6 +47,7 @@
             position: absolute;
             right: 2px;
             z-index: -1;
+            animation: cateAnimation 0.5s ease-in-out;
           }
         }
       }
