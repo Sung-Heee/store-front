@@ -111,7 +111,6 @@ export default function Category() {
   const handleCategoryChange = (value) => {
     setSelectedCategory(value);
   };
-
   const itemsToShow =
     selectedCategory === 'ALL' ? items.ALL : items[selectedCategory];
 
