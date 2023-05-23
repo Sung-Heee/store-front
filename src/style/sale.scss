@@ -3,13 +3,25 @@
 
 .form_wrapper{
   padding-top: 2vh;
-  .cate_input{
-    width: 200px;
-    float: left;
-    text-align: left;
-    border: 0;
-    padding-left: 5px;
+  .gender_cate_input{
+    display: flex;
+    .gender_select_input{
+      width: 200px;
+      float: left;
+      text-align: left;
+      border: 0;
+      padding-left: 5px;
+    }
+
+    .cate_select_input{
+      width: 220px;
+      float: left;
+      text-align: left;
+      border: 0;
+      padding-left: 15px;
+    }
   }
+  
 
   .title_input{
     width: 100%;
@@ -36,6 +48,7 @@
     padding-left: 10px;
     display: flex;
     font-size: 18px;
+
     .item_input,
     .price_input{
       padding-left: 10px;
