@@ -1,0 +1,122 @@
+@keyframes cateAnimation {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.category_container {
+  padding-top: 55px;
+  margin: 50px 0;
+  width: 100%;
+  height: 850px;
+
+  .category_title {
+    font-size: 40px;
+    font-weight: 900;
+    color: #3d435f;
+  }
+
+  .category_menu {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin: 50px 0;
+    .category_ul {
+      width: 50vw;
+      display: flex;
+      justify-content: space-between;
+      font-size: 20px;
+      color: #3d435f;
+      li {
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100px;
+        justify-content: center; 
+        
+        &.selected {
+          font-weight: 900;
+          .category_dot {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            position: absolute;
+            right: 2px;
+            z-index: -1;
+            animation: cateAnimation 0.5s ease-in-out;
+          }
+        }
+      }
+    }
+  }
+  .category_items {
+    .items_list {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); /* 한 줄에 5개 */
+      gap: 20px;
+      width: 80vw;
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      margin: auto;
+
+      // 바로가기 버튼
+      .shortCuts_div {
+        width: calc(20% - 20px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+
+        .shortCuts_btn {
+          background-color: blue;
+          width: 12vw;
+          height: 12vw;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          color: #fff;
+
+          .shortCuts_category {
+            font-size: 23px;
+            font-weight: 900;
+          }
+          .shortCuts {
+          }
+        }
+      }
+
+      // 아이템
+      .items_div {
+        margin: auto;
+        width: calc(20% - 20px); /* 20%의 너비로 설정 (5개의 열 중 하나) */
+        height: 300px;
+        background-color: whitesmoke;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+
+        .img_desc {
+          position: absolute;
+          background-color: #3d435f;
+          width: 100%;
+          height: 100px;
+          bottom: -100px;
+          transition: 0.7s;
+          color: #fff;
+        }
+        &:hover {
+          .img_desc {
+            transform: translateY(-100%); /* 아래서 위로 이동하는 애니메이션 */
+          }
+        }
+      }
+    }
+  }
+}

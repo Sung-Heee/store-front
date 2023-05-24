@@ -1,13 +1,112 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../style/_header.scss';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import axios from 'axios';
 // import logo from '../images/logo.png';
 
 export default function Header() {
+  // 검색창 토글을 위한 state
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  // 검색창 토글 함수
+  const toggleSearchWindow = () => {
+    setIsSearchOpen((isSearchOpen) => !isSearchOpen);
+  };
+
+  // 검색창 닫기 함수
+  const closeSearchWindow = () => {
+    setIsSearchOpen((isSearchOpen) => !isSearchOpen);
+  };
+
+  //검색창 키워드 랜덤 생성
+  const randomKeyWord = ['신발', '상의', '하의', '모자', '직거래'];
+  const randomIndex = [];
+  randomKeyWord.map(() => {
+    let i = Math.floor(Math.random() * randomKeyWord.length);
+    if (randomIndex.length === 0 || !randomIndex.includes(i)) {
+      randomIndex.push(i);
+    }
+  });
+  // randomIndex.splice(0, Math.floor(Math.random() * 5));
+
+  // 상품 검색 함수
+  const searchInputRef = useRef();
+  const searchProduct = async () => {
+    if (!searchInputRef.current.value) return alert('검색어를 입력하세요');
+    try {
+      console.log('검색 했니');
+      const response = await axios.post(
+        `/searchproduct/${searchInputRef.current.value}`,
+        {
+          params: {
+            searchProduct: searchInputRef.current.value,
+          },
+        },
+      );
+      console.log(response.data.status);
+      //최근 검색어 저장
+      let getLocal = localStorage.getItem('data');
+      if (getLocal === null) {
+        getLocal = [];
+      } else {
+        getLocal = JSON.parse(getLocal);
+      }
+      getLocal.push(searchInputRef.current.value);
+      const uniqueData = [...new Set(getLocal)]; // 검색어 중복된거 제거
+      localStorage.setItem('data', JSON.stringify(uniqueData));
+    } catch (error) {
+      console.error(error);
+      console.log('검색 잘못되었따');
+    }
+
+    // 검색어 입력 필드 초기화
+    searchInputRef.current.value = '';
+  };
+
+  //엔터키
+  const onKeyPress = (e) => {
+    if (e.key == 'Enter') {
+      searchProduct();
+    }
+  };
+
+  // 최근 검색어 초기 랜더링 시 가져옴
+  const [recentSearches, setRecentSearches] = useState([]);
+  useEffect(() => {
+    let getLocal = localStorage.getItem('data');
+    if (getLocal === null) {
+      getLocal = [];
+    } else {
+      getLocal = JSON.parse(getLocal);
+    }
+    setRecentSearches(getLocal); //최근 검색어 배열로 담은 state
+  }, []);
+
+  // 최근 검색어 삭제 함수
+  const deleteRecentSearch = () => {
+    window.localStorage.removeItem('data');
+    setRecentSearches([]); // 최근 검색어 배열 초기화
+  };
+
+  // 키워드 클릭했을때 해당 키워드 이동
+  const keywordClick = async (clickedKeyword) => {
+    try {
+      console.log(clickedKeyword);
+      const resKeyWord = await axios.get('/keyword', {
+        params: {
+          clickedKeyword: clickedKeyword,
+        },
+      });
+      console.log(resKeyWord.data.status);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div className="all_container">
@@ -61,6 +160,7 @@ export default function Header() {
                   <FontAwesomeIcon
                     icon={faMagnifyingGlass}
                     className="header_search_icon"
+                    onClick={() => toggleSearchWindow()}
                   />
                 </p>
               </li>
@@ -73,6 +173,83 @@ export default function Header() {
                 </Link>
               </li>
             </ul>
+          </div>
+        </div>
+      </div>
+      {/* 검색창 토글 */}
+      <div className={isSearchOpen ? 'show_search' : 'hide_search'}>
+        <div className="search-container">
+          {/* 검색창 */}
+          <div className="search-div">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="상품을 검색하세요"
+              ref={searchInputRef}
+              onKeyPress={onKeyPress}
+            />
+            <button
+              type="button"
+              className="search_btn"
+              onClick={searchProduct}
+            >
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                className="header_search_icon"
+              />
+            </button>
+          </div>
+          {/* 키워드(해시태그) */}
+          <div className="keyword">
+            {randomIndex.map((el, idx) => (
+              <p key={idx} onClick={() => keywordClick(randomKeyWord[el])}>
+                #{randomKeyWord[el]}
+              </p>
+            ))}
+
+            {/* 닫기 버튼 */}
+            <div className="close" onClick={() => closeSearchWindow()}></div>
+          </div>
+          <div className="recent-container">
+            {/* 최근 검색어 */}
+            <div className="recent-search">
+              <p>최근 검색어</p>
+              <ul>
+                {recentSearches.length > 0 ? (
+                  recentSearches.map((search, index) => (
+                    <li key={index}>{search}</li>
+                  ))
+                ) : (
+                  <li className="no-recent-search">
+                    최근 검색어 내역이 없습니다.
+                  </li>
+                )}
+
+                {recentSearches.length > 0 ? (
+                  <button className="delete-recent-search">
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      onClick={deleteRecentSearch}
+                    />
+                  </button>
+                ) : (
+                  ''
+                )}
+              </ul>
+            </div>
+            {/* 최근 본 상품 */}
+            <div className="recent-look-product">
+              <ul>
+                <li>최근 본 상품</li>
+                <li>최근 본 상품이 없습니다.</li>
+                <li>
+                  <img></img>
+                  <img></img>
+                  <img></img>
+                  <img></img>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

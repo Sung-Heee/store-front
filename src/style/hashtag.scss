@@ -1,0 +1,58 @@
+@import './_reset';
+
+.TagBox{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 50px;
+  margin: 10px;
+  padding: 0 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  &:focus-within {
+    border: 1px solid #3d435f;
+  }
+}
+
+.TagItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px;
+  padding: 5px;
+  background-color: #3d435f;
+  border-radius: 5px;
+  color: white;
+  font-size: 13px;
+  span{
+    margin-left: 5px;
+    font-size: 15px;
+  }
+}
+
+.TagBtn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 17px;
+  height: 17px;
+  line-height: 17px;
+  margin-left: 5px;
+  background-color: #3d435f;
+  color: #fff;
+  border: 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.TagInput {
+  display: inline-flex;
+  background: transparent;
+  border: none;
+  outline: none;
+  height: 50px;
+  line-height: 50px;
+  font-size: 16px;
+  margin-left: 5px;
+  cursor: text;
+}

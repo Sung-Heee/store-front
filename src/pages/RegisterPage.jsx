@@ -112,7 +112,8 @@ export default function RegisterPage() {
       !registerPwCheckInput.current.value ||
       !phoneNumberInput.current.value ||
       !userNameInput.current.value ||
-      !nickNameInput.current.value
+      !nickNameInput.current.value ||
+      !userGenderInput.current.props.value.value
     )
       return alert('값을 입력 하세요');
 
@@ -141,7 +142,6 @@ export default function RegisterPage() {
       const message = resRegister.data.message; // 객체에 있는 message
       if (resRegister.data.status === '200') {
         alert(message);
-
         dispatch(
           login({
             id: registerIdInput.current.value,
@@ -149,7 +149,7 @@ export default function RegisterPage() {
         );
         navigate('/');
       } else {
-        return alert('회원가입 실패\n 다시 시도해주세요');
+        return alert(message);
       }
     } catch (error) {
       console.error(error);

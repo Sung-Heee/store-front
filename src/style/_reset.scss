@@ -20,3 +20,21 @@ a {
   margin: 0 auto;
   width: 1200px;
 }
+
+//scrollBar
+div::-webkit-scrollbar {
+  width: 6px;  /* 스크롤바의 너비 */
+  border-radius: 10px;
+}
+
+div::-webkit-scrollbar-thumb {
+  height: 30%; /* 스크롤바의 길이 */
+  background: rgba(61, 67, 95, .7); /* 스크롤바의 색상 */
+  border-radius: 10px;
+}
+
+div::-webkit-scrollbar-track {
+  background: transparent; 
+  border-radius: 50px;
+  /*스크롤바 뒷 배경 색상*/
+}

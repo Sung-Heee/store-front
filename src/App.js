@@ -8,10 +8,12 @@ import RegisterPage from './pages/RegisterPage';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import MyPage from './pages/MyPage';
+import SalePage from './pages/SalePage';
+import AllProductPage from './pages/AllProductPage';
+import { useSelector } from 'react-redux';
 
 function App() {
-  console.log('ㅎㅇㅎㅇ');
-  console.log('footer');
+  const isLogin = useSelector((state) => state.user.isLogin);
   return (
     <div className="App">
       <Header />
@@ -20,6 +22,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/sale" element={<SalePage />} />
+        <Route path="/allproduct/:product" element={<AllProductPage />} />
       </Routes>
       {/* <Footer /> */}
     </div>

@@ -1,7 +1,7 @@
 @import "./_reset";
 
 body {
-  background-color: #f5f5f5;
+  background-color: #fff;
 }
 .register {
   display: flex;
@@ -12,19 +12,20 @@ body {
 
   .register-box {
     padding: 60px 50px 30px 50px;
-    border: 0.5px solid #555;
+    border: 0.5px solid #3d435f;
     background-color: white;
 
     .required {
       color: red;
       margin-right: 10px;
       height: 12px;
+      font-weight: 900;
     }
 
     .info-top {
       display: flex;
       justify-content: space-between;
-      border-bottom: 2px solid #555;
+      border-bottom: 1.5px solid #888;
       font-size: 17px;
       padding-bottom: 10px;
       font-weight: 500;
@@ -41,9 +42,6 @@ body {
 
       .gender-info {
         display: flex;
-        //justify-content: space-between;
-        // flex-wrap: wrap;
-        // align-content: center;
         margin-bottom: 30px;
         & > label {
           display: flex;
@@ -81,7 +79,7 @@ body {
           background-color: transparent;
           &:focus {
             outline: none;
-            border-bottom: 1px solid rgb(33, 90, 137);
+            border-bottom: 1px solid #3d435f;
           }
         }
 
@@ -105,14 +103,14 @@ body {
         margin-top: 20px;
       }
       .cancel--btn {
-        border: 1px solid #9f9f9f;
+        border: 1px solid #3d435f;
         margin-right: 5px;
-        color: #333;
+        color: #3d435f;
       }
       .join--btn {
-        background-color: #9f9f9f;
+        background-color: #3d435f;
         color: white;
-        border: 1px solid #9f9f9f;
+        border: 1px solid #3d435f;
         margin-left: 5px;
       }
     }
