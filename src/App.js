@@ -9,8 +9,10 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import SalePage from './pages/SalePage';
 import AllProductPage from './pages/AllProductPage';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const isLogin = useSelector((state) => state.user.isLogin);
   return (
     <div className="App">
       <Header />
