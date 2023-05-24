@@ -26,15 +26,19 @@
           transform: translateY(-100%); /* 아래서 위로 이동하는 애니메이션 */
         }
       }
-      img {
+      .item_img {
+        display: flex;
+        width: 100%;
         height: 350px;
         position: relative;
         cursor: pointer;
+        background-color: #eaeaea;
+        color: #3d435f;
       }
       .img_desc {
         height: 100px;
-        background-color: #ffffffb6;
-        color: #3d435f;
+        background-color: #3d435fa0;
+        color: #fff;
         transition: transform 0.7s;
       }
     }

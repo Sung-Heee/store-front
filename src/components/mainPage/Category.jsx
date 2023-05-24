@@ -1,118 +1,73 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../style/category.scss';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Category() {
-  const [selectedCategory, setSelectedCategory] = useState('ALL');
+  const [selectedCategory, setSelectedCategory] = useState(-1);
+  const [items, setItems] = useState([]);
 
   const categories = [
     {
+      category_id: -1,
       name: 'ALL',
-      value: 'ALL',
       color: '#F99B7D',
     },
     {
+      category_id: 1,
       name: '상의',
-      value: '상의',
       color: '#7286D3',
     },
     {
+      category_id: 2,
       name: '하의',
-      value: '하의',
       color: '#9DC08B',
     },
     {
+      category_id: 3,
       name: '신발',
-      value: '신발',
       color: '#FEA1BF',
     },
     {
+      category_id: 4,
       name: '악세사리',
-      value: '악세사리',
       color: '#D09CFA',
     },
     {
+      category_id: 5,
       name: '기타',
-      value: '기타',
       color: '#9E7676',
     },
   ];
 
-  const items = {
-    ALL: [
-      'All 1',
-      'All 2',
-      'All 3',
-      'All 4',
-      'All 5',
-      'All 6',
-      'All 7',
-      'All 8',
-      'All 9',
-    ],
-    상의: [
-      '상의 1',
-      '상의 2',
-      '상의 3',
-      '상의 4',
-      '상의 5',
-      '상의 6',
-      '상의 7',
-      '상의 8',
-      '상의 9',
-    ],
-    하의: [
-      '하의 1',
-      '하의 2',
-      '하의 3',
-      '하의 4',
-      '하의 5',
-      '하의 6',
-      '하의 7',
-      '하의 8',
-      '하의 9',
-    ],
-    신발: [
-      '신발 1',
-      '신발 2',
-      '신발 3',
-      '신발 4',
-      '신발 5',
-      '신발 6',
-      '신발 7',
-      '신발 8',
-      '신발 9',
-    ],
-    악세사리: [
-      '악세사리 1',
-      '악세사리 2',
-      '악세사리 3',
-      '악세사리 4',
-      '악세사리 5',
-      '악세사리 6',
-      '악세사리 7',
-      '악세사리 8',
-      '악세사리 9',
-    ],
-    기타: [
-      '기타 1',
-      '기타 2',
-      '기타 3',
-      '기타 4',
-      '기타 5',
-      '기타 6',
-      '기타 7',
-      '기타 8',
-      '기타 9',
-    ],
-  };
-
   // 선택된 카테고리 변경시
   const handleCategoryChange = (value) => {
-    setSelectedCategory(value);
+    setSelectedCategory(parseInt(value));
   };
-  const itemsToShow =
-    selectedCategory === 'ALL' ? items.ALL : items[selectedCategory];
+
+  // 백에서 item 데이터 가져오기
+  const getItems = async () => {
+    try {
+      const resItems = await axios.get('/main/showItems');
+      const itemsData = resItems.data;
+      setItems(itemsData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getItems();
+  }, []);
+
+  // 선택된 카테고리에 따라 보여줄 아이템 필터링
+  // categoryId는 db에 담긴 이름
+  const itemsShow =
+    selectedCategory === -1
+      ? items.filter((item) => item.categoryId >= 1 && item.categoryId <= 5)
+      : items.filter((item) => item.categoryId === selectedCategory);
+
+  // 랜덤으로 9개까지만 띄우게 하기
+  const randomItems = itemsShow.sort(() => Math.random() - 0.5).slice(0, 9);
 
   return (
     <>
@@ -122,17 +77,23 @@ export default function Category() {
         </div>
         <div className="category_menu">
           <ul className="category_ul">
+            {/* key 값은 내가 categories에 있는 value - all, 상의, 하의, 신발, 악세사리, 기타 */}
+            {/* value가 6개니까 li는 6개 */}
             {categories.map((category) => (
               <li
-                key={category.value}
-                onClick={() => handleCategoryChange(category.value)}
+                key={category.category_id}
+                // li 중에서 선택된 value를 selectedCategory에 담아줌
+                // 선택된 li의 className은 selected로 바뀜 안 선택되면 className 없음
+                onClick={() => handleCategoryChange(category.category_id)}
                 className={
-                  category.value === selectedCategory ? 'selected' : ''
+                  category.category_id === selectedCategory ? 'selected' : ''
                 }
               >
+                {/* li 6개 */}
                 {category.name}
+
                 {/* 카테고리 선택시 생기는 동그라미 */}
-                {category.value === selectedCategory && (
+                {category.category_id === selectedCategory && (
                   <div
                     className="category_dot"
                     style={{
@@ -150,24 +111,40 @@ export default function Category() {
               <Link
                 className="shortCuts_btn"
                 // 내가 선택한 카테고리의 색 지정
+                // 내가 선택한 값대로 categories에 있는 color 정보 가져와서 배경색으로 지정
                 style={{
                   backgroundColor: categories.find(
-                    (category) => category.value === selectedCategory,
+                    (category) => category.category_id === selectedCategory,
                   )?.color,
                 }}
               >
-                <p className="shortCuts_category">{selectedCategory}</p>
+                <p className="shortCuts_category">
+                  {
+                    categories.find(
+                      (category) => category.category_id === selectedCategory,
+                    )?.name
+                  }
+                </p>
                 <p className="shortCuts">바로가기</p>
               </Link>
             </div>
 
-            {itemsToShow.map((item, index) => (
+            {randomItems.map((item, index) => (
               <>
                 <Link key={index} className="items_div">
-                  {item}
+                  {item.itemTitle}
                   <div className="img_desc">
-                    <p>상품명</p>
-                    <p>가격</p>
+                    <p>
+                      [
+                      {
+                        categories.find(
+                          (category) =>
+                            category.category_id === item.categoryId,
+                        )?.name
+                      }
+                      ] {item.itemName}
+                    </p>
+                    <p>가격 : {item.itemPrice}</p>
                   </div>
                 </Link>
               </>

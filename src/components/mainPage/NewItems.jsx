@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import '../../style/newItems.scss';
 import 'swiper/swiper.scss';
@@ -14,10 +14,26 @@ import SwiperCore, {
   Scrollbar,
   Autoplay,
 } from 'swiper';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 SwiperCore.use([Navigation, Pagination, Mousewheel, Scrollbar, Autoplay]);
 
 export default function NewItems() {
   const swiperRef = useRef(null);
+  const [items, setItems] = useState([]);
+
+  const getItems = async () => {
+    try {
+      const resItems = await axios.get('/main/showItems');
+      const itemsData = resItems.data;
+      setItems(itemsData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getItems();
+  }, []);
 
   const slideNext = () => {
     if (swiperRef.current && swiperRef.current.swiper) {
@@ -30,6 +46,9 @@ export default function NewItems() {
       swiperRef.current.swiper.slidePrev();
     }
   };
+
+  // 최근에 올라온 상품 15개 출력
+  const recentItems = items.slice(-15).reverse();
 
   return (
     <>
@@ -46,73 +65,21 @@ export default function NewItems() {
             ref={swiperRef}
             modules={[Navigation, Pagination, Mousewheel, Scrollbar, Autoplay]}
             mousewheel={{ forceToAxis: true }}
-            spaceBetween={0}
+            spaceBetween={10}
             slidesPerView={5}
-            scrollbar={{ draggable: true, dragSize: 100 }}
+            scrollbar={{ dragSize: 100 }}
           >
-            <SwiperSlide>
-              <img src="https://cdn.magloft.com/github/swiper/images/page-001.jpg" />
-              <div className="img_desc">
-                <p>상품명</p>
-                <p>가격</p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://cdn.magloft.com/github/swiper/images/page-002.jpg" />
-              <div className="img_desc">
-                <p>상품명</p>
-                <p>가격</p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://cdn.magloft.com/github/swiper/images/page-003.jpg" />
-              <div className="img_desc">
-                <p>상품명</p>
-                <p>가격</p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://cdn.magloft.com/github/swiper/images/page-004.jpg" />
-              <div className="img_desc">
-                <p>상품명</p>
-                <p>가격</p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://cdn.magloft.com/github/swiper/images/page-005.jpg" />
-              <div className="img_desc">
-                <p>상품명</p>
-                <p>가격</p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://cdn.magloft.com/github/swiper/images/page-006.jpg" />
-              <div className="img_desc">
-                <p>상품명</p>
-                <p>가격</p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://cdn.magloft.com/github/swiper/images/page-007.jpg" />
-              <div className="img_desc">
-                <p>상품명</p>
-                <p>가격</p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://cdn.magloft.com/github/swiper/images/page-008.jpg" />
-              <div className="img_desc">
-                <p>상품명</p>
-                <p>가격</p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src="https://cdn.magloft.com/github/swiper/images/page-009.jpg" />
-              <div className="img_desc">
-                <p>상품명</p>
-                <p>가격</p>
-              </div>
-            </SwiperSlide>
+            {recentItems.map((item) => (
+              <>
+                <SwiperSlide>
+                  <Link className="item_img">{item.itemTitle}</Link>
+                  <div className="img_desc">
+                    <p>상품명</p>
+                    <p>가격</p>
+                  </div>
+                </SwiperSlide>
+              </>
+            ))}
           </Swiper>
         </div>
       </div>
