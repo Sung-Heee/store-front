@@ -115,8 +115,14 @@ export default function SalePage() {
   const [tagList, setTagList] = useState([]);
 
   const onKeyPress = (e) => {
-    if (e.target.value.length !== 0 && e.key === 'Enter') {
+    if (
+      e.target.value.length !== 0 &&
+      e.key === 'Enter' &&
+      !e.target.value.includes(' ')
+    ) {
       submitTagItem();
+    } else if (e.target.value.includes(' ')) {
+      alert('띄어쓰기 x');
     }
   };
 
@@ -130,7 +136,7 @@ export default function SalePage() {
     ) {
       updatedTagList.push(tagItem);
     } else if (updatedTagList.length === 10) {
-      alert('10이상 x');
+      alert('10개 이상 x');
     } else if (updatedTagList.includes(tagItem)) {
       alert('중복 x');
     }
@@ -258,7 +264,7 @@ export default function SalePage() {
             <input
               className="TagInput"
               type="text"
-              placeholder="태그등록"
+              placeholder="태그입력 후 ENTER"
               tabIndex={2}
               onChange={(e) => setTagItem(e.target.value)}
               value={tagItem}
