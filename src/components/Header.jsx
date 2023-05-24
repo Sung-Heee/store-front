@@ -67,6 +67,13 @@ export default function Header() {
     searchInputRef.current.value = '';
   };
 
+  //엔터키
+  const onKeyPress = (e) => {
+    if (e.key == 'Enter') {
+      searchProduct();
+    }
+  };
+
   // 최근 검색어 초기 랜더링 시 가져옴
   const [recentSearches, setRecentSearches] = useState([]);
   useEffect(() => {
@@ -113,7 +120,7 @@ export default function Header() {
                 <Link to="/register">JOIN</Link>
               </li>
               <li className="header_dropdown_menu">
-                <Link to="/sale">SALE</Link>
+                <p>SALE</p>
               </li>
             </ul>
           </div>
@@ -179,6 +186,7 @@ export default function Header() {
               className="search-input"
               placeholder="상품을 검색하세요"
               ref={searchInputRef}
+              onKeyPress={onKeyPress}
             />
             <button
               type="button"
