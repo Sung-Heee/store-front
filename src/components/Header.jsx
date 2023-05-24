@@ -120,7 +120,7 @@ export default function Header() {
                 <Link to="/register">JOIN</Link>
               </li>
               <li className="header_dropdown_menu">
-                <p>SALE</p>
+                <Link to="/sale">SALE</Link>
               </li>
             </ul>
           </div>
