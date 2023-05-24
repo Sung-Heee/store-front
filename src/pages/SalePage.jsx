@@ -7,6 +7,7 @@ import axios from 'axios';
 import Hashtag from '../components/Hashtag';
 import '../style/sale.scss';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function SalePage() {
   const genderOptions = [
@@ -17,30 +18,32 @@ export default function SalePage() {
 
   const cateOptions = {
     all: [
-      { value: '상의', label: '상의' },
-      { value: '하의', label: '하의' },
-      { value: '신발', label: '신발' },
-      { value: '악세사리', label: '악세사리' },
-      { value: '기타', label: '기타' },
+      { value: 1, label: '상의' },
+      { value: 2, label: '하의' },
+      { value: 3, label: '신발' },
+      { value: 4, label: '악세사리' },
+      { value: 5, label: '기타' },
     ],
     man: [
-      { value: '상의', label: '상의' },
-      { value: '하의', label: '하의' },
-      { value: '신발', label: '신발' },
-      { value: '악세사리', label: '악세사리' },
-      { value: '기타', label: '기타' },
+      { value: 1, label: '상의' },
+      { value: 2, label: '하의' },
+      { value: 3, label: '신발' },
+      { value: 4, label: '악세사리' },
+      { value: 5, label: '기타' },
     ],
     woman: [
-      { value: '상의', label: '상의' },
-      { value: '하의', label: '하의' },
-      { value: '신발', label: '신발' },
-      { value: '악세사리', label: '악세사리' },
-      { value: '기타', label: '기타' },
+      { value: 1, label: '상의' },
+      { value: 2, label: '하의' },
+      { value: 3, label: '신발' },
+      { value: 4, label: '악세사리' },
+      { value: 5, label: '기타' },
     ],
   };
 
   const [selectedGender, setSelectedGender] = useState(null);
   const [selectedCate, setSelectedCate] = useState(null);
+
+  const userId = useSelector((state) => state.user.userID);
 
   const saleTitleInput = useRef();
   const itemNameInput = useRef();
@@ -66,16 +69,26 @@ export default function SalePage() {
       gender: selectedGender.value,
       cate: selectedCate.value,
     };
+    var tag = '';
+    tagList.map((el) => {
+      tag += String(el + ' ');
+    });
+    console.log(tag);
     console.log(cateObject);
-
+    console.log(saleTitleInput.current.value);
+    console.log(itemNameInput.current.value);
+    console.log(itemPriceInput.current.value);
+    console.log(tagList[0]);
+    console.log('사용자', userId);
     try {
-      console.log(data);
-      const resSale = await axios.post('/sale', {
-        categories: cateObject,
+      const resSale = await axios.post('/main/sale', {
+        id: userId,
+        gender: cateObject.gender,
+        categories: cateObject.cate,
         saleTitle: saleTitleInput.current.value,
         itemName: itemNameInput.current.value,
         itemPrice: itemPriceInput.current.value,
-        saleTag: tagList,
+        saleTag: tag,
         editorText: data,
       });
 
