@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import MyPage from './pages/MyPage';
 
 function App() {
   console.log('ㅎㅇㅎㅇ');
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
       {/* <Footer /> */}
     </div>
