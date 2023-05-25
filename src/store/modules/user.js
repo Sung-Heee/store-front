@@ -1,57 +1,23 @@
 //초기 상태
-const initState = {
-  userID: '',
-  userPW: '',
-  isLogin: false,
-  reduxrender: true,
-};
+const initState = {};
 
 //액션 타입 설정
-const LOGIN = 'user/LOGIN';
-const LOGOUT = 'user/LOGOUT';
-const RENDER = 'user/RENDER';
+const INIT = 'user/INIT';
 
 //액션 생성 함수
-export function login(loginInfo) {
+export function init(payload) {
   return {
-    type: LOGIN,
-    payload: loginInfo,
-  };
-}
-
-export function logout() {
-  return {
-    type: LOGOUT,
-  };
-}
-
-export function reduxRender() {
-  return {
-    type: RENDER,
+    type: INIT,
+    payload,
   };
 }
 
 //리듀서 일해라
 export default function user(state = initState, action) {
   switch (action.type) {
-    case LOGIN:
+    case INIT:
       return {
-        ...state,
-        userID: action.payload.id,
-        // userPW: action.payload.password,
-        isLogin: true,
-      };
-    case LOGOUT:
-      return {
-        ...state,
-        userID: '',
-        userPW: '',
-        isLogin: false,
-      };
-    case RENDER:
-      return {
-        ...state,
-        reduxrender: !state.reduxrender,
+        ...action.payload,
       };
     default:
       return state;

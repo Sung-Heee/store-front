@@ -8,6 +8,7 @@ import Hashtag from '../components/Hashtag';
 import '../style/sale.scss';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { saleItems } from '../apis/item';
 
 export default function SalePage() {
   const genderOptions = [
@@ -80,17 +81,20 @@ export default function SalePage() {
     console.log(itemPriceInput.current.value);
     console.log(tagList[0]);
     console.log('사용자', userId);
+
+    const saleItemInfo = {
+      id: userId,
+      gender: cateObject.gender,
+      categories: cateObject.cate,
+      saleTitle: saleTitleInput.current.value,
+      itemName: itemNameInput.current.value,
+      itemPrice: itemPriceInput.current.value,
+      saleTag: tag,
+      editorText: data,
+    };
+
     try {
-      const resSale = await axios.post('/main/sale', {
-        id: userId,
-        gender: cateObject.gender,
-        categories: cateObject.cate,
-        saleTitle: saleTitleInput.current.value,
-        itemName: itemNameInput.current.value,
-        itemPrice: itemPriceInput.current.value,
-        saleTag: tag,
-        editorText: data,
-      });
+      const resSale = await saleItems(saleItemInfo);
 
       const message = resSale.data.message;
       if (resSale.data.status === '200') {

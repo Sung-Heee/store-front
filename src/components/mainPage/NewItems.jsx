@@ -16,6 +16,7 @@ import SwiperCore, {
 } from 'swiper';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { showItems } from '../../apis/item';
 SwiperCore.use([Navigation, Pagination, Mousewheel, Scrollbar, Autoplay]);
 
 export default function NewItems() {
@@ -24,7 +25,7 @@ export default function NewItems() {
 
   const getItems = async () => {
     try {
-      const resItems = await axios.get('/main/showItems');
+      const resItems = await showItems();
       const itemsData = resItems.data;
       setItems(itemsData);
     } catch (error) {

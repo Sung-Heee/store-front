@@ -1,16 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../style/_header.scss';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 // import logo from '../images/logo.png';
 
 export default function Header() {
   // 검색창 토글을 위한 state
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const dispatch = useDispatch();
 
   // 검색창 토글 함수
   const toggleSearchWindow = () => {
@@ -21,6 +25,8 @@ export default function Header() {
   const closeSearchWindow = () => {
     setIsSearchOpen((isSearchOpen) => !isSearchOpen);
   };
+
+  const navigate = useNavigate();
 
   //검색창 키워드 랜덤 생성
   const randomKeyWord = ['신발', '상의', '하의', '모자', '직거래'];
@@ -107,21 +113,53 @@ export default function Header() {
     }
   };
 
+  // 로그인 상태
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      setIsLogin(true); // 로컬 스토리지에 유저 아이디가 있으면 로그인 상태로 변경
+    } else {
+      setIsLogin(false); // 로컬 스토리지에 유저 아이디가 있으면 로그인 상태로 변경
+    }
+  }, []);
+
+  // 로그아웃
+  const logout = () => {
+    localStorage.removeItem('userId');
+    navigate('/');
+    window.location.reload();
+  };
+
   return (
     <>
       <div className="all_container">
         <div className="header_sub_container minMax">
           <div className="header_sub_menu">
             <ul>
-              <li>
-                <Link to="/login">LOGIN</Link>
-              </li>
-              <li>
-                <Link to="/register">JOIN</Link>
-              </li>
-              <li className="header_dropdown_menu">
-                <Link to="/sale">SALE</Link>
-              </li>
+              {isLogin ? (
+                <>
+                  <li>
+                    <Link onClick={logout}>LOGOUT</Link>
+                  </li>
+                  <li className="header_dropdown_menu">
+                    <Link to="/sale">SALE</Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link to="/login">LOGIN</Link>
+                  </li>
+                  <li>
+                    <Link to="/register">JOIN</Link>
+                  </li>
+                  <li className="header_dropdown_menu">
+                    <Link to="/sale">SALE</Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

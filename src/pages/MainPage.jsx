@@ -9,11 +9,8 @@ import { Link } from 'react-router-dom';
 import MainSwiper from '../components/mainPage/MainSwiper';
 import NewItems from '../components/mainPage/NewItems';
 import Category from '../components/mainPage/Category';
-import { useSelector } from 'react-redux';
 
 export default function MainPage() {
-  const userId = useSelector((state) => state.user.userID);
-  console.log(userId);
   return (
     <>
       <MainSwiper />

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../style/category.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { showItems } from '../../apis/item';
 
 export default function Category() {
   const [selectedCategory, setSelectedCategory] = useState(-1);
@@ -48,7 +49,7 @@ export default function Category() {
   // 백에서 item 데이터 가져오기
   const getItems = async () => {
     try {
-      const resItems = await axios.get('/main/showItems');
+      const resItems = await showItems();
       const itemsData = resItems.data;
       setItems(itemsData);
     } catch (error) {
