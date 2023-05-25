@@ -149,9 +149,11 @@ export default function RegisterPage() {
 
       const message = resRegister.data.message; // 객체에 있는 message
       if (resRegister.data.status === '200') {
-        localStorage.setItem('userId', userInfo.userId);
+        localStorage.setItem('userId', userInfo.id);
+
         alert(message);
         navigate('/');
+        window.location.reload();
       } else {
         return alert(message);
       }
