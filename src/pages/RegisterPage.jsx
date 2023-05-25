@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import '../style/register.scss';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { login } from '../store/modules/user';
 import Select from 'react-select';
 import { Link, useNavigate } from 'react-router-dom';
+import { EmailCheck, NickNameCheck, Register } from '../apis/user';
 
 export default function RegisterPage() {
   const genderOptions = [
@@ -56,10 +56,13 @@ export default function RegisterPage() {
     e.preventDefault(); // 자동 새로고침 방지
     if (!registerIdInput.current.value) return alert('이메일을 입력 하세요');
     console.log('여기는 이메일 중복 확인 칸입니다.');
+
+    const email = {
+      id: registerIdInput.current.value,
+    };
+
     try {
-      const resCheckEmail = await axios.post('/checkEmail', {
-        id: registerIdInput.current.value,
-      });
+      const resCheckEmail = await EmailCheck(email);
       // 성희야 항상 어떤 데이터값이 넘어왔는지 찍어보고 ㄱ.ㄱ 성공 : status 200 / 실패 : status 500
       console.log('백엔드에서 넘어온 데이터 : ', resCheckEmail.data);
 
@@ -82,10 +85,13 @@ export default function RegisterPage() {
   const checkNickName = async (e) => {
     e.preventDefault(); // 자동 새로고침 방지
     if (!nickNameInput.current.value) return alert('닉네임을 입력 하세요');
+
+    const nickName = {
+      nickName: nickNameInput.current.value,
+    };
+
     try {
-      const resCheckNickName = await axios.post('/checkNickName', {
-        nickName: nickNameInput.current.value,
-      });
+      const resCheckNickName = await NickNameCheck(nickName);
 
       // 어떤 데이터값이 넘어왔는지 확인
       console.log('백엔드에서 넘어온 데이터 : ', resCheckNickName.data);
@@ -129,24 +135,22 @@ export default function RegisterPage() {
       return;
     }
 
+    const userInfo = {
+      id: registerIdInput.current.value,
+      password: registerPwInput.current.value,
+      gender: userGenderInput.current.props.value.value,
+      name: userNameInput.current.value,
+      phone: phoneNumberInput.current.value,
+      nickName: nickNameInput.current.value,
+    };
+
     try {
-      const resRegister = await axios.post('/register', {
-        id: registerIdInput.current.value,
-        password: registerPwInput.current.value,
-        gender: userGenderInput.current.props.value.value,
-        name: userNameInput.current.value,
-        phone: phoneNumberInput.current.value,
-        nickName: nickNameInput.current.value,
-      });
-      console.log(resRegister.data.status);
+      const resRegister = await Register(userInfo);
+
       const message = resRegister.data.message; // 객체에 있는 message
       if (resRegister.data.status === '200') {
+        localStorage.setItem('userId', userInfo.userId);
         alert(message);
-        dispatch(
-          login({
-            id: registerIdInput.current.value,
-          }),
-        );
         navigate('/');
       } else {
         return alert(message);
@@ -156,6 +160,12 @@ export default function RegisterPage() {
       alert(error.response.data);
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('userId') !== null) {
+      navigate('/');
+    }
+  });
 
   return (
     <>
