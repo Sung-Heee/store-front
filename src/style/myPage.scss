@@ -4,95 +4,132 @@
   position: relative;
   background-color: #fdedf1;
   z-index: 1;
+  
 }
 
-.mypage_topbox {
-  position: absolute;
+
+.all_content{
+  position: relative;
+  // background-color: orange;
   width: 100%;
-  background-color: #fdedf1;
-  padding: 40px 0 45px;
-  margin-bottom: 60px;
-
-  .mypage_topleft {
-    float: left;
-    width: 200px;
-    height: 200px;
-    margin-right: 70px;
-
-    .circle_img {
-      position: absolute;
-      margin-left: 8%;
+  height: 100%;
+  strong {
+    font-size: 35px;
+    color: #2d2f45;
+    font-weight: 750;
+    margin-right: 15px;
+    // vertical-align: middle;
+    }
+  .top_box{
+    height: 290px;
+    background-color: #f4f6ff;
+    display: flex;
+    .top_left{
+      width: 35%;
+      .img_box {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background-color: white;
+        margin: auto;
+        margin-top: 30px;
+      }
+    }
+    .top_right {
+      width: 65%;
+      .member_name {
+        position: absolute;
+        top: 75px;
+        left: 500px;
+        
+       }
+       .order{
+        display: flex;
+        position: absolute;
+        width: 40%;
+        top: 130px;
+        left: 500px;
+        justify-content: space-between;
+        li{
+          margin-top: 10px;
+        }
+       }
     }
   }
-
-  .mypage_topright {
-    margin-right: 9%;
-    float: right;
-    width: 900px;
-    margin-top: 37px;
-
-    .member_name {
-      height: 45px;
-      line-height: 45px;
-      display: flex;
-      align-items: center;
-
-      strong {
-        font-size: 36px;
-        color: #2d2f45;
-        font-weight: 700;
-        margin-right: 15px;
-        vertical-align: middle;
-      }
-
-      .group {
-        font-size: 24px;
-        height: 32px;
-        color: #f19d00;
-        vertical-align: middle;
-        align-items: center;
-        font-weight: 500;
-        display: flex;
-
-        img {
-          margin-right: 5px;
-          padding-bottom: 3px;
-          font-size: 0px;
-          height: 16px;
-        }
-      }
-    }
-
-    .mypage_order {
-      margin: 35px 0 0;
-
-      .order li {
-        float: left;
-        padding: 0;
-        margin: 0 80px 0 0;
+  .bottom_box{
+    display: flex;
+    .left_box {
+      width: 30%;
+      .left_controller{
+        width: 200px;
+        background-color: white;
+        margin: 50px 170px;
         text-align: left;
-
-        strong {
-          display: block;
-          margin: 0 0 4px 0;
-          font-weight: 400;
+      }
+      .my_page{
+        font-size: 20px;
+        font-weight: 700;
+        color: #2d2f45;
+        border-bottom: 2px solid #2d2f45;
+        height: 44px;
+        line-height: 44px;
+      }
+      ul {
+        margin: 45px auto 0;
+        li {
+          position: relative;
           font-size: 14px;
-          font-weight: 700;
+          font-weight: 400;
           color: #2d2f45;
-        }
-
-        .count {
-          font-weight: 500;
-          font-size: 28px;
-          color: #2d2f45;
-          vertical-align: top;
-
-          span {
-            vertical-align: top;
+          height: 33px;
+          line-height: 33px;
+          padding-left: 17px;
+          z-index: 3;
+          padding-left: 20px;
+          :hover {
             font-weight: 700;
           }
         }
       }
+      .first_ul{
+        margin :18px auto 0;
+      }
+      .first_li {
+        font-size: 16px;
+        font-weight: 600;
+        color: #2d2f45;
+        padding-left: 0;
+      }
+    }
+    .right_box{
+      width: 70%;
+      .right_controller{
+        text-align: left;
+        width: 920px;
+        margin-top: 50px;
+        .title {
+          font-size: 17px;
+          font-weight: 700;
+          color: #2d2f45;
+          border-bottom: 2px solid #2d2f45;
+          height: 44px;
+          line-height: 44px;
+          letter-spacing: -0.5px;
+        }
+        .content {
+          width: 100%;
+          height: 300px;
+          margin-bottom: 30px;
+        }
+        .msg{
+          border: 0;
+          padding: 120px 0;
+          font-size: 20px;
+          text-align: center;
+          color: #abacb1;
+        }
+      }
+      
     }
   }
 }
