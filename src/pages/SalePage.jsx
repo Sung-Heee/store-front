@@ -16,29 +16,17 @@ export default function SalePage() {
     { value: 'man', label: 'man' },
     { value: 'woman', label: 'woman' },
   ];
-
+  const cateArr = [
+    { value: 1, label: '상의' },
+    { value: 2, label: '하의' },
+    { value: 3, label: '신발' },
+    { value: 4, label: '악세사리' },
+    { value: 5, label: '기타' },
+  ];
   const cateOptions = {
-    all: [
-      { value: 1, label: '상의' },
-      { value: 2, label: '하의' },
-      { value: 3, label: '신발' },
-      { value: 4, label: '악세사리' },
-      { value: 5, label: '기타' },
-    ],
-    man: [
-      { value: 1, label: '상의' },
-      { value: 2, label: '하의' },
-      { value: 3, label: '신발' },
-      { value: 4, label: '악세사리' },
-      { value: 5, label: '기타' },
-    ],
-    woman: [
-      { value: 1, label: '상의' },
-      { value: 2, label: '하의' },
-      { value: 3, label: '신발' },
-      { value: 4, label: '악세사리' },
-      { value: 5, label: '기타' },
-    ],
+    all: cateArr,
+    man: cateArr,
+    woman: cateArr,
   };
 
   const [selectedGender, setSelectedGender] = useState(null);
@@ -167,40 +155,37 @@ export default function SalePage() {
     // console.log(result);
   };
 
+  // 이미지 첨부파일
+  const [showImages, setShowImages] = useState([]);
+  const inputImgRef = useRef();
+  console.log(inputImgRef);
+
+  // 이미지 상대경로 저장
+  const handleAddImages = (event) => {
+    const imageLists = event.target.files;
+    let imageUrlLists = [...showImages];
+
+    for (let i = 0; i < imageLists.length; i++) {
+      const currentImageUrl = URL.createObjectURL(imageLists[i]);
+      imageUrlLists.push(currentImageUrl);
+    }
+
+    if (imageUrlLists.length > 6) {
+      imageUrlLists = imageUrlLists.slice(0, 6);
+    }
+
+    setShowImages(imageUrlLists);
+  };
+
+  // X버튼 클릭 시 이미지 삭제
+  const handleDeleteImage = (id) => {
+    setShowImages(showImages.filter((_, index) => index !== id));
+  };
+
   return (
     <>
       <div className="form_wrapper minMax">
         <div className="gender_cate_input">
-          {/* <Select
-            className="gender_select_input"
-            options={genderOptions}
-            ref={genderInput}
-            defaultValue={genderOptions[0]}
-            theme={(theme) => ({
-              ...theme,
-              borderRadius: 10,
-              colors: {
-                ...theme.colors,
-                primary25: '#f4f6ff',
-                primary: '#3d435f',
-              },
-            })}
-          />
-          <Select
-            className="cate_select_input"
-            options={cateOptions}
-            ref={itemCateInput}
-            defaultValue={cateOptions[0]}
-            theme={(theme) => ({
-              ...theme,
-              borderRadius: 10,
-              colors: {
-                ...theme.colors,
-                primary25: '#f4f6ff',
-                primary: '#3d435f',
-              },
-            })}
-          /> */}
           <Select
             className="gender_select_input"
             options={genderOptions}
@@ -275,6 +260,49 @@ export default function SalePage() {
               onKeyPress={onKeyPress}
             />
           </div>
+        </div>
+        {/* 이미지 첨부 */}
+        <div className="attachment">
+          <label
+            htmlFor="input-file"
+            onChange={handleAddImages}
+            className="attach_img_iunput"
+          >
+            <input type="file" id="input-file" ref={inputImgRef} />
+            {/* <Plus/> */}
+            <svg
+              fill="#3d435f"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              className="plus_icon"
+            >
+              <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+            </svg>
+            <p className="plus_text">최대 6 장</p>
+          </label>
+
+          {/*저장해둔 이미지들을 순회하면서 화면에 이미지 출력 */}
+          {showImages.map((image, id) => (
+            <div key={id} className="x_container">
+              {/* <Delete/> */}
+              <svg
+                onClick={() => handleDeleteImage(id)}
+                className="delete_icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                fill="#3d435f"
+              >
+                <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
+              </svg>
+              <div key={id} className="img_container">
+                <img
+                  src={image}
+                  alt={`${image}-${id}`}
+                  style={{ height: '150px' }}
+                />
+              </div>
+            </div>
+          ))}
         </div>
         <CKEditor
           editor={ClassicEditor}
