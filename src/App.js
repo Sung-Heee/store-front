@@ -13,6 +13,7 @@ import AllProductPage from './pages/AllProductPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from './apis/user';
 import { init } from './store/modules/user';
+import ProductDetailsPage from './pages/ProductDetailsPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -62,6 +63,10 @@ function App() {
         <Route path="/mypage" element={isLogin ? <MyPage /> : <LoginPage />} />
         <Route path="/sale" element={isLogin ? <SalePage /> : <LoginPage />} />
         <Route path="/allproduct/:product" element={<AllProductPage />} />
+        <Route
+          path="/productdetails/:itemID"
+          element={<ProductDetailsPage />}
+        />
       </Routes>
       {/* <MyPage /> */}
       {/* <Footer /> */}
