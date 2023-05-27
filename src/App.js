@@ -63,6 +63,7 @@ function App() {
         <Route path="/sale" element={isLogin ? <SalePage /> : <LoginPage />} />
         <Route path="/allproduct/:product" element={<AllProductPage />} />
       </Routes>
+      {/* <MyPage /> */}
       {/* <Footer /> */}
     </div>
   );
