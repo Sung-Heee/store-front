@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../../style/category.scss';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import axios from 'axios';
 import { showItems } from '../../apis/item';
+import ProductDetailsPage from '../../pages/ProductDetailsPage';
 
 export default function Category() {
   const [selectedCategory, setSelectedCategory] = useState(-1);
@@ -132,7 +133,11 @@ export default function Category() {
 
             {randomItems.map((item, index) => (
               <>
-                <Link key={index} className="items_div">
+                <Link
+                  to={`/productdetails/${item.itemID}`}
+                  key={index}
+                  className="items_div"
+                >
                   {item.itemTitle}
                   <div className="img_desc">
                     <p>

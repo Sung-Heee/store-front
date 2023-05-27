@@ -1,0 +1,102 @@
+@import './_reset';
+.detail-container {
+  width: 1200px;
+  margin: 0 auto;
+  .left-container {
+    width: 780px;
+    background-color: #f2f2f2;
+    img {
+      width: 700px;
+      height: 700px;
+      background-color: rgb(231, 209, 251);
+    }
+  }
+  .right-container {
+    position: fixed;
+    top: 120px;
+    right: calc((100% - 1200px) / 2);
+    width: 420px;
+    height: calc(100vh - 120px);
+
+    .product-detail {
+      position: absolute;
+      right: 0;
+      top: 30px;
+      width: 350px;
+      height: 670px;
+
+      color: #2d2f43;
+      text-align: left;
+      // 상품 메뉴 이동 창
+      .product-menu {
+        color: #b1b2b7;
+        font-size: 12px;
+        a {
+          color: #b1b2b7;
+        }
+      }
+      // 상품 내용
+      .product-content {
+        font-size: 20px;
+        border-bottom: 1px solid #b1b2b7;
+        li {
+          &:first-child {
+            color: #b1b2b7;
+            font-size: 18px;
+          }
+          &:nth-child(3) {
+            font-weight: 700;
+          }
+          span {
+            float: right;
+            font-size: 18px;
+            line-height: 18px;
+            .heart-icon {
+              margin-right: 4px;
+            }
+          }
+        }
+      }
+      .product-status {
+        display: flex;
+        font-size: 15px;
+        line-height: 25px;
+        li {
+          &:first-child {
+            color: #b1b2b7;
+            margin-right: 10px;
+          }
+        }
+      }
+      .product_btn {
+        position: absolute;
+        bottom: 0;
+        p {
+          text-align: center;
+          border-radius: 30px;
+          height: 50px;
+          width: 350px;
+          line-height: 50px;
+          &:first-child {
+            background-color: #3d435f;
+            color: #fff;
+            margin-bottom: 10px;
+            &:hover {
+              background-color: #2d2f43;
+              cursor: pointer;
+            }
+          }
+          &:last-child {
+            background-color: #fff;
+            color: #2d2f43;
+            border: 1px solid #3d435f;
+            &:hover {
+              background-color: #f4f6ff;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}
