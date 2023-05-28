@@ -9,7 +9,7 @@ export default function MyPage() {
 
   const getUserInfo = async () => {
     try {
-      const userId = localStorage.getItem('userId');
+      const userId = sessionStorage.getItem('userId');
       const resUser = await getUser(userId);
       const dbUserInfo = resUser.data; // 조회된 사용자 정보 반환
       setUserName(dbUserInfo.userInfo.userName);
