@@ -149,11 +149,8 @@ export default function RegisterPage() {
 
       const message = resRegister.data.message; // 객체에 있는 message
       if (resRegister.data.status === '200') {
-        localStorage.setItem('userId', userInfo.id);
-
-        alert(message);
-        navigate('/');
-        window.location.reload();
+        alert(message + `\n로그인을 진행해주세요.`);
+        navigate('/login');
       } else {
         return alert(message);
       }
@@ -163,8 +160,9 @@ export default function RegisterPage() {
     }
   };
 
+  // 이미 로그인 되어있으면 회원가입 페이지로 못 가게
   useEffect(() => {
-    if (localStorage.getItem('userId') !== null) {
+    if (sessionStorage.getItem('userId') !== null) {
       navigate('/');
     }
   });

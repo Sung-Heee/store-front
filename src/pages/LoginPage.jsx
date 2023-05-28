@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import '../style/login.scss';
-import axios from 'axios';
 import { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Login } from '../apis/user';
+import CryptoJS from 'crypto-js';
+import { HmacSHA256 } from 'crypto-js';
 
 export default function LoginPage() {
   const loginIdInput = useRef();
@@ -15,6 +15,31 @@ export default function LoginPage() {
   const loginUser = async () => {
     if (!loginIdInput.current.value || !loginPwInput.current.value)
       return alert('값을 입력 하세요');
+
+    // // eslint-disable-next-line no-undef
+    // const AES_SECRET_KEY = process.env.REACT_APP_AES_SECRET_KEY;
+    // // eslint-disable-next-line no-undef
+    // const SHA_SECRET_KEY = process.env.REACT_APP_AES_SECRET_KEY;
+    // // 아이디 AES-128 암호화
+    // const encryptID = CryptoJS.AES.encrypt(
+    //   loginIdInput.current.value,
+    //   AES_SECRET_KEY,
+    // ).toString();
+
+    // 복호화
+    // const bytes = CryptoJS.AES.decrypt(encryptID, AES_SECRET_KEY);
+    // const originalID = bytes.toString(CryptoJS.enc.Utf8);
+
+    // // 비밀번호 SHA-256 암호화
+    // const encryptPW = HmacSHA256(
+    //   loginPwInput.current.value,
+    //   SHA_SECRET_KEY,
+    // ).toString();
+
+    // const account = {
+    //   id: encryptID,
+    //   password: encryptPW,
+    // };
 
     const account = {
       id: loginIdInput.current.value,
@@ -27,27 +52,18 @@ export default function LoginPage() {
       const userId = resLogin.data.userId;
 
       console.log(userId);
-      // 로그인이 성공하면 응답 데이터 token 프로퍼티에 accessToken 이 전달 되어 오므로
-      // 로컬 스토리지에 로그인 정보가 저장 된 토큰을 저장
-      // 해당 정보를 통하여 리액트 실행 시, 토큰을 백엔드 서버에 검증하여 자동 로그인을 처리
-
       if (resLogin.data.status === '200') {
-        // 아이디 로컬스토리지에 저장
-        localStorage.setItem('userId', userId);
+        // 아이디 세션스토리지에 저장
+        sessionStorage.setItem('userId', userId);
 
         loginIdInput.current.value = '';
         loginPwInput.current.value = '';
-
-        // 토큰 처리 나중에 다시
-        // const data = await resLogin.json();
-        // const token = resLogin.data.token;
-        // window.localStorage.setItem('token', token);
 
         // alert(message); 로그인 성공 메시지 생략
         window.location.reload();
         navigate('/');
       } else {
-        return alert(message); // '로그인 실패\n 다시 시도해주세요'
+        return alert(message);
       }
     } catch (error) {
       console.error(error);
@@ -55,9 +71,9 @@ export default function LoginPage() {
     }
   };
 
-  // 만약 이미 로그인 되어있었으면 메인으로
+  // 만약 이미 로그인 되어있으면 로그인페이지로 못 가게
   useEffect(() => {
-    if (localStorage.getItem('userId') !== null) {
+    if (sessionStorage.getItem('userId') !== null) {
       navigate('/');
     }
   });

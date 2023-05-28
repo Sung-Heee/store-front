@@ -117,7 +117,7 @@ export default function Header() {
   const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
+    const userId = sessionStorage.getItem('userId');
     if (userId) {
       setIsLogin(true); // 로컬 스토리지에 유저 아이디가 있으면 로그인 상태로 변경
     } else {
@@ -127,7 +127,7 @@ export default function Header() {
 
   // 로그아웃
   const logout = () => {
-    localStorage.removeItem('userId');
+    sessionStorage.removeItem('userId');
     navigate('/');
     window.location.reload();
   };
