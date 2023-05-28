@@ -16,7 +16,7 @@ import { init } from './store/modules/user';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 
 function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // 로그인 상태
   const [isLogin, setIsLogin] = useState(false);
@@ -25,7 +25,7 @@ function App() {
   // 상태에 따라 isLogin true or false
   // 컴포넌트가 처음 렌더링 될 때만 실행 됨
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
+    const userId = sessionStorage.getItem('userId');
     if (userId) {
       setIsLogin(true); // 로컬 스토리지에 유저 아이디가 있으면 로그인 상태로 변경
     } else {
@@ -34,24 +34,24 @@ function App() {
   }, []);
 
   // 사용자 정보 조회 함수
-  const getUserInfo = async () => {
-    try {
-      const userId = localStorage.getItem('userId');
-      const resUser = await getUser(userId);
-      const dbUserInfo = resUser.data; // 조회된 사용자 정보 반환
-      dispatch(init(dbUserInfo.userInfo));
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const getUserInfo = async () => {
+  //   try {
+  //     const userId = sessionStorage.getItem('userId');
+  //     const resUser = await getUser(userId);
+  //     const dbUserInfo = resUser.data; // 조회된 사용자 정보 반환
+  //     // dispatch(init(dbUserInfo.userInfo));
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   // isLogin의 상태가 변경될 때마다 실행
   // true일 때만 해당 아이디의 유저 정보를 리덕스에 넣음
-  useEffect(() => {
-    if (isLogin) {
-      getUserInfo();
-    }
-  }, [isLogin]);
+  // useEffect(() => {
+  //   if (isLogin) {
+  //     getUserInfo();
+  //   }
+  // }, [isLogin]);
 
   return (
     <div className="App">
