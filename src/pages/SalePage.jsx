@@ -36,7 +36,7 @@ export default function SalePage() {
   const [selectedRadio, setSelectedRadio] = useState('중고');
   const [selectedRadio_ex, setSelectedRadio_ex] = useState('가능');
 
-  const userId = localStorage.getItem('userId');
+  const userId = sessionStorage.getItem('userId');
 
   const saleTitleInput = useRef();
   const itemNameInput = useRef();
