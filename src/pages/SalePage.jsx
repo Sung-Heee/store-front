@@ -32,7 +32,11 @@ export default function SalePage() {
   const [selectedGender, setSelectedGender] = useState(null);
   const [selectedCate, setSelectedCate] = useState(null);
 
-  const userId = useSelector((state) => state.user.userID);
+  //라디오버튼 클릭
+  const [selectedRadio, setSelectedRadio] = useState('중고');
+  const [selectedRadio_ex, setSelectedRadio_ex] = useState('가능');
+
+  const userId = localStorage.getItem('userId');
 
   const saleTitleInput = useRef();
   const itemNameInput = useRef();
@@ -62,6 +66,7 @@ export default function SalePage() {
     tagList.map((el) => {
       tag += String(el + ' ');
     });
+
     console.log(tag);
     console.log(cateObject);
     console.log(saleTitleInput.current.value);
@@ -69,6 +74,8 @@ export default function SalePage() {
     console.log(itemPriceInput.current.value);
     console.log(tagList[0]);
     console.log('사용자', userId);
+    console.log(selectedRadio);
+    console.log(selectedRadio_ex);
 
     const saleItemInfo = {
       id: userId,
@@ -79,7 +86,27 @@ export default function SalePage() {
       itemPrice: itemPriceInput.current.value,
       saleTag: tag,
       editorText: data,
+      imageSend: formData,
+      state: selectedRadio,
+      exchange: selectedRadio_ex,
     };
+
+    // 이미지 전송
+    const formData = new FormData();
+    showImages.forEach((image) => {
+      formData.append('images', image);
+    });
+    formData.append(
+      'data',
+      JSON.stringify({
+        saleItemInfo,
+      }),
+    );
+
+    // FormData 객체의 키-값 쌍 출력
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
 
     try {
       const resSale = await saleItems(saleItemInfo);
@@ -157,8 +184,7 @@ export default function SalePage() {
 
   // 이미지 첨부파일
   const [showImages, setShowImages] = useState([]);
-  const inputImgRef = useRef();
-  console.log(inputImgRef);
+  const inputImg = useRef(null);
 
   // 이미지 상대경로 저장
   const handleAddImages = (event) => {
@@ -237,6 +263,76 @@ export default function SalePage() {
           <p>가격 : </p>
           <input className="price_input" type="text" ref={itemPriceInput} />
         </div>
+        <div className="radio_container">
+          <div className="state_container">
+            <p>상품상태 : </p>
+            <input
+              id="radio_used"
+              type="radio"
+              name="state"
+              value="used"
+              checked={selectedRadio === '중고'}
+              onChange={() => setSelectedRadio('중고')}
+            />
+            <label
+              htmlFor="radio_used"
+              className={selectedRadio === '중고' ? 'state_checked_radio' : ''}
+            >
+              중고
+            </label>
+            <input
+              id="radio_new"
+              type="radio"
+              name="state"
+              value="new"
+              checked={selectedRadio === '새상품'}
+              onChange={() => setSelectedRadio('새상품')}
+            />
+            <label
+              htmlFor="radio_new"
+              className={
+                selectedRadio === '새상품' ? 'state_checked_radio' : ''
+              }
+            >
+              새상품
+            </label>
+          </div>
+          <div className="exchange_container">
+            <p>교환 : </p>
+            <input
+              id="radio_possible"
+              type="radio"
+              name="state"
+              value="possible"
+              checked={selectedRadio_ex === '가능'}
+              onChange={() => setSelectedRadio_ex('가능')}
+            />
+            <label
+              htmlFor="radio_possible"
+              className={
+                selectedRadio_ex === '가능' ? 'exchange_checked_radio' : ''
+              }
+            >
+              가능
+            </label>
+            <input
+              id="radio_impossible"
+              type="radio"
+              name="state"
+              value="impossible"
+              checked={selectedRadio_ex === '불가'}
+              onChange={() => setSelectedRadio_ex('불가')}
+            />
+            <label
+              htmlFor="radio_impossible"
+              className={
+                selectedRadio_ex === '불가' ? 'exchange_checked_radio' : ''
+              }
+            >
+              불가
+            </label>
+          </div>
+        </div>
         {/* hashtag */}
         <div className="WholeBox">
           <div className="TagBox">
@@ -268,7 +364,7 @@ export default function SalePage() {
             onChange={handleAddImages}
             className="attach_img_iunput"
           >
-            <input type="file" id="input-file" ref={inputImgRef} />
+            <input type="file" id="input-file" ref={inputImg} />
             {/* <Plus/> */}
             <svg
               fill="#3d435f"
@@ -281,7 +377,7 @@ export default function SalePage() {
             <p className="plus_text">최대 6 장</p>
           </label>
 
-          {/*저장해둔 이미지들을 순회하면서 화면에 이미지 출력 */}
+          {/*화면에 이미지 출력 */}
           {showImages.map((image, id) => (
             <div key={id} className="x_container">
               {/* <Delete/> */}

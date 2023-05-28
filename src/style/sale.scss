@@ -58,6 +58,43 @@
       font-size: 18px;
     }
   }
+  .radio_container{
+    display: flex;
+    .state_container,
+    .exchange_container{
+      display: flex;
+      padding-left: 10px;
+      height: 35px;
+      line-height: 35px;
+      p{
+        font-size: 18px;
+      }
+      input[type=radio]{
+        display: none;
+      }
+      label{
+        display: inline-block;
+        cursor: pointer;
+        height: 35px;
+        width: 90px;
+        background-color: #fff;
+        border: 1px solid #3d435f;
+        color: #3d435f;
+        line-height: 35px;
+        text-align: center;
+        font-size:15px;
+        border-radius: 5px;
+        margin-left: 10px;
+      }
+      .state_checked_radio,
+      .exchange_checked_radio{
+        border: 1px solid #f4f6ff;
+        background-color: #3d435f;
+        color: #f4f6ff;
+      }
+    } 
+  }
+  
   .attachment{
     height: 150px;
     margin: 20px 10px;
