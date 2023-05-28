@@ -1,28 +1,85 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../style/productDetails.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faWonSign } from '@fortawesome/free-solid-svg-icons';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { showItems } from '../apis/item';
 
 export default function ProductDetailsPage() {
+  // itemID 값이 변경될때마다 상품 상세 페이지 보여줌
+  // useEffect(() => {
+  //   showItemsDetails(itemID);
+  // }, [itemID]);
+
+  // // itemID 값을 params로 받아와서 보여주는 함수
+  // const showItemsDetails = async (itemID) => {
+  //   try {
+  //     const resItemsDetails = await axios.get(`/productdetails/${itemID}`);
+  //     const itemDetails = resItemsDetails.data;
+  //     console.log(itemDetails);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
   const { itemID } = useParams();
+  const [items, setItems] = useState([]);
+  const [selectedItem, setSelectedItem] = useState({});
+  const [category, setCategory] = useState('');
+  const categories = [
+    {
+      category_id: -1,
+      name: 'ALL',
+    },
+    {
+      category_id: 1,
+      name: '상의',
+    },
+    {
+      category_id: 2,
+      name: '하의',
+    },
+    {
+      category_id: 3,
+      name: '신발',
+    },
+    {
+      category_id: 4,
+      name: '악세사리',
+    },
+    {
+      category_id: 5,
+      name: '기타',
+    },
+  ];
 
-  // itemID 값이 변경될때마다 상품상세페이지 보여줌
-  useEffect(() => {
-    showItemsDetails(itemID);
-  }, [itemID]);
-
-  // itemID 값을 params로 받아와서 보여주는 함수
-  const showItemsDetails = async (itemID) => {
+  const getItems = async () => {
     try {
-      const resItemsDetails = await axios.get(`/productdetails/${itemID}`);
-      const itemDetails = resItemsDetails.data;
-      console.log(itemDetails);
+      const resItems = await showItems();
+      const itemsData = resItems.data;
+      setItems(itemsData);
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    getItems();
+  }, []);
+
+  useEffect(() => {
+    if (items.length > 0) {
+      const foundItem = items.find((item) => item.itemID === Number(itemID));
+      setSelectedItem(foundItem);
+
+      categories.forEach((el) => {
+        if (el.category_id === foundItem.categoryId) {
+          setCategory(el.name);
+        }
+      });
+    }
+  }, [items, itemID]);
 
   return (
     <>
@@ -32,7 +89,19 @@ export default function ProductDetailsPage() {
           <img></img>
           <div className="product-more">
             <p>상품 정보</p>
-            <p>상품 팔아용</p>
+            <p>{selectedItem.itemContent}</p>
+            <div className="hashtag">
+              {selectedItem &&
+                selectedItem.itemTag &&
+                selectedItem.itemTag.split(' ').map((tag, index, array) => {
+                  const hashtag = '#' + tag;
+                  return index === array.length - 1 ? (
+                    <Link>{hashtag.slice(1)}</Link>
+                  ) : (
+                    <Link>{hashtag}</Link>
+                  );
+                })}
+            </div>
           </div>
         </div>
         {/* 오른쪽 - 상품 디테일  */}
@@ -43,17 +112,17 @@ export default function ProductDetailsPage() {
               <Link to="/">HOME</Link>
               <span> {'>'} 카테고리 </span>
               {'>'}
-              <Link> 여성 </Link>
+              <Link> {selectedItem.itemGender} </Link>
               {'>'}
-              <Link> 신발</Link>
+              <Link> {category} </Link>
             </div>
             {/* 상품 내용 */}
             <ul className="product-content">
-              <li>뉴발 팔아요~</li>
-              <li>뉴발 574</li>
+              <li>{selectedItem.itemTitle}</li>
+              <li>{selectedItem.itemName}</li>
               <li>
-                <FontAwesomeIcon icon={faWonSign} />
-                1000원
+                <FontAwesomeIcon icon={faWonSign} className="won-icon" />
+                {selectedItem.itemPrice}
                 <span>
                   <FontAwesomeIcon icon={faHeart} className="heart-icon" />3
                 </span>

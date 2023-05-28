@@ -73,7 +73,12 @@ export default function NewItems() {
             {recentItems.map((item) => (
               <>
                 <SwiperSlide>
-                  <Link className="item_img">{item.itemTitle}</Link>
+                  <Link
+                    to={`/productdetails/${item.itemID}`}
+                    className="item_img"
+                  >
+                    {item.itemTitle}
+                  </Link>
                   <div className="img_desc">
                     <p>상품명</p>
                     <p>가격</p>

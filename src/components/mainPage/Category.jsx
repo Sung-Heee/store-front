@@ -68,6 +68,7 @@ export default function Category() {
       ? items.filter((item) => item.categoryId >= 1 && item.categoryId <= 5)
       : items.filter((item) => item.categoryId === selectedCategory);
 
+  console.log(itemsShow);
   // 랜덤으로 9개까지만 띄우게 하기
   const randomItems = itemsShow.sort(() => Math.random() - 0.5).slice(0, 9);
 
