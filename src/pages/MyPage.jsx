@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SideBar from '../components/myPage/SideBar';
 import '../style/myPage.scss';
+import axios from 'axios';
+import { getUser } from '../apis/user';
+
 export default function MyPage() {
+  const [userName, setUserName] = useState();
+
+  const getUserInfo = async () => {
+    try {
+      const userId = localStorage.getItem('userId');
+      const resUser = await getUser(userId);
+      const dbUserInfo = resUser.data; // 조회된 사용자 정보 반환
+      setUserName(dbUserInfo.userInfo.userName);
+      console.log(dbUserInfo);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
   return (
     <>
       <div className="all_content">
@@ -12,7 +33,7 @@ export default function MyPage() {
           <div className="top_right">
             <div className="member_name">
               <strong>
-                <span className="m_name">최인영</span>님
+                <span className="m_name">{userName}</span>님
               </strong>
             </div>
             <ul className="order">
@@ -90,7 +111,14 @@ export default function MyPage() {
             <div className="right_controller">
               <div className="content">
                 <div className="title">최근 거래상품</div>
-                <p className="msg">최근 거래 내역이 없습니다</p>
+                {/* <p className="msg">최근 거래 내역이 없습니다</p> */}
+                <ul>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
               </div>
               <div className="content">
                 <div className="title">관심상품</div>

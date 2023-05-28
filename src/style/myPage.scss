@@ -107,7 +107,11 @@
         text-align: left;
         width: 920px;
         margin-top: 50px;
-        .title {
+        .content {
+          width: 100%;
+          height: 300px;
+          margin-bottom: 30px;
+          .title {
           font-size: 17px;
           font-weight: 700;
           color: #2d2f45;
@@ -115,19 +119,28 @@
           height: 44px;
           line-height: 44px;
           letter-spacing: -0.5px;
-        }
-        .content {
-          width: 100%;
-          height: 300px;
-          margin-bottom: 30px;
-        }
-        .msg{
+          }
+          ul{
+            display: flex;
+            justify-content: space-between;
+            li{
+              position: relative;
+              top: 50px;
+              width: 150px;
+              height: 200px;
+              border: 1px solid black;
+            }
+          }
+          .msg{
           border: 0;
           padding: 120px 0;
           font-size: 20px;
           text-align: center;
           color: #abacb1;
+          }
         }
+        
+        
       }
       
     }
