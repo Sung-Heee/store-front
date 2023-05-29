@@ -38,25 +38,19 @@ export default function MyPage() {
             </div>
             <ul className="order">
               <li>
-                <li>주문내역</li>
+                <li>판매 중</li>
                 <strong>
                   <li>0</li>
                 </strong>
               </li>
               <li>
-                <li>취소</li>
+                <li>판매 완료</li>
                 <strong>
                   <li>0</li>
                 </strong>
               </li>
               <li>
-                <li>교환</li>
-                <strong>
-                  <li>0</li>
-                </strong>
-              </li>
-              <li>
-                <li>반품</li>
+                <li>관심 상품</li>
                 <strong>
                   <li>0</li>
                 </strong>
@@ -80,10 +74,10 @@ export default function MyPage() {
                   <a href="#">관심 상품</a>
                 </li>
                 <li>
-                  <a href="#">거래 중</a>
+                  <a href="#">판매 중</a>
                 </li>
                 <li>
-                  <a href="#">거래 완료</a>
+                  <a href="#">판매 완료</a>
                 </li>
               </ul>
               <ul>
@@ -117,7 +111,6 @@ export default function MyPage() {
                   <li></li>
                   <li></li>
                   <li></li>
-                  <li></li>
                 </ul>
               </div>
               <div className="content">
@@ -125,12 +118,12 @@ export default function MyPage() {
                 <p className="msg">관심상품이 없습니다</p>
               </div>
               <div className="content">
-                <div className="title">거래중</div>
-                <p className="msg">거래중인 상품이 없습니다</p>
+                <div className="title">판매 중</div>
+                <p className="msg">판매 중인 상품이 없습니다</p>
               </div>
               <div className="content">
-                <div className="title">거래 완료</div>
-                <p className="msg">거래 완료된 상품이 없습니다</p>
+                <div className="title">판매 완료</div>
+                <p className="msg">판매 완료된 상품이 없습니다</p>
               </div>
             </div>
           </div>
