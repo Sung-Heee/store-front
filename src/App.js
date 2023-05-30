@@ -56,7 +56,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -67,8 +67,9 @@ function App() {
           path="/productdetails/:itemID"
           element={<ProductDetailsPage />}
         />
-      </Routes> */}
-      <MyPage />
+      </Routes>
+      {/* <MyPage /> */}
+      {/* <SalePage /> */}
       {/* <Footer /> */}
     </div>
   );
