@@ -1,12 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../style/register.scss';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import Select from 'react-select';
 import { Link, useNavigate } from 'react-router-dom';
 import { EmailCheck, NickNameCheck, Register } from '../apis/user';
+import CryptoJS, { SHA256 } from 'crypto-js';
 
 export default function RegisterPage() {
+  const [password, setPassword] = useState('');
+  const [emailCheck, setEmailCheck] = useState();
+  const [nickNameCheck, setNickNameCheck] = useState();
+
   const genderOptions = [
     { value: '남성', label: '남성' },
     { value: '여성', label: '여성' },
@@ -22,6 +26,32 @@ export default function RegisterPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // 아이디 암호화
+  const aes128Encode = (secretKey, Iv, data) => {
+    const cipher = CryptoJS.AES.encrypt(
+      data,
+      CryptoJS.enc.Utf8.parse(secretKey),
+      {
+        iv: CryptoJS.enc.Utf8.parse(Iv), // [Enter IV (Optional) 지정 방식]
+        padding: CryptoJS.pad.Pkcs7,
+        mode: CryptoJS.mode.CBC, // [cbc 모드 선택]
+      },
+    );
+    return cipher.toString();
+  };
+
+  // 비밀번호 암호화
+  const onChangePwd = (e) => {
+    setPassword(
+      SHA256(
+        e.target.value,
+        // eslint-disable-next-line no-undef
+        process.env.REACT_APP_PASSWORD_SHA_SECRET_KEY,
+      ).toString(),
+    );
+  };
+
+  // 비밀번호 체크 8자 이상 그리고 일치하는지
   const checkPassword = () => {
     if (registerPwInput.current.value.length < 8) {
       alert('비밀번호는 8글자 이상이어야 합니다.');
@@ -34,6 +64,7 @@ export default function RegisterPage() {
     return true;
   };
 
+  // 이름에 한글만 입력 가능하게
   const checkName = () => {
     if (/\d/.test(userNameInput.current.value)) {
       alert('이름에는 숫자가 들어갈 수 없습니다.');
@@ -42,6 +73,7 @@ export default function RegisterPage() {
     return true;
   };
 
+  // 전화번호 형식
   const checkPhoneNumber = () => {
     const phoneValue = phoneNumberInput.current.value;
     if (!/^\d{11}$/.test(phoneValue)) {
@@ -55,24 +87,32 @@ export default function RegisterPage() {
   const checkEmail = async (e) => {
     e.preventDefault(); // 자동 새로고침 방지
     if (!registerIdInput.current.value) return alert('이메일을 입력 하세요');
-    console.log('여기는 이메일 중복 확인 칸입니다.');
 
     const email = {
-      id: registerIdInput.current.value,
+      id: aes128Encode(
+        // eslint-disable-next-line no-undef
+        process.env.REACT_APP_AES_SECRET_KEY,
+        // eslint-disable-next-line no-undef
+        process.env.REACT_APP_AES_SECRET_IV,
+        registerIdInput.current.value,
+      ),
     };
 
     try {
+      // '/checkEmail'로 post 요청
       const resCheckEmail = await EmailCheck(email);
-      // 성희야 항상 어떤 데이터값이 넘어왔는지 찍어보고 ㄱ.ㄱ 성공 : status 200 / 실패 : status 500
+      // 성공 : status 200 / 실패 : status 500
       console.log('백엔드에서 넘어온 데이터 : ', resCheckEmail.data);
 
       //성희 코드 <message 값을 먼저 지정해두기>
       const message = resCheckEmail.data.message;
 
       if (resCheckEmail.data.status === '200') {
+        setEmailCheck('이메일확인');
         alert(message); // 사용 가능한 아이디
       } else {
         registerIdInput.current.value = '';
+        setEmailCheck('이메일확인안함');
         return alert(message); // 실패. 사용 불가능한 아이디
       }
     } catch (error) {
@@ -83,6 +123,7 @@ export default function RegisterPage() {
 
   // NickName 중복 확인.
   const checkNickName = async (e) => {
+    console.log(password);
     e.preventDefault(); // 자동 새로고침 방지
     if (!nickNameInput.current.value) return alert('닉네임을 입력 하세요');
 
@@ -99,8 +140,10 @@ export default function RegisterPage() {
       const message = resCheckNickName.data.message;
 
       if (resCheckNickName.data.status === '200') {
+        setNickNameCheck('닉네임확인');
         alert(message); // 사용 가능한 닉네임
       } else {
+        setNickNameCheck('닉네임확인안함');
         return alert(message); // 실패. 사용 불가능한 닉네임
       }
     } catch (error) {
@@ -135,9 +178,24 @@ export default function RegisterPage() {
       return;
     }
 
+    if (emailCheck !== '이메일확인') {
+      alert('이메일 중복 체크를 확인해주세요.');
+      return;
+    }
+    if (nickNameCheck !== '닉네임확인') {
+      alert('닉네임 중복 체크를 확인해주세요.');
+      return;
+    }
+
     const userInfo = {
-      id: registerIdInput.current.value,
-      password: registerPwInput.current.value,
+      id: aes128Encode(
+        // eslint-disable-next-line no-undef
+        process.env.REACT_APP_EMAIL_AES_SECRET_KEY,
+        // eslint-disable-next-line no-undef
+        process.env.REACT_APP_AES_SECRET_IV,
+        registerIdInput.current.value,
+      ),
+      password: password,
       gender: userGenderInput.current.props.value.value,
       name: userNameInput.current.value,
       phone: phoneNumberInput.current.value,
@@ -201,6 +259,7 @@ export default function RegisterPage() {
                 type="password"
                 placeholder="영문/숫자 포함 8자 이상"
                 ref={registerPwInput}
+                onChange={onChangePwd}
               />
             </div>
             <div className="password-info">
