@@ -1,0 +1,106 @@
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+.product_container {
+  position: relative;
+  height: 100%;
+  margin: 0 auto 50px;
+  .bottom_box {
+    display: flex;
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 100px;
+    // background-color: orange;
+    .left_box {
+      width: 20%;
+      .left_controller {
+        width: 170px;
+        // background-color: white;
+        text-align: left;
+      }
+      .product {
+        font-size: 20px;
+        font-weight: 700;
+        color: #2d2f45;
+        border-bottom: 2px solid #2d2f45;
+        height: 44px;
+        line-height: 44px;
+      }
+
+      li {
+        position: relative;
+        font-size: 14px;
+        font-weight: 400;
+        color: #2d2f45;
+        height: 33px;
+        line-height: 33px;
+        padding-left: 17px;
+        z-index: 3;
+        padding-left: 20px;
+        :hover {
+          font-weight: 700;
+        }
+      }
+
+      .category {
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        color: #2d2f45;
+        padding: 15px 0;
+      }
+      .option {
+        max-height: 200px;
+        overflow: hidden;
+        transition: max-height 0.5s ease-out;
+        margin: 0px 0px 10px 0px;
+      }
+      .show {
+        animation: slideDown 0.5s ease-out forwards;
+      }
+
+      .hide {
+        max-height: 0;
+        animation: slideUp 0.3s ease-out forwards;
+      }
+    }
+    .right_box {
+      width: 80%;
+      .right_controller {
+        text-align: left;
+        .content {
+          width: 100%;
+          height: 100%;
+          .product_grid_container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 20px;
+            .item {
+              height: 300px;
+              background-color: whitesmoke;
+            }
+          }
+        }
+      }
+    }
+  }
+}
