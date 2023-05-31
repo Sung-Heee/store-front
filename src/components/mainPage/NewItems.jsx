@@ -80,8 +80,12 @@ export default function NewItems() {
                     {item.itemTitle}
                   </Link>
                   <div className="img_desc">
-                    <p>상품명</p>
-                    <p>가격</p>
+                    <p>
+                      {' '}
+                      [{item.categoryId}]{` `}
+                      {item.itemName}
+                    </p>
+                    <p>가격 : {item.itemPrice}</p>
                   </div>
                 </SwiperSlide>
               </>

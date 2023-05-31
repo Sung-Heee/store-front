@@ -6,37 +6,37 @@ import { showItems } from '../../apis/item';
 import ProductDetailsPage from '../../pages/ProductDetailsPage';
 
 export default function Category() {
-  const [selectedCategory, setSelectedCategory] = useState(-1);
+  const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [items, setItems] = useState([]);
 
   const categories = [
     {
-      category_id: -1,
+      category_id: 'ALL',
       name: 'ALL',
       color: '#F99B7D',
     },
     {
-      category_id: 1,
+      category_id: '상의',
       name: '상의',
       color: '#7286D3',
     },
     {
-      category_id: 2,
+      category_id: '하의',
       name: '하의',
       color: '#9DC08B',
     },
     {
-      category_id: 3,
+      category_id: '신발',
       name: '신발',
       color: '#FEA1BF',
     },
     {
-      category_id: 4,
+      category_id: '악세사리',
       name: '악세사리',
       color: '#D09CFA',
     },
     {
-      category_id: 5,
+      category_id: '기타',
       name: '기타',
       color: '#9E7676',
     },
@@ -44,7 +44,7 @@ export default function Category() {
 
   // 선택된 카테고리 변경시
   const handleCategoryChange = (value) => {
-    setSelectedCategory(parseInt(value));
+    setSelectedCategory(value);
   };
 
   // 백에서 item 데이터 가져오기
@@ -64,8 +64,8 @@ export default function Category() {
   // 선택된 카테고리에 따라 보여줄 아이템 필터링
   // categoryId는 db에 담긴 이름
   const itemsShow =
-    selectedCategory === -1
-      ? items.filter((item) => item.categoryId >= 1 && item.categoryId <= 5)
+    selectedCategory === 'ALL'
+      ? items
       : items.filter((item) => item.categoryId === selectedCategory);
 
   console.log(itemsShow);
