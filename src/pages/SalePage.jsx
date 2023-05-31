@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useRef } from 'react';
@@ -9,8 +9,10 @@ import '../style/sale.scss';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { saleItems } from '../apis/item';
+import Address from '../components/Address';
+import DaumPostcode from 'react-daum-postcode';
 
-export default function SalePage() {
+export default function SalePage(props) {
   const genderOptions = [
     { value: 'all', label: 'all' },
     { value: 'man', label: 'man' },
@@ -44,6 +46,7 @@ export default function SalePage() {
   const saleTagInput = useRef();
   const editorTextInput = useRef();
   const navigate = useNavigate();
+  const addressText = useRef();
 
   const saveSale = async (e) => {
     e.preventDefault();
@@ -76,6 +79,7 @@ export default function SalePage() {
     console.log('사용자', userId);
     console.log(selectedRadio);
     console.log(selectedRadio_ex);
+    console.log(addressText.current.innerText);
 
     const saleItemInfo = {
       id: userId,
@@ -86,9 +90,9 @@ export default function SalePage() {
       itemPrice: itemPriceInput.current.value,
       saleTag: tag,
       editorText: data,
-      imageSend: formData,
       state: selectedRadio,
       exchange: selectedRadio_ex,
+      address: addressText.current.innerText,
     };
 
     // 이미지 전송
@@ -96,12 +100,6 @@ export default function SalePage() {
     showImages.forEach((image) => {
       formData.append('images', image);
     });
-    formData.append(
-      'data',
-      JSON.stringify({
-        saleItemInfo,
-      }),
-    );
 
     // FormData 객체의 키-값 쌍 출력
     for (let [key, value] of formData.entries()) {
@@ -109,7 +107,7 @@ export default function SalePage() {
     }
 
     try {
-      const resSale = await saleItems(saleItemInfo);
+      const resSale = await saleItems(saleItemInfo, formData);
 
       const message = resSale.data.message;
       if (resSale.data.status === '200') {
@@ -206,6 +204,36 @@ export default function SalePage() {
   // X버튼 클릭 시 이미지 삭제
   const handleDeleteImage = (id) => {
     setShowImages(showImages.filter((_, index) => index !== id));
+  };
+
+  //주소 토글
+  const [showPostcode, setShowPostcode] = useState(false);
+  const [fullAddress, setFullAddress] = useState('');
+
+  const handleComplete = (data) => {
+    let formattedAddress = data.address;
+    let extraAddress = '';
+
+    if (data.addressType === 'R') {
+      if (data.bname !== '') {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== '') {
+        extraAddress +=
+          extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
+      }
+      formattedAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
+    }
+    setFullAddress(formattedAddress);
+    setShowPostcode(false);
+  };
+
+  const handleInputClick = () => {
+    setShowPostcode(true);
+  };
+
+  const handleCloseClick = () => {
+    setShowPostcode(false);
   };
 
   return (
@@ -332,6 +360,27 @@ export default function SalePage() {
               불가
             </label>
           </div>
+        </div>
+        {/* 주소 */}
+        <div className="address_container">
+          <div className="address_search">
+            <p className="address_show" ref={addressText}>
+              {fullAddress}
+            </p>
+            <button onClick={handleInputClick}>주소검색</button>
+          </div>
+          {showPostcode && (
+            <div className="address_api">
+              <DaumPostcode
+                style={{ height: '444px', borderRadius: '5px' }}
+                onComplete={handleComplete}
+                {...props}
+              />
+              <button onClick={handleCloseClick} className="address_hide">
+                닫기
+              </button>
+            </div>
+          )}
         </div>
         {/* hashtag */}
         <div className="WholeBox">

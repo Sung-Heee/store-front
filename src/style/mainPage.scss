@@ -3,6 +3,9 @@
 .swiper {
   background-color: #fff;
   height: 660px;
+
+  //송민영 수정
+  top: 120px;
   .swiper-slide {
     img {
       width: 44vw;
@@ -45,31 +48,16 @@
     border: 1px solid #2d2f43;
   }
 }
-.view-more {
-  color: #2d2f43;
-  font-size: 1.2rem;
-  position: absolute;
-  z-index: 2;
-  top: 750px;
-  right: 28vw;
-  .view-more-arrow {
-    margin-left: 10px;
-  }
-}
 
-// 페이지 상단으로 위치하는 버튼
-.top_btn {
-  position: fixed;
-  right: 15px;
-  bottom: 15px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #888;
-  cursor: pointer;
-  .top_btn_arrow {
-    font-size: 30px;
-    color: #eee;
-    margin-top: 15px;
+  .view-more {
+    color: #2d2f43;
+    font-size: 1.2rem;
+    position: absolute;
+    z-index: 2;
+    top: 750px;
+    right: 28vw;
+    .view-more-arrow {
+      margin-left: 10px;
+    }
   }
-}
+

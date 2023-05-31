@@ -1,8 +1,9 @@
 @import './_reset';
 @import './hashtag.scss';
+@import './address.scss';
 
 .form_wrapper{
-  padding-top: 2vh;
+  padding-top: 16vh;
   .gender_cate_input{
     display: flex;
     .gender_select_input{
@@ -76,7 +77,7 @@
         display: inline-block;
         cursor: pointer;
         height: 35px;
-        width: 90px;
+        width: 80px;
         background-color: #fff;
         border: 1px solid #3d435f;
         color: #3d435f;
@@ -196,7 +197,6 @@
     border: none;
     background-color: transparent;
   }
-
 
 .salebar{
   position: fixed;

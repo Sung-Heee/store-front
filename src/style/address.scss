@@ -1,0 +1,52 @@
+@import './_reset';
+
+.address_container{
+  .address_search{
+    display: flex;
+    margin: 15px 0;
+    padding-left: 10px;
+    .address_show{
+      width: 500px;
+      height: 35px;
+      line-height: 35px;
+      font-size: 15px;
+      border-radius: 5px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      text-align: left;
+      padding-left: 10px;
+    }
+    button{
+      width: 90px;
+      background-color: #3d435f;
+      color: #f4f6ff;
+      font-size: 15px;
+      border:none; 
+      box-shadow:none; 
+      margin-left: 5px; 
+      overflow:visible; 
+      cursor:pointer;
+      border-radius: 5px;
+    }
+  }
+  .address_api{
+    text-align: right;
+    DaumPostcode{
+      height: 420px;
+    }
+    .address_hide{
+      width: 80px;
+      height: 35px;
+      line-height: 35px;
+      font-size: 15px;
+      box-shadow:none; 
+      margin: 10px 0 0 5px; 
+      overflow:visible; 
+      cursor:pointer;
+      border-radius: 5px;
+      border: 1px solid #3d435f;
+      background-color: #fff;
+      color: #3d435f;
+    }
+  }
+}
+
