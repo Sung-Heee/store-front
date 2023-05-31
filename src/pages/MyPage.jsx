@@ -77,12 +77,6 @@ export default function MyPage() {
                 <li>
                   <a href="#">관심상품</a>
                 </li>
-                <li>
-                  <a href="#">판매중</a>
-                </li>
-                <li>
-                  <a href="#">판매완료</a>
-                </li>
               </ul>
               <ul>
                 <li className="first_li">회원정보</li>
@@ -131,29 +125,58 @@ export default function MyPage() {
                   <p className="msg">판매 완료된 상품이 없습니다</p>
                 </div>
               </div>
-              <div className="transaction off">
+              <div className="transaction">
                 <div className="content">
                   <div className="title">거래 내역 조회</div>
                   <table border={0}>
                     <thead>
-                      <tr>
-                        <th colSpan="2">상품정보</th>
-                        <th>거래일자</th>
-                        <th>거래금액</th>
-                        <th>위치</th>
-                      </tr>
+                      <th colSpan="2">상품정보</th>
+                      <th>거래일자</th>
+                      <th>거래금액</th>
+                      <th>위치</th>
                     </thead>
                     <tbody>
-                      <td>img</td>
-                      <td>내용</td>
-                      <td>날자</td>
-                      <td>금액</td>
-                      <td>위치</td>
+                      <tr>
+                        <td>img</td>
+                        <td>내용</td>
+                        <td>날자</td>
+                        <td>금액</td>
+                        <td>위치</td>
+                      </tr>
+                      <tr>
+                        <td>img</td>
+                        <td>내용</td>
+                        <td>날자</td>
+                        <td>금액</td>
+                        <td>위치</td>
+                      </tr>
+                      <tr>
+                        <td>img</td>
+                        <td>내용</td>
+                        <td>날자</td>
+                        <td>금액</td>
+                        <td>위치</td>
+                      </tr>
+                      <tr>
+                        <td>img</td>
+                        <td>내용</td>
+                        <td>날자</td>
+                        <td>금액</td>
+                        <td>위치</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
-              <div className="like ">
+              <div className="ing">
+                <div className="content">
+                  <ul className="tab">
+                    <li className='sale'>판매중</li>
+                    <li className='sale'>판매완료</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="like off">
                 <div className="content">
                   <div className="title">관심상품</div>
                   <table border={0}>
@@ -169,14 +192,26 @@ export default function MyPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      <td>
-                        <input type="checkbox"></input>
-                      </td>
-                      <td>img</td>
-                      <td>내용</td>
-                      <td>날자</td>
-                      <td>금액</td>
-                      <td>위치</td>
+                      <tr>
+                        <td>
+                          <input type="checkbox"></input>
+                        </td>
+                        <td>img</td>
+                        <td>내용</td>
+                        <td>날자</td>
+                        <td>금액</td>
+                        <td>위치</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="checkbox"></input>
+                        </td>
+                        <td>img</td>
+                        <td>내s용</td>
+                        <td>날자</td>
+                        <td>금액</td>
+                        <td>위치</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
