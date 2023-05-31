@@ -4,64 +4,71 @@ import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Login } from '../apis/user';
-import CryptoJS from 'crypto-js';
+import CryptoJS, { SHA256 } from 'crypto-js';
 import { HmacSHA256 } from 'crypto-js';
 
 export default function LoginPage() {
+  const [password, setPassword] = useState('');
+
   const loginIdInput = useRef();
   const loginPwInput = useRef();
   const navigate = useNavigate();
+
+  // 아이디 암호화
+  const aes128Encode = (secretKey, Iv, data) => {
+    const cipher = CryptoJS.AES.encrypt(
+      data,
+      CryptoJS.enc.Utf8.parse(secretKey),
+      {
+        iv: CryptoJS.enc.Utf8.parse(Iv), // [Enter IV (Optional) 지정 방식]
+        padding: CryptoJS.pad.Pkcs7,
+        mode: CryptoJS.mode.CBC, // [cbc 모드 선택]
+      },
+    );
+    return cipher.toString();
+  };
+
+  // 비밀번호 암호화
+  const onChangePwd = (e) => {
+    setPassword(
+      SHA256(
+        e.target.value,
+        // eslint-disable-next-line no-undef
+        process.env.REACT_APP_PASSWORD_SHA_SECRET_KEY,
+      ).toString(),
+    );
+  };
 
   const loginUser = async () => {
     if (!loginIdInput.current.value || !loginPwInput.current.value)
       return alert('값을 입력 하세요');
 
-    // // eslint-disable-next-line no-undef
-    // const AES_SECRET_KEY = process.env.REACT_APP_AES_SECRET_KEY;
-    // // eslint-disable-next-line no-undef
-    // const SHA_SECRET_KEY = process.env.REACT_APP_AES_SECRET_KEY;
-    // // 아이디 AES-128 암호화
-    // const encryptID = CryptoJS.AES.encrypt(
-    //   loginIdInput.current.value,
-    //   AES_SECRET_KEY,
-    // ).toString();
-
-    // 복호화
-    // const bytes = CryptoJS.AES.decrypt(encryptID, AES_SECRET_KEY);
-    // const originalID = bytes.toString(CryptoJS.enc.Utf8);
-
-    // // 비밀번호 SHA-256 암호화
-    // const encryptPW = HmacSHA256(
-    //   loginPwInput.current.value,
-    //   SHA_SECRET_KEY,
-    // ).toString();
-
-    // const account = {
-    //   id: encryptID,
-    //   password: encryptPW,
-    // };
-
     const account = {
-      id: loginIdInput.current.value,
-      password: loginPwInput.current.value,
+      id: aes128Encode(
+        // eslint-disable-next-line no-undef
+        process.env.REACT_APP_EMAIL_AES_SECRET_KEY,
+        // eslint-disable-next-line no-undef
+        process.env.REACT_APP_AES_SECRET_IV,
+        loginIdInput.current.value,
+      ),
+      password: password,
     };
 
     try {
       const resLogin = await Login(account);
-      const message = resLogin.data.message; // 객체에 있는 message
+      const message = resLogin.data.message;
       const userId = resLogin.data.userId;
 
-      console.log(userId);
       if (resLogin.data.status === '200') {
-        // 아이디 세션스토리지에 저장
+        // 백에서 온 아이디 세션스토리지에 저장
+        console.log('세션', resLogin.data.userId);
         sessionStorage.setItem('userId', userId);
-
         loginIdInput.current.value = '';
         loginPwInput.current.value = '';
+        // alert(message); // 로그인 성공 메시지 생략
 
-        // alert(message); 로그인 성공 메시지 생략
-        window.location.reload();
         navigate('/');
+        window.location.reload();
       } else {
         return alert(message);
       }
@@ -78,12 +85,6 @@ export default function LoginPage() {
     }
   });
 
-  // Caps Lock 표시를 위한 state 설정
-  const [capsLockOn, setCapsLockOn] = useState(false);
-
-  // 비밀번호 표시를 위한 state 설정
-  const [showPassword, setShowPassword] = useState(false);
-
   return (
     <>
       <div className="login_container minMax">
@@ -93,7 +94,12 @@ export default function LoginPage() {
             <input type="email" ref={loginIdInput} placeholder="ID" />
           </div>
           <div className="login_password_input">
-            <input type="password" ref={loginPwInput} placeholder="PASSWORD" />
+            <input
+              type="password"
+              ref={loginPwInput}
+              onChange={onChangePwd}
+              placeholder="PASSWORD"
+            />
           </div>
           <div className="login_btn">
             <button onClick={loginUser}>LOGIN</button>
