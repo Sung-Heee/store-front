@@ -19,11 +19,11 @@ export default function SalePage(props) {
     { value: 'woman', label: 'woman' },
   ];
   const cateArr = [
-    { value: 1, label: '상의' },
-    { value: 2, label: '하의' },
-    { value: 3, label: '신발' },
-    { value: 4, label: '악세사리' },
-    { value: 5, label: '기타' },
+    { value: '상의', label: '상의' },
+    { value: '하의', label: '하의' },
+    { value: '신발', label: '신발' },
+    { value: '악세사리', label: '악세사리' },
+    { value: '기타', label: '기타' },
   ];
   const cateOptions = {
     all: cateArr,

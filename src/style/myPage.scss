@@ -11,8 +11,8 @@
 .all_content{
   position: relative;
   // background-color: orange;
-  width: 100%;
   height: 100%;
+  margin: 0 auto;
   strong {
     font-size: 35px;
     color: #2d2f45;
@@ -20,10 +20,16 @@
     margin-right: 15px;
     // vertical-align: middle;
     }
+  .off {
+    display: none;
+  }
   .top_box{
+    left: 100px;
+    // width: 1200px;
     height: 290px;
     background-color: #f4f6ff;
     display: flex;
+    margin: auto;
     .top_left{
       width: 35%;
       .img_box {
@@ -58,12 +64,15 @@
   }
   .bottom_box{
     display: flex;
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 100px;
+    // background-color: orange;
     .left_box {
-      width: 30%;
+      width: 22%;
       .left_controller{
-        width: 200px;
-        background-color: white;
-        margin: 50px 170px;
+        width: 170px;
+        // background-color: white;
         text-align: left;
       }
       .my_page{
@@ -102,44 +111,79 @@
       }
     }
     .right_box{
-      width: 70%;
       .right_controller{
         text-align: left;
         width: 920px;
-        margin-top: 50px;
-        .content {
-          width: 100%;
-          height: 300px;
-          margin-bottom: 30px;
-          .title {
-          font-size: 17px;
-          font-weight: 700;
-          color: #2d2f45;
-          border-bottom: 2px solid #2d2f45;
-          height: 44px;
-          line-height: 44px;
-          letter-spacing: -0.5px;
-          }
-          ul{
-            display: flex;
-            justify-content: space-between;
-            li{
-              position: relative;
-              top: 50px;
-              width: 150px;
-              height: 200px;
-              border: 1px solid black;
+        //content title 공통
+          .content {
+            width: 100%;
+            height: 300px;
+            margin-bottom: 30px;
+            .title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #2d2f45;
+            border-bottom: 2px solid #2d2f45;
+            height: 44px;
+            line-height: 44px;
+            letter-spacing: -0.5px;
             }
+            ul{
+              display: flex;
+              justify-content: space-between;
+              margin-top: 20px;
+              li{
+                position: relative;
+                top: 50px;
+                width: 150px;
+                height: 150px;
+                border: 1px solid #2d2f43;
+                border-radius: 5px;
+              }
+            }
+            .msg{
+            border: 0;
+            padding: 120px 0;
+            font-size: 20px;
+            text-align: center;
+            color: #abacb1;
+            }
+
+            // 거래내역 관심상품
+            table {
+              width: 100%;
+              text-align: center;
+              font-size: 14px;
+              font-weight: 400;
+              thead {
+                th {
+                  color: #98989f;
+                  padding: 0;
+                  margin: 0;
+                  padding: 20px 15px;
+                  line-height: 20px;
+                  background-color: #fff;
+                  border-bottom: 1px solid #dfdfdf;
+                }
+              }
+                td {
+                  padding: 25px 15px;
+                  border-bottom: 1px solid #dfdfdf;
+                  color: #000;
+                }
+              input[type=checkbox] {
+                width: 24px;
+                height: 24px;
+                border: 0;
+                vertical-align: middle;
+                border-radius: 50%;
+            }
+                    
+            }
+
+            // 회원정보수정
+
           }
-          .msg{
-          border: 0;
-          padding: 120px 0;
-          font-size: 20px;
-          text-align: center;
-          color: #abacb1;
-          }
-        }
-        
         
       }
       

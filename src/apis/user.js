@@ -44,3 +44,33 @@ export const NickNameCheck = async (nickName) => {
     console.error(error);
   }
 };
+
+// 찜하기 관심상품
+export const Like = async (likeItem) => {
+  try {
+    const resLike = await axios.get(`/mypage/like`);
+    return resLike;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// 상태
+export const condition = async (condiiton) => {
+  try {
+    const resLike = await axios.get(`/mypage/condition`);
+    return resLike;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// 회원정보 수정
+export const change = async (change) => {
+  try {
+    const resLike = await axios.post(`/mypage/change`);
+    return resLike;
+  } catch (err) {
+    console.error(err);
+  }
+};
