@@ -17,33 +17,6 @@ export default function ProductDetailsPage() {
   const { itemID } = useParams();
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
-  const [category, setCategory] = useState('');
-  const categories = [
-    {
-      category_id: -1,
-      name: 'ALL',
-    },
-    {
-      category_id: 1,
-      name: '상의',
-    },
-    {
-      category_id: 2,
-      name: '하의',
-    },
-    {
-      category_id: 3,
-      name: '신발',
-    },
-    {
-      category_id: 4,
-      name: '악세사리',
-    },
-    {
-      category_id: 5,
-      name: '기타',
-    },
-  ];
 
   // 모든 물품 가져오는 함수
   const getItems = async () => {
@@ -65,13 +38,6 @@ export default function ProductDetailsPage() {
     if (items.length > 0) {
       const foundItem = items.find((item) => item.itemID === Number(itemID));
       setSelectedItem(foundItem);
-      // 카테고리 숫자에 해당하는 카테고리 이름 categories에서 찾아서
-      // category라는 state에 저장
-      categories.forEach((el) => {
-        if (el.category_id === foundItem.categoryId) {
-          setCategory(el.name);
-        }
-      });
     }
   }, [items, itemID]);
 
@@ -90,8 +56,25 @@ export default function ProductDetailsPage() {
     getSellerInfo();
   }, []);
 
-  // 위시리스트에 담기
-  const wishCount = () => {};
+  // 위시리스트에 post 요청
+  const wishList = async () => {
+    try {
+      const resWish = await axios.post('/wishlist', {
+        itemID: itemID,
+        userID: selectedItem.userID,
+      });
+
+      // 찜했을때 받을 메세지
+      const message = resWish.data.message;
+      if (resWish.data.status === '200') {
+        alert(message);
+      } else {
+        return alert(message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -155,7 +138,10 @@ export default function ProductDetailsPage() {
                 {selectedItem.itemGender}{' '}
               </Link>
               {'>'}
-              <Link to={`../${category}`}> {category} </Link>
+              <Link to={`../${selectedItem.categoryId}`}>
+                {' '}
+                {selectedItem.categoryId}{' '}
+              </Link>
             </div>
             {/* 상품 내용 */}
             <ul className="product-content">
@@ -184,7 +170,7 @@ export default function ProductDetailsPage() {
 
             <div className="product_btn">
               <p>1:1 채팅하기</p>
-              <p onClick={wishCount}>위시리스트 담기</p>
+              <p onClick={wishList}>위시리스트 담기</p>
             </div>
           </div>
         </div>
