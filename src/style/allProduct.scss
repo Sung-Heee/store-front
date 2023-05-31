@@ -93,11 +93,75 @@
           .product_grid_container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-gap: 20px;
-            .item {
-              height: 300px;
-              background-color: whitesmoke;
+            grid-gap: 25px;
+
+            .itemContainer {
+              position: relative;
+              padding-bottom: 80px;
+
+              .item {
+                height: 250px;
+                width: 100%;
+              }
+              .item_top_desc {
+                display: flex;
+                position: absolute;
+                width: 100%;
+                padding: 4px;
+                align-items: center;
+                justify-content: center;
+                .item_desc {
+                  width: 88%;
+                  .category_desc {
+                    font-size: 13px;
+                    color: #a09b9b;
+                    margin-bottom: 3px;
+                  }
+                  .title_desc {
+                    font-size: 18px;
+                    margin-bottom: 5px;
+                  }
+                  .price_desc {
+                    font-size: 14px;
+                    font-weight: 900;
+                  }
+                }
+                .heart_icon {
+                  width: 12%;
+                  font-size: 20px;
+                  text-align: center;
+                  cursor: pointer;
+                }
+              }
             }
+          }
+          .pagination {
+            display: flex;
+            justify-content: center;
+            padding: 50px 0;
+
+            button {
+              cursor: pointer;
+              border: none;
+              background-color: #f4f6ff;
+              border-radius: 50%;
+              margin: 0 10px;
+              width: 40px;
+              height: 40px;
+              font-size: 16px;
+              font-weight: 900;
+              color: #2d2f45;
+            }
+            .select {
+              background-color: #2d2f45;
+              color: #f4f6ff;
+            }
+            // .deselected {
+            //   font-size: 17px;
+            //   font-weight: 900;
+            //   background-color: #2d2f45;
+            //   color: #f4f6ff;
+            // }
           }
         }
       }
