@@ -10,6 +10,8 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [emailCheck, setEmailCheck] = useState();
   const [nickNameCheck, setNickNameCheck] = useState();
+  const [emailInputError, setEmailInputError] = useState(false);
+  const [nicknameInputError, setNicknameInputError] = useState(false);
 
   const genderOptions = [
     { value: '남성', label: '남성' },
@@ -83,10 +85,18 @@ export default function RegisterPage() {
     return true;
   };
 
+  // id, 닉네임 중복 확인 안 되면 css 적용하기 위해
+  const handleInputChange = (event) => {
+    setEmailInputError(false);
+  };
+  const handleNicknameChange = (event) => {
+    setNicknameInputError(false);
+  };
+
   // id 중복 확인.
   const checkEmail = async (e) => {
     e.preventDefault(); // 자동 새로고침 방지
-    if (!registerIdInput.current.value) return alert('이메일을 입력 하세요');
+    if (!registerIdInput.current.value) return alert('이메일을 입력해주세요.');
 
     const email = {
       id: aes128Encode(
@@ -109,6 +119,7 @@ export default function RegisterPage() {
 
       if (resCheckEmail.data.status === '200') {
         setEmailCheck('이메일확인');
+        setEmailInputError(false);
         alert(message); // 사용 가능한 아이디
       } else {
         registerIdInput.current.value = '';
@@ -125,7 +136,7 @@ export default function RegisterPage() {
   const checkNickName = async (e) => {
     console.log(password);
     e.preventDefault(); // 자동 새로고침 방지
-    if (!nickNameInput.current.value) return alert('닉네임을 입력 하세요');
+    if (!nickNameInput.current.value) return alert('닉네임을 입력해주세요.');
 
     const nickName = {
       nickName: nickNameInput.current.value,
@@ -141,6 +152,7 @@ export default function RegisterPage() {
 
       if (resCheckNickName.data.status === '200') {
         setNickNameCheck('닉네임확인');
+        setNicknameInputError(false);
         alert(message); // 사용 가능한 닉네임
       } else {
         setNickNameCheck('닉네임확인안함');
@@ -164,7 +176,7 @@ export default function RegisterPage() {
       !nickNameInput.current.value ||
       !userGenderInput.current.props.value.value
     )
-      return alert('값을 입력 하세요');
+      return alert('필수값을 입력해주세요.');
 
     if (!checkPassword()) {
       return;
@@ -180,10 +192,12 @@ export default function RegisterPage() {
 
     if (emailCheck !== '이메일확인') {
       alert('이메일 중복 체크를 확인해주세요.');
+      setEmailInputError(true);
       return;
     }
     if (nickNameCheck !== '닉네임확인') {
       alert('닉네임 중복 체크를 확인해주세요.');
+      setNicknameInputError(true);
       return;
     }
 
@@ -245,7 +259,10 @@ export default function RegisterPage() {
                 type="email"
                 id="email"
                 name="email"
+                onChange={handleInputChange}
                 ref={registerIdInput}
+                placeholder="example@reused.com"
+                className={emailInputError ? 'error' : ''}
               />
               <button onClick={checkEmail}>중복확인</button>
             </div>
@@ -257,7 +274,7 @@ export default function RegisterPage() {
               <input
                 name="password"
                 type="password"
-                placeholder="영문/숫자 포함 8자 이상"
+                placeholder="영문, 숫자 포함 8자 이상"
                 ref={registerPwInput}
                 onChange={onChangePwd}
               />
@@ -271,6 +288,7 @@ export default function RegisterPage() {
                 name="passwordCheck"
                 type="password"
                 ref={registerPwCheckInput}
+                placeholder="비밀번호 재입력"
               />
             </div>
             <div className="name-info">
@@ -278,7 +296,12 @@ export default function RegisterPage() {
                 <span className="required">*</span>
                 이름
               </label>
-              <input id="nameInput" type="text" ref={userNameInput} />
+              <input
+                id="nameInput"
+                type="text"
+                ref={userNameInput}
+                placeholder="이름 (실명입력)"
+              />
             </div>
             <div className="gender-info">
               <label>
@@ -298,7 +321,12 @@ export default function RegisterPage() {
                 <span className="required">*</span>
                 휴대폰
               </label>
-              <input id="telInput" type="tel" ref={phoneNumberInput} />
+              <input
+                id="telInput"
+                type="tel"
+                ref={phoneNumberInput}
+                placeholder="- 없이 숫자만 입력"
+              />
             </div>
 
             <div className="nickName-info">
@@ -311,6 +339,8 @@ export default function RegisterPage() {
                 type="text"
                 maxLength={8}
                 ref={nickNameInput}
+                onChange={handleNicknameChange}
+                className={nicknameInputError ? 'error' : ''}
               />
               <button onClick={checkNickName}>중복확인</button>
             </div>
@@ -323,14 +353,14 @@ export default function RegisterPage() {
               JOIN
             </button>
           </form>
-          <p className="kakao_naver_login">간편 로그인</p>
+          {/* <p className="kakao_naver_login">간편 로그인</p>
 
           <div className="kakao_login">
             <Link to="">카카오톡으로 로그인</Link>
           </div>
           <div className="naver_login">
             <Link to="">네이버로 로그인</Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
