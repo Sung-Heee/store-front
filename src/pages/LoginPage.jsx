@@ -61,6 +61,7 @@ export default function LoginPage() {
 
       if (resLogin.data.status === '200') {
         // 백에서 온 아이디 세션스토리지에 저장
+        console.log('세션', resLogin.data.userId);
         sessionStorage.setItem('userId', userId);
         loginIdInput.current.value = '';
         loginPwInput.current.value = '';

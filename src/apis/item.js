@@ -13,7 +13,7 @@ export const showItems = async () => {
 // all_product 페이지에서 보여주는 모든 상품
 export const showAllItems = async () => {
   try {
-    const resAllItems = await axios.get('/all/showItems');
+    const resAllItems = await axios.get('/main/all');
     return resAllItems;
   } catch (error) {
     console.error(error);

@@ -23,7 +23,7 @@ export default function AllProductPage() {
   // 메인꺼 백에서 데이터 보내주면 아래꺼 쓰기
   const getItems = async () => {
     try {
-      const resItems = await showItems();
+      const resItems = await showAllItems();
       const itemsData = resItems.data;
       setItems(itemsData);
     } catch (error) {
