@@ -58,10 +58,8 @@ export default function AllProductPage() {
   };
 
   // 전체 페이지 수 계산
-  // 15개까지 보이게 했으니 전체 나누기 15
+  // 16개까지 보이게 했으니 전체 나누기 16
   const totalPages = Math.ceil(items.length / itemsPerPage);
-  // 행 개수
-  const rows = Math.ceil(items.length / 4);
 
   return (
     <>
@@ -75,71 +73,76 @@ export default function AllProductPage() {
               <p className="category" onClick={clickAll}>
                 ALL
               </p>
-              {allOpen && (
-                <ul className={`option ${allOpen ? 'show' : 'hide'}`}>
-                  <li>
-                    <a href="#">상의</a>
-                  </li>
-                  <li>
-                    <a href="#">하의</a>
-                  </li>
-                  <li>
-                    <a href="#">신발</a>
-                  </li>
-                  <li>
-                    <a href="#">악세사리</a>
-                  </li>
-                  <li>
-                    <a href="#">기타</a>
-                  </li>
-                </ul>
-              )}
+              <ul className={allOpen ? 'show' : 'hide'}>
+                {allOpen && (
+                  <>
+                    <li>
+                      <a href="#">상의</a>
+                    </li>
+                    <li>
+                      <a href="#">하의</a>
+                    </li>
+                    <li>
+                      <a href="#">신발</a>
+                    </li>
+                    <li>
+                      <a href="#">악세사리</a>
+                    </li>
+                    <li>
+                      <a href="#">기타</a>
+                    </li>
+                  </>
+                )}
+              </ul>
 
               <p className="category" onClick={clickMan}>
                 MAN
               </p>
-              {manOpen && (
-                <ul className={`option ${manOpen ? 'show' : 'hide'}`}>
-                  <li>
-                    <a href="#">상의</a>
-                  </li>
-                  <li>
-                    <a href="#">하의</a>
-                  </li>
-                  <li>
-                    <a href="#">신발</a>
-                  </li>
-                  <li>
-                    <a href="#">악세사리</a>
-                  </li>
-                  <li>
-                    <a href="#">기타</a>
-                  </li>
-                </ul>
-              )}
-
+              <ul className={manOpen ? 'show' : 'hide'}>
+                {manOpen && (
+                  <>
+                    <li>
+                      <a href="#">상의</a>
+                    </li>
+                    <li>
+                      <a href="#">하의</a>
+                    </li>
+                    <li>
+                      <a href="#">신발</a>
+                    </li>
+                    <li>
+                      <a href="#">악세사리</a>
+                    </li>
+                    <li>
+                      <a href="#">기타</a>
+                    </li>
+                  </>
+                )}
+              </ul>
               <p className="category" onClick={clickWoman}>
                 WOMAN
               </p>
-              {womanOpen && (
-                <ul className={`option ${womanOpen ? 'show' : 'hide'}`}>
-                  <li>
-                    <a href="#">상의</a>
-                  </li>
-                  <li>
-                    <a href="#">하의</a>
-                  </li>
-                  <li>
-                    <a href="#">신발</a>
-                  </li>
-                  <li>
-                    <a href="#">악세사리</a>
-                  </li>
-                  <li>
-                    <a href="#">기타</a>
-                  </li>
-                </ul>
-              )}
+              <ul className={womanOpen ? 'show' : ''}>
+                {womanOpen && (
+                  <>
+                    <li>
+                      <a href="#">상의</a>
+                    </li>
+                    <li>
+                      <a href="#">하의</a>
+                    </li>
+                    <li>
+                      <a href="#">신발</a>
+                    </li>
+                    <li>
+                      <a href="#">악세사리</a>
+                    </li>
+                    <li>
+                      <a href="#">기타</a>
+                    </li>
+                  </>
+                )}
+              </ul>
             </div>
           </div>
 
