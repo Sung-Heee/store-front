@@ -57,7 +57,8 @@ export default function SalePage(props) {
       !itemNameInput.current.value ||
       !itemPriceInput.current.value ||
       !data ||
-      !selectedCate
+      !selectedCate ||
+      !addressText.current.innerText
     )
       return alert('내용을 입력하세요');
 
@@ -236,6 +237,23 @@ export default function SalePage(props) {
     setShowPostcode(false);
   };
 
+  //숫자만 입력
+  const [price, setPrice] = useState('');
+
+  const handlePriceChange = (e) => {
+    const inputValue = e.target.value;
+    const numericValue = inputValue.replace(/,/g, ''); // 쉼표 제거
+    const regex = /^[0-9\b]+$/; // 숫자만 허용하는 정규식
+
+    if (
+      numericValue === '' ||
+      (regex.test(numericValue) && numericValue.length <= 9)
+    ) {
+      const formattedValue = Number(numericValue).toLocaleString(); // 쉼표 추가
+      setPrice(formattedValue);
+    }
+  };
+
   return (
     <>
       <div className="form_wrapper minMax">
@@ -289,7 +307,14 @@ export default function SalePage(props) {
         </div>
         <div className="price">
           <p>가격 : </p>
-          <input className="price_input" type="text" ref={itemPriceInput} />
+          <input
+            className="price_input"
+            type="text"
+            ref={itemPriceInput}
+            value={price}
+            onChange={handlePriceChange}
+          />
+          {/* <p className="price_text">원</p> */}
         </div>
         <div className="radio_container">
           <div className="state_container">
@@ -326,7 +351,7 @@ export default function SalePage(props) {
             </label>
           </div>
           <div className="exchange_container">
-            <p>교환 : </p>
+            <p>환불 : </p>
             <input
               id="radio_possible"
               type="radio"
