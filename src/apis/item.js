@@ -9,10 +9,9 @@ export const showItems = async () => {
   }
 };
 
-export const saleItems = async (saleItemInfo, formData) => {
+export const saleItems = async (saleItemInfo) => {
   try {
-    formData.append('data', JSON.stringify(saleItemInfo));
-    const resSale = await axios.post('/main/sale', formData);
+    const resSale = await axios.post('/main/sale', saleItemInfo);
     return resSale;
   } catch (error) {
     console.error(error);

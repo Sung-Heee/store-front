@@ -6,17 +6,9 @@
   font-weight: normal;
   font-style: normal;
 }
-.all_container.scrolled{
-  background-color: rgba(255,255,255,.8);
-  transition: all .3s;
-}
+
 .all_container {
   background-color: #fff;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  z-index: 10;
-  transition: all .3s;
   .header_main_container {
     display: flex;
     height: 90px;
@@ -123,7 +115,7 @@
 .show_search {
   position: absolute;
   z-index: 3;
-  top: 120px;
+  top: 0;
   width: 100vw;
   background-color: #f4f6ff;
   .search-container {

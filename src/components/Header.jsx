@@ -132,28 +132,9 @@ export default function Header() {
     window.location.reload();
   };
 
-  // 스크롤시 헤더 scss 변경
-  const [isHeaderScrolled, setIsHeaderScrolled] = useState(false);
-  const handleScroll = () => {
-    const scrollTop =
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop ||
-      0;
-    const threshold = 120;
-    setIsHeaderScrolled(scrollTop > threshold);
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   return (
     <>
-      <div className={`all_container ${isHeaderScrolled ? 'scrolled' : ''}`}>
+      <div className="all_container">
         <div className="header_sub_container minMax">
           <div className="header_sub_menu">
             <ul>
@@ -235,80 +216,80 @@ export default function Header() {
             </ul>
           </div>
         </div>
-        {/* 검색창 토글 */}
-        <div className={isSearchOpen ? 'show_search' : 'hide_search'}>
-          <div className="search-container">
-            {/* 검색창 */}
-            <div className="search-div">
-              <input
-                type="text"
-                className="search-input"
-                placeholder="상품을 검색하세요"
-                ref={searchInputRef}
-                onKeyPress={onKeyPress}
+      </div>
+      {/* 검색창 토글 */}
+      <div className={isSearchOpen ? 'show_search' : 'hide_search'}>
+        <div className="search-container">
+          {/* 검색창 */}
+          <div className="search-div">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="상품을 검색하세요"
+              ref={searchInputRef}
+              onKeyPress={onKeyPress}
+            />
+            <button
+              type="button"
+              className="search_btn"
+              onClick={searchProduct}
+            >
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                className="header_search_icon"
               />
-              <button
-                type="button"
-                className="search_btn"
-                onClick={searchProduct}
-              >
-                <FontAwesomeIcon
-                  icon={faMagnifyingGlass}
-                  className="header_search_icon"
-                />
-              </button>
-            </div>
-            {/* 키워드(해시태그) */}
-            <div className="keyword">
-              {randomIndex.map((el, idx) => (
-                <p key={idx} onClick={() => keywordClick(randomKeyWord[el])}>
-                  #{randomKeyWord[el]}
-                </p>
-              ))}
+            </button>
+          </div>
+          {/* 키워드(해시태그) */}
+          <div className="keyword">
+            {randomIndex.map((el, idx) => (
+              <p key={idx} onClick={() => keywordClick(randomKeyWord[el])}>
+                #{randomKeyWord[el]}
+              </p>
+            ))}
 
-              {/* 닫기 버튼 */}
-              <div className="close" onClick={() => closeSearchWindow()}></div>
-            </div>
-            <div className="recent-container">
-              {/* 최근 검색어 */}
-              <div className="recent-search">
-                <p>최근 검색어</p>
-                <ul>
-                  {recentSearches.length > 0 ? (
-                    recentSearches.map((search, index) => (
-                      <li key={index}>{search}</li>
-                    ))
-                  ) : (
-                    <li className="no-recent-search">
-                      최근 검색어 내역이 없습니다.
-                    </li>
-                  )}
-
-                  {recentSearches.length > 0 ? (
-                    <button className="delete-recent-search">
-                      <FontAwesomeIcon
-                        icon={faTrashCan}
-                        onClick={deleteRecentSearch}
-                      />
-                    </button>
-                  ) : (
-                    ''
-                  )}
-                </ul>
-              </div>
-              {/* 최근 본 상품 */}
-              <div className="recent-look-product">
-                <ul>
-                  <li>최근 본 상품</li>
-                  <li>최근 본 상품이 없습니다.</li>
-                  <li>
-                    <img></img>
-                    <img></img>
-                    <img></img>
-                    <img></img>
+            {/* 닫기 버튼 */}
+            <div className="close" onClick={() => closeSearchWindow()}></div>
+          </div>
+          <div className="recent-container">
+            {/* 최근 검색어 */}
+            <div className="recent-search">
+              <p>최근 검색어</p>
+              <ul>
+                {recentSearches.length > 0 ? (
+                  recentSearches.map((search, index) => (
+                    <li key={index}>{search}</li>
+                  ))
+                ) : (
+                  <li className="no-recent-search">
+                    최근 검색어 내역이 없습니다.
                   </li>
-                </ul>
-              </div>
+                )}
+
+                {recentSearches.length > 0 ? (
+                  <button className="delete-recent-search">
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      onClick={deleteRecentSearch}
+                    />
+                  </button>
+                ) : (
+                  ''
+                )}
+              </ul>
+            </div>
+            {/* 최근 본 상품 */}
+            <div className="recent-look-product">
+              <ul>
+                <li>최근 본 상품</li>
+                <li>최근 본 상품이 없습니다.</li>
+                <li>
+                  <img></img>
+                  <img></img>
+                  <img></img>
+                  <img></img>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
