@@ -54,6 +54,8 @@ function App() {
           element={<ProductDetailsPage />}
         />
       </Routes>
+      {/* <MyPage /> */}
+      {/* <SalePage /> */}
       {/* <Footer /> */}
     </div>
   );
