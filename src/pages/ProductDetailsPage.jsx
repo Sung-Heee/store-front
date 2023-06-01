@@ -56,6 +56,22 @@ export default function ProductDetailsPage() {
     getSellerInfo();
   }, []);
 
+  // 찜한 총 개수 보여주기
+  const [wishCount, setWishCount] = useState(0);
+  const WishListCount = async () => {
+    try {
+      const res = await axios.get('/wishlist');
+      // 찜한 개수 데이터 받아옴
+      const wishListCount = res.data.count;
+      setWishCount(wishListCount);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    WishListCount();
+  }, []);
+
   // 위시리스트에 post 요청
   const wishList = async () => {
     try {
@@ -151,7 +167,8 @@ export default function ProductDetailsPage() {
                 <FontAwesomeIcon icon={faWonSign} className="won-icon" />
                 {selectedItem.itemPrice}
                 <span>
-                  <FontAwesomeIcon icon={faHeart} className="heart-icon" />3
+                  <FontAwesomeIcon icon={faHeart} className="heart-icon" />
+                  {wishCount}
                 </span>
               </li>
             </ul>
