@@ -48,7 +48,7 @@ export const NickNameCheck = async (nickName) => {
 // 찜하기 관심상품
 export const Like = async (likeItem) => {
   try {
-    const resLike = await axios.get(`/mypage/like`);
+    const resLike = await axios.get(`/like`);
     return resLike;
   } catch (err) {
     console.error(err);
