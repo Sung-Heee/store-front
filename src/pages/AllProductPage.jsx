@@ -10,6 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
+import { Link } from 'react-router-dom';
 
 export default function AllProductPage() {
   const [allOpen, setAllOpen] = useState(false);
@@ -290,18 +291,25 @@ export default function AllProductPage() {
                   ) : (
                     getCurrentItems().map((item, index) => (
                       <div className="itemContainer" key={index}>
-                        <img
-                          className="item"
-                          src="/images/exam.jpeg"
-                          alt="상품이미지"
-                        />
+                        <Link to={`/productdetails/${item.itemID}`}>
+                          <img
+                            className="item"
+                            src="/images/exam.jpeg"
+                            alt="상품이미지"
+                          />
+                        </Link>
                         <div className="item_top_desc">
                           <div className="item_desc">
                             <p className="category_desc">
                               {item.itemGender.toUpperCase()} &gt;{' '}
                               {item.categoryId}
                             </p>
-                            <p className="title_desc">{item.itemTitle}</p>
+                            <Link
+                              to={`/productdetails/${item.itemID}`}
+                              className="title_desc"
+                            >
+                              {item.itemTitle}
+                            </Link>
                             <p className="price_desc">{item.itemPrice} 원</p>
                           </div>
                           {/* 하트 추후 수정 */}
