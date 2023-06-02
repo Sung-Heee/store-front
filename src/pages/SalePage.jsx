@@ -86,9 +86,9 @@ export default function SalePage() {
       itemPrice: itemPriceInput.current.value,
       saleTag: tag,
       editorText: data,
-      imageSend: formData,
-      state: selectedRadio,
-      exchange: selectedRadio_ex,
+      // imageSend: formData,
+      // state: selectedRadio,
+      // exchange: selectedRadio_ex,
     };
 
     // 이미지 전송

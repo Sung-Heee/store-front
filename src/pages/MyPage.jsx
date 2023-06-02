@@ -3,6 +3,7 @@ import SideBar from '../components/myPage/SideBar';
 import '../style/myPage.scss';
 import { getUser } from '../apis/user';
 import Select from 'react-select';
+import MainContent from '../components/myPage/MainContent';
 
 export default function MyPage() {
   const [userName, setUserName] = useState();
@@ -13,7 +14,7 @@ export default function MyPage() {
       const resUser = await getUser(userId);
       const dbUserInfo = resUser.data; // 조회된 사용자 정보 반환
       setUserName(dbUserInfo.userInfo.userName);
-      // console.log(dbUserInfo);
+      console.log(dbUserInfo);
     } catch (error) {
       console.error(error);
     }
@@ -101,10 +102,10 @@ export default function MyPage() {
 
           <div className="right_box">
             <div className="right_controller">
-              <div className="main_content off">
+              {/*<div className="main_content off">
                 <div className="content">
                   <div className="title">최근 거래상품</div>
-                  {/* <p className="msg">최근 거래 내역이 없습니다</p> */}
+                  {/* <p className="msg">최근 거래 내역이 없습니다</p> 
                   <ul>
                     <li></li>
                     <li></li>
@@ -124,56 +125,51 @@ export default function MyPage() {
                   <div className="title">판매 완료</div>
                   <p className="msg">판매 완료된 상품이 없습니다</p>
                 </div>
-              </div>
-              <div className="transaction">
+              </div>*/}
+              <MainContent className="off" />
+              <div className="transaction off">
                 <div className="content">
                   <div className="title">거래 내역 조회</div>
                   <table border={0}>
                     <thead>
-                      <th colSpan="2">상품정보</th>
+                      <th>상품정보</th>
                       <th>거래일자</th>
                       <th>거래금액</th>
-                      <th>위치</th>
+                      <th>
+                        <select>
+                          <option selected>상태</option>
+                          <option>판매중</option>
+                          <option>판매완료</option>
+                        </select>
+                      </th>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>img</td>
                         <td>내용</td>
                         <td>날자</td>
                         <td>금액</td>
-                        <td>위치</td>
+                        <td>판매중</td>
                       </tr>
                       <tr>
-                        <td>img</td>
                         <td>내용</td>
                         <td>날자</td>
                         <td>금액</td>
-                        <td>위치</td>
+                        <td>판매완료</td>
                       </tr>
                       <tr>
-                        <td>img</td>
                         <td>내용</td>
                         <td>날자</td>
                         <td>금액</td>
-                        <td>위치</td>
+                        <td>판매중</td>
                       </tr>
                       <tr>
-                        <td>img</td>
                         <td>내용</td>
                         <td>날자</td>
                         <td>금액</td>
-                        <td>위치</td>
+                        <td>판매중</td>
                       </tr>
                     </tbody>
                   </table>
-                </div>
-              </div>
-              <div className="ing">
-                <div className="content">
-                  <ul className="tab">
-                    <li className='sale'>판매중</li>
-                    <li className='sale'>판매완료</li>
-                  </ul>
                 </div>
               </div>
               <div className="like off">
@@ -185,10 +181,9 @@ export default function MyPage() {
                         <th>
                           <input type="checkbox"></input>
                         </th>
-                        <th colSpan="2">상품정보</th>
+                        <th>상품정보</th>
                         <th>거래일자</th>
                         <th>거래금액</th>
-                        <th>위치</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -196,94 +191,130 @@ export default function MyPage() {
                         <td>
                           <input type="checkbox"></input>
                         </td>
-                        <td>img</td>
-                        <td>내용</td>
+                        <td>제목</td>
                         <td>날자</td>
                         <td>금액</td>
-                        <td>위치</td>
                       </tr>
                       <tr>
                         <td>
                           <input type="checkbox"></input>
                         </td>
-                        <td>img</td>
-                        <td>내s용</td>
+                        <td>제목</td>
                         <td>날자</td>
                         <td>금액</td>
-                        <td>위치</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="checkbox"></input>
+                        </td>
+                        <td>제목</td>
+                        <td>날자</td>
+                        <td>금액</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="checkbox"></input>
+                        </td>
+                        <td>제목</td>
+                        <td>날자</td>
+                        <td>금액</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
-              <div className="register off">
-                <div className="register-box">
-                  <div className="info-top">
+              <div className="update ">
+                <div className="content">
+                  <div className="title">
                     <p>기본정보</p>
-                    <p>
-                      <span className="required">*</span>필수입력사항
+                    <p className="please">
+                      <span className="required">*</span>
+                      <p>필수입력사항</p>
                     </p>
                   </div>
-                  <form className="register-form">
-                    <div className="id-info">
-                      <label>
-                        <span className="required">*</span>
-                        이메일
-                      </label>
-                    </div>
-                    <div className="password-info">
-                      <label>
-                        <span className="required">*</span>
-                        비밀번호
-                      </label>
-                      <input
-                        name="password"
-                        type="password"
-                        placeholder="영문/숫자 포함 8자 이상"
-                      />
-                    </div>
-                    <div className="password-info">
-                      <label>
-                        <span className="required">*</span>새 비밀번호 확인
-                      </label>
-                      <input name="passwordCheck" type="password" />
-                    </div>
-                    <div className="name-info">
-                      <label>
-                        <span className="required">*</span>
-                        이름
-                      </label>
-                      <input id="nameInput" type="text" />
-                    </div>
-                    <div className="gender-info">
-                      <label>
-                        <span className="required">*</span>
-                        성별
-                      </label>
-                      <div className="gender-input">
-                        <Select options={genderOptions} placeholder="성별" />
-                      </div>
-                    </div>
-                    <div className="tel-info">
-                      <label>
-                        <span className="required">*</span>
-                        휴대폰
-                      </label>
-                      <input id="telInput" type="tel" />
-                    </div>
-
-                    <div className="nickName-info">
-                      <label>
-                        <span className="required">*</span>
-                        닉네임
-                      </label>
-                      <input id="nickInput" type="text" maxLength={8} />
-                    </div>
-                    <button className="cancel--btn btn">CANCEL</button>
-                    <button className="join--btn btn" type="submit">
-                      확인
-                    </button>
-                  </form>
+                  <table className="update_form">
+                    <tbody>
+                      <tr>
+                        <th>이메일</th>
+                        <td>아이디</td>
+                      </tr>
+                      <tr>
+                        <th>
+                          <label>
+                            <span className="required">*</span>
+                            비밀번호
+                          </label>
+                        </th>
+                        <td>
+                          <input
+                            name="password"
+                            type="password"
+                            placeholder="영문/숫자 포함 8자 이상"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          <label>
+                            <span className="required">*</span>새 비밀번호 확인
+                          </label>
+                        </th>
+                        <td>
+                          <input name="passwordCheck" type="password" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          <label>
+                            <span className="required">*</span>
+                            이름
+                          </label>
+                        </th>
+                        <td>
+                          <input id="nameInput" type="text" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          <label>
+                            <span className="required">*</span>
+                            성별
+                          </label>
+                        </th>
+                        <td>
+                          <div className="gender-input">
+                            <Select
+                              options={genderOptions}
+                              placeholder="성별"
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          <label>
+                            <span className="required">*</span>
+                            휴대폰
+                          </label>
+                        </th>
+                        <td>
+                          <input id="telInput" type="tel" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          <label>
+                            <span className="required">*</span>
+                            닉네임
+                          </label>
+                        </th>
+                        <td>
+                          <input id="nickInput" type="text" maxLength={8} />
+                          <button>중복확인</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
