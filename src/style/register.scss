@@ -1,9 +1,25 @@
 @import "./_reset";
 
-body {
-  background-color: #fff;
+@keyframes vibration {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
+
 .register {
+  top: 120px;
   display: flex;
   position: relative;
   flex-direction: column;
@@ -43,11 +59,12 @@ body {
       .gender-info {
         display: flex;
         margin-bottom: 30px;
+        width: 100%;
         & > label {
           display: flex;
           flex-wrap: wrap;
           align-items: center;
-          width: 200px;
+          width: 30%;
         }
         .gender-input {
           display: inline-block;
@@ -63,20 +80,23 @@ body {
       .name-info,
       .birth-info,
       .tel-info,
-      .id-info,
-      .password-info,
-      .nickName-info {
+      .password-info {
         display: flex;
-        justify-content: space-between;
         flex-wrap: wrap;
         align-content: center;
         margin-bottom: 30px;
+        height: 40px;
+        width: 100%;
 
         input {
-          width: 300px;
+          width: 68%;
           border: none;
           border-bottom: solid #aaaaaa 1px;
           background-color: transparent;
+          &::placeholder {
+            letter-spacing: 0.5px;
+            color: #999;
+          }
           &:focus {
             outline: none;
             border-bottom: 1px solid #3d435f;
@@ -87,10 +107,58 @@ body {
           display: flex;
           flex-wrap: wrap;
           align-items: center;
-          width: 150px;
+          width: 30%;
         }
 
         .gender-input {
+        }
+      }
+      .id-info,
+      .nickName-info {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        margin-bottom: 30px;
+        height: 40px;
+
+        input {
+          width: 50%;
+          height: 20px;
+          border: none;
+          border-bottom: solid #aaaaaa 1px;
+          background-color: transparent;
+          position: relative;
+          &::placeholder {
+            letter-spacing: 0.5px;
+            color: #999;
+          }
+          &:focus {
+            outline: none;
+            border-bottom: 1px solid #3d435f;
+          }
+        }
+        .error {
+          border-bottom: solid red 1px;
+          animation: vibration 0.2s linear;
+        }
+
+        label {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          width: 150px;
+        }
+        button {
+          position: absolute;
+          right: 50px;
+          border: 1px solid #3d435f;
+          color: #3d435f;
+          background-color: transparent;
+          border-radius: 30px;
+          padding: 6px 12px;
+          width: 80px;
+          cursor: pointer;
+          font-size: 12px;
         }
       }
 

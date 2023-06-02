@@ -1,0 +1,27 @@
+.top_btn {
+  position: fixed;
+  right: 20px;
+  bottom: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid #f4f6ff;
+  background-color: #3d435f;
+  transition: all .2s;
+  cursor: pointer;
+  .top_btn_arrow {
+    font-size: 30px;
+    color: #f4f6ff;
+    margin-top: 15px;
+    stroke-width: 30px;
+    stroke: #3d435f;
+  }
+  &:hover{
+    background-color: #2d2f43;
+    transition: all .2s;
+    .top_btn_arrow{
+      stroke-width: 30px;
+      stroke: #2d2f43;
+    }
+  }
+}
