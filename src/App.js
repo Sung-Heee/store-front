@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from './apis/user';
 import { init } from './store/modules/user';
 import ProductDetailsPage from './pages/ProductDetailsPage';
+import ManProductPage from './pages/ManProductPage';
+import WomanProductPage from './pages/WomanProductPage';
 
 function App() {
   // 로그인 상태
@@ -49,6 +51,8 @@ function App() {
         <Route path="/mypage" element={isLogin ? <MyPage /> : <LoginPage />} />
         <Route path="/sale" element={isLogin ? <SalePage /> : <LoginPage />} />
         <Route path="/all_product" element={<AllProductPage />} />
+        <Route path="/man_product" element={<ManProductPage />} />
+        <Route path="/woman_product" element={<WomanProductPage />} />
         <Route
           path="/productdetails/:itemID"
           element={<ProductDetailsPage />}
