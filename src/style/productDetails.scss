@@ -3,69 +3,68 @@
   width: 1200px;
   margin: 0 auto;
   // 왼쪽 - 이미지 및 기타 설명
-  .left-gray-box {
-    width: calc(780px + ((100% - 1200px) / 2));
-    height: 100%;
-    position: fixed;
-    left: 0;
-    background-color: #f2f2f2;
-    z-index: -1;
-  }
   .left-container {
     width: 780px;
-    .swiper {
-      background-color: transparent;
-      height: 820px;
-      .swiper-slide {
-        img {
-          margin-top: 30px;
-          width: 650px;
-          height: 650px;
-          background-color: transparent;
+    position: absolute;
+    top: 30px;
+    .swiper-container {
+      height: 900px;
+
+      .swiper {
+        background-color: transparent;
+        height: 780px;
+        .swiper-slide {
+          img {
+            width: 680px;
+            height: 680px;
+            background-color: transparent;
+          }
         }
       }
-    }
-    .swiper-button-prev,
-    .swiper-button-next {
-      &::after {
-        color: #2d2f43;
-        position: absolute;
-      }
-    }
 
-    .swiper-button-prev {
-      &::after {
-        left: 10px;
+      .swiper-button-prev,
+      .swiper-button-next {
+        &::after {
+          color: #2d2f43;
+          position: absolute;
+        }
       }
-    }
-    .swiper-button-next {
-      &::after {
-        right: 10px;
-      }
-    }
 
-    .swiper-pagination {
-      padding-bottom: 50px;
-      .swiper-pagination-bullet {
-        width: 10px;
-        height: 10px;
-        background-color: #999;
-        opacity: 1;
-        margin: 0 9px !important;
+      .swiper-button-prev {
+        &::after {
+          left: 0px;
+        }
       }
-      .swiper-pagination-bullet-active {
-        transform: scale(1.3);
-        border-radius: 5px;
-        background-color: transparent;
-        border: 1px solid #2d2f43;
+      .swiper-button-next {
+        &::after {
+          right: 0px;
+        }
+      }
+
+      .swiper-pagination {
+        padding-bottom: 30px;
+        .swiper-pagination-bullet {
+          width: 10px;
+          height: 10px;
+          background-color: #999;
+          opacity: 1;
+          margin: 0 9px !important;
+        }
+        .swiper-pagination-bullet-active {
+          transform: scale(1.3);
+          border-radius: 5px;
+          background-color: transparent;
+          border: 1px solid #2d2f43;
+        }
       }
     }
     //상품 정보
     .product-more {
-      margin-top: 50px;
       text-align: left;
       color: #2d2f43;
+      margin-bottom: 100px;
       p {
+        margin-bottom: 30px;
         &:first-child {
           border-bottom: 1.5px solid #2d2f43;
           padding: 10px 0px;
@@ -76,100 +75,96 @@
       }
       .hashtag {
         a {
-          margin-right: 5px;
-        }
-      }
-    }
-    // 판매자 정보
-    .seller-info {
-      text-align: left;
-      color: #2d2f43;
-      p {
-        &:first-child {
-          border-bottom: 1.5px solid #2d2f43;
-          padding: 10px 0px;
-          margin-bottom: 10px;
-          font-weight: 700;
-          font-size: 18px;
+          margin-right: 7px;
+
+          font-size: 14px;
+          background-color: #3d435f;
+          color: #f4f6ff;
+
+          &:hover {
+            background-color: #f4f6ff;
+            color: #3d435f;
+          }
         }
       }
     }
   }
   // 오른쪽 - 상품 디테일
   .right-container {
-    position: fixed;
+    position: absolute;
     top: 120px;
     right: calc((100% - 1200px) / 2);
     width: 420px;
-    height: calc(100vh - 120px);
 
     .product-detail {
       position: absolute;
       right: 0;
       top: 30px;
       width: 350px;
-      height: 670px;
       color: #2d2f43;
+
       text-align: left;
       // 상품 메뉴 이동 창
-      .product-menu {
-        margin-bottom: 8px;
-        color: #b1b2b7;
-        font-size: 12px;
-        a {
-          color: #b1b2b7;
-        }
-      }
-      // 상품 내용
-      .product-content {
-        font-size: 20px;
-        border-bottom: 1px solid #b1b2b7;
-        padding-bottom: 6px;
-        margin-bottom: 6px;
-        li {
-          &:first-child {
-            color: #b1b2b7;
-            font-size: 18px;
-            line-height: 30px;
-          }
+      .product-container {
+        height: 570px;
 
-          &:nth-child(3),
-          &:nth-child(2) {
-            font-weight: 700;
-            line-height: 30px;
+        .product-menu {
+          margin-bottom: 8px;
+          color: #b1b2b7;
+          font-size: 12px;
+          a {
+            color: #b1b2b7;
           }
-          .won-icon {
-            stroke-width: 20px;
-            stroke: #fff;
-            margin-right: 10px;
-            font-size: 18px;
-            line-height: 30px;
+        }
+        // 상품 내용
+        .product-content {
+          font-size: 20px;
+          border-bottom: 1px solid #b1b2b7;
+          padding-bottom: 6px;
+          margin-bottom: 6px;
+          li {
+            &:first-child {
+              color: #b1b2b7;
+              font-size: 18px;
+              line-height: 30px;
+            }
+
+            &:nth-child(3),
+            &:nth-child(2) {
+              font-weight: 700;
+              line-height: 30px;
+            }
+            .won-icon {
+              stroke-width: 20px;
+              stroke: #fff;
+              margin-right: 10px;
+              font-size: 18px;
+              line-height: 30px;
+            }
+            span {
+              float: right;
+              font-size: 18px;
+              line-height: 30px;
+              .heart-icon {
+                margin-right: 4px;
+              }
+            }
           }
-          span {
-            float: right;
-            font-size: 18px;
-            line-height: 30px;
-            .heart-icon {
-              margin-right: 4px;
+        }
+        .product-status {
+          display: flex;
+          font-size: 15px;
+          line-height: 25px;
+          li {
+            &:first-child {
+              color: #b1b2b7;
+              width: 70px;
+              margin-right: 10px;
             }
           }
         }
       }
-      .product-status {
-        display: flex;
-        font-size: 15px;
-        line-height: 25px;
-        li {
-          &:first-child {
-            color: #b1b2b7;
-            width: 70px;
-            margin-right: 10px;
-          }
-        }
-      }
       .product_btn {
-        position: absolute;
-        bottom: 0;
         p {
           text-align: center;
           border-radius: 30px;
@@ -193,6 +188,21 @@
               background-color: #f4f6ff;
               cursor: pointer;
             }
+          }
+        }
+      }
+      // 판매자 정보
+      .seller-info {
+        margin-top: 96.5px;
+        text-align: left;
+        color: #2d2f43;
+        p {
+          &:first-child {
+            border-bottom: 1.5px solid #2d2f43;
+            padding: 10px 0px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 18px;
           }
         }
       }

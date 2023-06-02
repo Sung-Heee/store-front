@@ -96,28 +96,29 @@ export default function ProductDetailsPage() {
     <>
       <div className="detail-container">
         {/* 왼쪽 - 이미지 및 기타 설명 */}
-        <div className="left-gray-box"></div>
         <div className="left-container">
-          <Swiper
-            className="swiper"
-            loop={true}
-            loopAdditionalSlides={1}
-            spaceBetween={0}
-            slidesPerView={1}
-            centeredSlides={true}
-            navigation
-            pagination={{ clickable: true }}
-          >
-            <SwiperSlide className="swiper-slide">
-              <img></img>
-            </SwiperSlide>
-            <SwiperSlide className="swiper-slide">
-              <img></img>
-            </SwiperSlide>
-            <SwiperSlide className="swiper-slide">
-              <img></img>
-            </SwiperSlide>
-          </Swiper>
+          <div className="swiper-container">
+            <Swiper
+              className="swiper"
+              loop={true}
+              loopAdditionalSlides={1}
+              spaceBetween={0}
+              slidesPerView={1}
+              centeredSlides={true}
+              navigation
+              pagination={{ clickable: true }}
+            >
+              <SwiperSlide className="swiper-slide">
+                <img src="/images/exam.jpeg" alt="상품이미지" />
+              </SwiperSlide>
+              <SwiperSlide className="swiper-slide">
+                <img src="/images/exam.jpeg" alt="상품이미지" />
+              </SwiperSlide>
+              <SwiperSlide className="swiper-slide">
+                <img src="/images/exam.jpeg" alt="상품이미지" />
+              </SwiperSlide>
+            </Swiper>
+          </div>
           {/* 상품 정보 */}
           <div className="product-more">
             <p>상품정보</p>
@@ -128,16 +129,11 @@ export default function ProductDetailsPage() {
                 selectedItem.itemTag.split(' ').map((tag, index, array) => {
                   const hashtag = '#' + tag;
                   return index === array.length - 1 ? (
-                    <Link>{hashtag.slice(1)}</Link>
+                    ''
                   ) : (
                     <Link>{hashtag}</Link>
                   );
                 })}
-            </div>
-            {/* 판매자 정보 */}
-            <div className="seller-info">
-              <p>판매자 정보</p>
-              <p></p>
             </div>
           </div>
         </div>
@@ -145,49 +141,56 @@ export default function ProductDetailsPage() {
         <div className="right-container">
           <div className="product-detail">
             {/* 상품 메뉴 이동 창 */}
-            <div className="product-menu">
-              <Link to="/">HOME</Link>
-              <span> {'>'} 카테고리 </span>
-              {'>'}
-              <Link to={`../${selectedItem.itemGender}_product`}>
-                {' '}
-                {selectedItem.itemGender}{' '}
-              </Link>
-              {'>'}
-              <Link to={`../${selectedItem.categoryId}`}>
-                {' '}
-                {selectedItem.categoryId}{' '}
-              </Link>
+            <div className="product-container">
+              <div className="product-menu">
+                <Link to="/">HOME</Link>
+                <span> {'>'} 카테고리 </span>
+                {'>'}
+                <Link to={`../${selectedItem.itemGender}_product`}>
+                  {' '}
+                  {selectedItem.itemGender}{' '}
+                </Link>
+                {'>'}
+                <Link to={`../${selectedItem.categoryId}`}>
+                  {' '}
+                  {selectedItem.categoryId}{' '}
+                </Link>
+              </div>
+              {/* 상품 내용 */}
+              <ul className="product-content">
+                <li>{selectedItem.itemTitle}</li>
+                <li>{selectedItem.itemName}</li>
+                <li>
+                  <FontAwesomeIcon icon={faWonSign} className="won-icon" />
+                  {selectedItem.itemPrice}
+                  <span>
+                    <FontAwesomeIcon icon={faHeart} className="heart-icon" />
+                    {wishCount}
+                  </span>
+                </li>
+              </ul>
+              <ul className="product-status">
+                <li>거래 지역</li>
+                <li>안양시 동안구</li>
+              </ul>
+              <ul className="product-status">
+                <li>상품 상태</li>
+                <li>새상품</li>
+              </ul>
+              <ul className="product-status">
+                <li>교환</li>
+                <li>가능</li>
+              </ul>
             </div>
-            {/* 상품 내용 */}
-            <ul className="product-content">
-              <li>{selectedItem.itemTitle}</li>
-              <li>{selectedItem.itemName}</li>
-              <li>
-                <FontAwesomeIcon icon={faWonSign} className="won-icon" />
-                {selectedItem.itemPrice}
-                <span>
-                  <FontAwesomeIcon icon={faHeart} className="heart-icon" />
-                  {wishCount}
-                </span>
-              </li>
-            </ul>
-            <ul className="product-status">
-              <li>거래 지역</li>
-              <li>안양시 동안구</li>
-            </ul>
-            <ul className="product-status">
-              <li>상품 상태</li>
-              <li>새상품</li>
-            </ul>
-            <ul className="product-status">
-              <li>교환</li>
-              <li>가능</li>
-            </ul>
-
             <div className="product_btn">
               <p>1:1 채팅하기</p>
               <p onClick={wishList}>위시리스트 담기</p>
+            </div>
+
+            {/* 판매자 정보 */}
+            <div className="seller-info">
+              <p>판매자 정보</p>
+              <p>{selectedItem.userID}</p>
             </div>
           </div>
         </div>
