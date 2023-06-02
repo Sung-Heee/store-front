@@ -39,42 +39,66 @@
         text-align: left;
       }
       .product {
+        display: flex;
         font-size: 20px;
-        font-weight: 700;
+        font-weight: 900;
         color: #2d2f45;
         border-bottom: 2px solid #2d2f45;
         height: 44px;
-        line-height: 44px;
+        align-content: flex-end;
+        flex-wrap: wrap;
+        padding: 10px 0;
       }
 
       li {
         position: relative;
         font-size: 14px;
         font-weight: 400;
-        color: #2d2f45;
+        color: #777;
         height: 33px;
         line-height: 33px;
         padding-left: 17px;
         z-index: 3;
+        cursor: pointer;
         padding-left: 20px;
-        :hover {
+        &:hover {
           font-weight: 700;
+          color: #2d2f45;
         }
       }
 
-      .category {
+      .category_menu {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         cursor: pointer;
-        font-size: 16px;
-        font-weight: 600;
-        color: #2d2f45;
-        padding: 15px 0;
+        .category {
+          font-size: 16px;
+          font-weight: 600;
+          color: #2d2f45;
+          padding: 15px 0;
+        }
+        .slide_up {
+          color: #a09b9b;
+          transition: 0.7s;
+        }
+        .slide_down {
+          color: #2d2f45;
+          transform: rotate(-180deg);
+          transition: 0.7s;
+        }
       }
+
       ul {
         height: 0;
         transition: height 0.7s ease-in-out;
         &.show {
           height: 180px;
           overflow: hidden;
+          .selected_option {
+            color: #2d2f45;
+            font-weight: 900;
+          }
         }
         &.hide {
           transition: height 0.5s ease-in;
@@ -92,6 +116,23 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             grid-gap: 25px;
+
+            .not_items {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              text-align: center;
+              grid-column: 1 / -1;
+              height: 300px;
+
+              p {
+                margin-top: 20px;
+                font-size: 20px;
+                font-weight: 900;
+                color: #2d2f45;
+              }
+            }
 
             .itemContainer {
               position: relative;
@@ -133,6 +174,7 @@
               }
             }
           }
+
           .pagination {
             display: flex;
             justify-content: center;
@@ -154,12 +196,6 @@
               background-color: #2d2f45;
               color: #f4f6ff;
             }
-            // .deselected {
-            //   font-size: 17px;
-            //   font-weight: 900;
-            //   background-color: #2d2f45;
-            //   color: #f4f6ff;
-            // }
           }
         }
       }

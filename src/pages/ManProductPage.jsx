@@ -11,39 +11,19 @@ import {
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 
-export default function AllProductPage() {
-  const [allOpen, setAllOpen] = useState(false);
+export default function ManProductPage() {
   const [manOpen, setManOpen] = useState(false);
-  const [womanOpen, setWomanOpen] = useState(false);
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedGender, setSelectedGender] = useState('');
   const [category, setCategory] = useState('');
   const [heart, setHeart] = useState(false);
 
   const itemsPerPage = 16;
 
   // 왼쪽 메뉴바
-  const clickAll = () => {
-    setAllOpen(!allOpen);
-    setManOpen(false);
-    setWomanOpen(false);
-    setCategory('');
-    setSelectedGender('all');
-  };
   const clickMan = () => {
     setManOpen(!manOpen);
-    setAllOpen(false);
-    setWomanOpen(false);
     setCategory('');
-    setSelectedGender('man');
-  };
-  const clickWoman = () => {
-    setWomanOpen(!womanOpen);
-    setAllOpen(false);
-    setManOpen(false);
-    setCategory('');
-    setSelectedGender('woman');
   };
 
   // 하트 누르기
@@ -78,19 +58,10 @@ export default function AllProductPage() {
 
     // 선택한 카테고리에 따라 필터링
     const filteredItems = items.filter((item) => {
-      // 그냥 all_product 페이지 들어갔을 땐 전부 다 보이게!
-      if (selectedGender === '' && category === '') {
-        return true;
-      } else if (
-        (selectedGender === 'all' && item.categoryId === category) ||
-        (selectedGender === 'man' && item.categoryId === category) ||
-        (selectedGender === 'woman' && item.categoryId === category)
-      ) {
-        return (
-          item.itemGender === selectedGender && item.categoryId === category
-        );
-      } else if (selectedGender && category === '') {
-        return item.itemGender === selectedGender;
+      if (category === '') {
+        return item.itemGender === 'man';
+      } else if (item.categoryId === category) {
+        return item.itemGender === 'man' && item.categoryId === category;
       }
     });
 
@@ -110,19 +81,13 @@ export default function AllProductPage() {
   // 전체 페이지 수 계산
   // 16개까지 보이게 했으니 전체 나누기 16
   const filteredItems = items.filter((item) => {
-    // 그냥 all_product 페이지 들어갔을 땐 전부 다 보이게!
-    if (selectedGender === '' && category === '') {
-      return true;
-    } else if (
-      (selectedGender === 'all' && item.categoryId === category) ||
-      (selectedGender === 'man' && item.categoryId === category) ||
-      (selectedGender === 'woman' && item.categoryId === category)
-    ) {
-      return item.itemGender === selectedGender && item.categoryId === category;
-    } else if (selectedGender && category === '') {
-      return item.itemGender === selectedGender;
+    if (category === '') {
+      return item.itemGender === 'man';
+    } else if (item.categoryId === category) {
+      return item.itemGender === 'man' && item.categoryId === category;
     }
   });
+
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 
   return (
@@ -132,54 +97,8 @@ export default function AllProductPage() {
           <div className="left_box">
             <div className="left_controller">
               <div className="product">
-                <span>ALL PRODUCT</span>
+                <span>PRODUCT</span>
               </div>
-              <div className="category_menu" onClick={clickAll}>
-                <p className="category">ALL</p>
-                <FontAwesomeIcon
-                  className={allOpen ? 'slide_down' : 'slide_up'}
-                  icon={faAngleUp}
-                />
-              </div>
-
-              <ul className={allOpen ? 'show' : 'hide'}>
-                {allOpen && (
-                  <>
-                    <li
-                      onClick={() => handleCategoryClick('상의')}
-                      className={category === '상의' ? 'selected_option' : ''}
-                    >
-                      상의
-                    </li>
-                    <li
-                      onClick={() => handleCategoryClick('하의')}
-                      className={category === '하의' ? 'selected_option' : ''}
-                    >
-                      하의
-                    </li>
-                    <li
-                      onClick={() => handleCategoryClick('신발')}
-                      className={category === '신발' ? 'selected_option' : ''}
-                    >
-                      신발
-                    </li>
-                    <li
-                      onClick={() => handleCategoryClick('악세사리')}
-                      className={
-                        category === '악세사리' ? 'selected_option' : ''
-                      }
-                    >
-                      악세사리
-                    </li>
-                    <li
-                      onClick={() => handleCategoryClick('기타')}
-                      className={category === '기타' ? 'selected_option' : ''}
-                    >
-                      기타
-                    </li>
-                  </>
-                )}
-              </ul>
 
               <div className="category_menu" onClick={clickMan}>
                 <p className="category">MAN</p>
@@ -190,51 +109,6 @@ export default function AllProductPage() {
               </div>
               <ul className={manOpen ? 'show' : 'hide'}>
                 {manOpen && (
-                  <>
-                    <li
-                      onClick={() => handleCategoryClick('상의')}
-                      className={category === '상의' ? 'selected_option' : ''}
-                    >
-                      상의
-                    </li>
-                    <li
-                      onClick={() => handleCategoryClick('하의')}
-                      className={category === '하의' ? 'selected_option' : ''}
-                    >
-                      하의
-                    </li>
-                    <li
-                      onClick={() => handleCategoryClick('신발')}
-                      className={category === '신발' ? 'selected_option' : ''}
-                    >
-                      신발
-                    </li>
-                    <li
-                      onClick={() => handleCategoryClick('악세사리')}
-                      className={
-                        category === '악세사리' ? 'selected_option' : ''
-                      }
-                    >
-                      악세사리
-                    </li>
-                    <li
-                      onClick={() => handleCategoryClick('기타')}
-                      className={category === '기타' ? 'selected_option' : ''}
-                    >
-                      기타
-                    </li>
-                  </>
-                )}
-              </ul>
-              <div className="category_menu" onClick={clickWoman}>
-                <p className="category">WOMAN</p>
-                <FontAwesomeIcon
-                  className={womanOpen ? 'slide_down' : 'slide_up'}
-                  icon={faAngleUp}
-                />
-              </div>
-              <ul className={womanOpen ? 'show' : ''}>
-                {womanOpen && (
                   <>
                     <li
                       onClick={() => handleCategoryClick('상의')}
