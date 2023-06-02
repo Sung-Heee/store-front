@@ -80,10 +80,14 @@
           font-size: 14px;
           background-color: #3d435f;
           color: #f4f6ff;
+          padding: 5px;
+          border-radius: 5px;
 
           &:hover {
             background-color: #f4f6ff;
             color: #3d435f;
+            padding: 5px;
+            border-radius: 5px;
           }
         }
       }
