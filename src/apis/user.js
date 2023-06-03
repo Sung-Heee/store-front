@@ -9,6 +9,15 @@ export const getUser = async (userId) => {
   }
 };
 
+// export const UserName = async (userName) => {
+//   try {
+//     const resName = await axios.get(`/user/${userId}`);
+//     return resName;
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };
+
 export const Login = async (account) => {
   try {
     const resLogin = await axios.post('/login', account);
@@ -48,7 +57,7 @@ export const NickNameCheck = async (nickName) => {
 // 찜하기 관심상품
 export const Like = async (likeItem) => {
   try {
-    const resLike = await axios.get(`/like`);
+    const resLike = await axios.get(`/mypage`);
     return resLike;
   } catch (err) {
     console.error(err);
