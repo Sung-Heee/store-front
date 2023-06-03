@@ -16,6 +16,7 @@ import { init } from './store/modules/user';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import ManProductPage from './pages/ManProductPage';
 import WomanProductPage from './pages/WomanProductPage';
+import LoginRequire from './pages/LoginRequire';
 
 function App() {
   // 로그인 상태
@@ -58,8 +59,7 @@ function App() {
           element={<ProductDetailsPage />}
         />
       </Routes>
-      {/* <MyPage /> */}
-      {/* <SalePage /> */}
+      {/* <LoginRequire /> */}
       {/* <Footer /> */}
     </div>
   );

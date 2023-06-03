@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useRef } from 'react';
 import Select from 'react-select';
-import axios from 'axios';
-import Hashtag from '../components/Hashtag';
 import '../style/sale.scss';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { saleItems } from '../apis/item';
-import Address from '../components/Address';
 import DaumPostcode from 'react-daum-postcode';
+import TopBtn from '../components/TopBtn';
 
 export default function SalePage(props) {
   const genderOptions = [
@@ -481,6 +478,7 @@ export default function SalePage(props) {
           ref={editorTextInput}
         />
       </div>
+      <TopBtn />
       <div className="salebar">
         <div className="salebar_btn">
           <button className="salepage_cancel" onClick={cancleSale}>

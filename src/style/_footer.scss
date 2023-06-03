@@ -1,13 +1,8 @@
 @import "./_reset";
 
 .footer_container{
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
   height: 350px;
   background-color: #2d2f43;
-  z-index: -1;
   .footer_center{
     height: 350px;
     width: 1200px;

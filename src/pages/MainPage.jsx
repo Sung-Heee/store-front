@@ -10,6 +10,8 @@ import MainSwiper from '../components/mainPage/MainSwiper';
 import NewItems from '../components/mainPage/NewItems';
 import Category from '../components/mainPage/Category';
 import TopBtn from '../components/TopBtn';
+import BottomBtn from '../components/BottomBtn';
+import Footer from '../components/Footer';
 
 export default function MainPage() {
   return (
@@ -23,6 +25,8 @@ export default function MainPage() {
       <NewItems />
       <Category />
       <TopBtn />
+      <BottomBtn />
+      <Footer />
     </>
   );
 }
