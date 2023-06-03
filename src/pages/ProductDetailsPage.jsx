@@ -11,6 +11,7 @@ import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import { Swiper, SwiperSlide } from 'swiper/react'; // basic
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
+import ScrollReset from '../components/ScrollReset';
 SwiperCore.use([Navigation, Pagination]);
 
 export default function ProductDetailsPage() {
@@ -94,6 +95,7 @@ export default function ProductDetailsPage() {
 
   return (
     <>
+      <ScrollReset />
       <div className="detail-container">
         {/* 왼쪽 - 이미지 및 기타 설명 */}
         <div className="left-container">

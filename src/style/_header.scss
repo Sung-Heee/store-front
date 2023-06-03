@@ -9,6 +9,7 @@
 .all_container.scrolled{
   background-color: rgba(255,255,255,.8);
   transition: all .3s;
+  border-bottom: 1px solid rgba(0,0,0,.1);
 }
 .all_container {
   background-color: #fff;
@@ -19,10 +20,10 @@
   transition: all .3s;
   .header_main_container {
     display: flex;
-    height: 90px;
+    height: 80px;
     .header_main_menu {
       width: 34vw;
-      height: 90px;
+      height: 80px;
       margin: 0 auto;
       position: relative;
       top: -10px;
@@ -31,8 +32,8 @@
         display: flex;
         li {
           float: left;
-          height: 90px;
-          line-height: 90px;
+          height:80px;
+          line-height: 80px;
           padding: 0;
           margin-right: 35px;
           position: relative;
@@ -50,15 +51,15 @@
     top: -15px;
     a {
       .header_logo_img {
-        width: 177px;
-        height: 90px;
+        width: 157px;
+        height: 80px;
         margin: 0 auto;
       }
     }
   }
   .header_icon_menu {
     width: 34vw;
-    height: 90px;
+    height: 80px;
     margin: 0 auto;
     position: relative;
     top: -13px;
@@ -106,10 +107,20 @@
         p {
           line-height: 30px;
           font-size: 11px;
-          font-weight: 100;
+          font-weight: 500;
           color: #9d979e;
           background: none;
           letter-spacing: 0.5px;
+          transition: all .2s;
+          &:hover{
+            color: #2d2f43;
+            transition: all .2s;
+          }
+        }
+      }
+      .header_sale_menu{
+        a{
+          color: #3d435f;
         }
       }
     }
