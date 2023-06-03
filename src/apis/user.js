@@ -9,14 +9,14 @@ export const getUser = async (userId) => {
   }
 };
 
-// export const UserName = async (userName) => {
-//   try {
-//     const resName = await axios.get(`/user/${userId}`);
-//     return resName;
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
+export const getItem = async (userId) => {
+  try {
+    const resItem = await axios.get(`/mypage/${userId}`);
+    return resItem;
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 export const Login = async (account) => {
   try {

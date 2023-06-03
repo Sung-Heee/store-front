@@ -26,8 +26,8 @@ export default function TopBox() {
       const userId = sessionStorage.getItem('userId');
       const resUser = await getUser(userId);
       const dbUserInfo = resUser.data; // 조회된 사용자 정보 반환
-      setUserName(dbUserInfo[0].userName);
-      // console.log(dbUserInfo[0].userName);
+      setUserName(dbUserInfo[0].user_name);
+      console.log(dbUserInfo);
     } catch (error) {
       console.error(error);
     }
