@@ -50,8 +50,14 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/mypage" element={isLogin ? <MyPage /> : <LoginPage />} />
-        <Route path="/sale" element={isLogin ? <SalePage /> : <LoginPage />} />
+        <Route
+          path="/mypage"
+          element={isLogin ? <MyPage /> : <LoginRequire />}
+        />
+        <Route
+          path="/sale"
+          element={isLogin ? <SalePage /> : <LoginRequire />}
+        />
         <Route path="/all_product" element={<AllProductPage />} />
         <Route path="/man_product" element={<ManProductPage />} />
         <Route path="/woman_product" element={<WomanProductPage />} />
