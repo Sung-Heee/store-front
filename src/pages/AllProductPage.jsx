@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import '../style/allProduct.scss';
 import { showAllItems, showItems } from '../apis/item';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faChevronLeft,
+  faChevronRight,
+} from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-regular-svg-icons';
 export default function AllProductPage() {
   const [allOpen, setAllOpen] = useState(false);
   const [manOpen, setManOpen] = useState(false);
@@ -20,33 +26,19 @@ export default function AllProductPage() {
     setWomanOpen(!womanOpen);
   };
 
-  // 메인꺼 백에서 데이터 보내주면 아래꺼 쓰기
-  const getItems = async () => {
+  // 백에서 item 데이터 가져오기
+  const getAllItems = async () => {
     try {
-      const resItems = await showAllItems();
-      const itemsData = resItems.data;
+      const resAllItems = await showAllItems();
+      const itemsData = resAllItems.data;
       setItems(itemsData);
     } catch (error) {
       console.error(error);
     }
   };
   useEffect(() => {
-    getItems();
+    getAllItems();
   }, []);
-
-  // // 백에서 item 데이터 가져오기
-  // const getAllItems = async () => {
-  //   try {
-  //     const resItems = await showAllItems();
-  //     const itemsData = resItems.data;
-  //     setItems(itemsData);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getAllItems();
-  // }, []);
 
   // 현재 페이지에 해당하는 아이템 반환
   const getCurrentItems = () => {
@@ -81,71 +73,76 @@ export default function AllProductPage() {
               <p className="category" onClick={clickAll}>
                 ALL
               </p>
-              {allOpen && (
-                <ul className={`option ${allOpen ? 'show' : 'hide'}`}>
-                  <li>
-                    <a href="#">상의</a>
-                  </li>
-                  <li>
-                    <a href="#">하의</a>
-                  </li>
-                  <li>
-                    <a href="#">신발</a>
-                  </li>
-                  <li>
-                    <a href="#">악세사리</a>
-                  </li>
-                  <li>
-                    <a href="#">기타</a>
-                  </li>
-                </ul>
-              )}
+              <ul className={allOpen ? 'show' : 'hide'}>
+                {allOpen && (
+                  <>
+                    <li>
+                      <a href="#">상의</a>
+                    </li>
+                    <li>
+                      <a href="#">하의</a>
+                    </li>
+                    <li>
+                      <a href="#">신발</a>
+                    </li>
+                    <li>
+                      <a href="#">악세사리</a>
+                    </li>
+                    <li>
+                      <a href="#">기타</a>
+                    </li>
+                  </>
+                )}
+              </ul>
 
               <p className="category" onClick={clickMan}>
                 MAN
               </p>
-              {manOpen && (
-                <ul className={`option ${manOpen ? 'show' : 'hide'}`}>
-                  <li>
-                    <a href="#">상의</a>
-                  </li>
-                  <li>
-                    <a href="#">하의</a>
-                  </li>
-                  <li>
-                    <a href="#">신발</a>
-                  </li>
-                  <li>
-                    <a href="#">악세사리</a>
-                  </li>
-                  <li>
-                    <a href="#">기타</a>
-                  </li>
-                </ul>
-              )}
-
+              <ul className={manOpen ? 'show' : 'hide'}>
+                {manOpen && (
+                  <>
+                    <li>
+                      <a href="#">상의</a>
+                    </li>
+                    <li>
+                      <a href="#">하의</a>
+                    </li>
+                    <li>
+                      <a href="#">신발</a>
+                    </li>
+                    <li>
+                      <a href="#">악세사리</a>
+                    </li>
+                    <li>
+                      <a href="#">기타</a>
+                    </li>
+                  </>
+                )}
+              </ul>
               <p className="category" onClick={clickWoman}>
                 WOMAN
               </p>
-              {womanOpen && (
-                <ul className={`option ${womanOpen ? 'show' : 'hide'}`}>
-                  <li>
-                    <a href="#">상의</a>
-                  </li>
-                  <li>
-                    <a href="#">하의</a>
-                  </li>
-                  <li>
-                    <a href="#">신발</a>
-                  </li>
-                  <li>
-                    <a href="#">악세사리</a>
-                  </li>
-                  <li>
-                    <a href="#">기타</a>
-                  </li>
-                </ul>
-              )}
+              <ul className={womanOpen ? 'show' : ''}>
+                {womanOpen && (
+                  <>
+                    <li>
+                      <a href="#">상의</a>
+                    </li>
+                    <li>
+                      <a href="#">하의</a>
+                    </li>
+                    <li>
+                      <a href="#">신발</a>
+                    </li>
+                    <li>
+                      <a href="#">악세사리</a>
+                    </li>
+                    <li>
+                      <a href="#">기타</a>
+                    </li>
+                  </>
+                )}
+              </ul>
             </div>
           </div>
 
@@ -154,36 +151,55 @@ export default function AllProductPage() {
               <div className="content">
                 <div className="product_grid_container">
                   {getCurrentItems().map((item, index) => (
-                    <div className="item" key={index}>
-                      {item.itemTitle}
-                      <br></br>
-                      <br></br>
-                      상품이미지 뜨게 할 거
+                    <div className="itemContainer" key={index}>
+                      <img
+                        className="item"
+                        src="/images/exam.jpeg"
+                        alt="상품이미지"
+                      />
+                      <div className="item_top_desc">
+                        <div className="item_desc">
+                          <p className="category_desc">
+                            {item.itemGender}
+                            {` `}&gt;{` `}
+                            {item.categoryId}
+                          </p>
+                          <p className="title_desc">{item.itemTitle}</p>
+                          <p className="price_desc">{item.itemPrice} 원</p>
+                        </div>
+                        <div className="heart_icon">
+                          <FontAwesomeIcon icon={faHeart} />
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
                 <div className="pagination">
-                  {currentPage > 1 && (
-                    <button className="prevBtn" onClick={previousPage}>
-                      이전
-                    </button>
-                  )}
+                  <button
+                    className="prevBtn"
+                    onClick={previousPage}
+                    disabled={currentPage === 1}
+                  >
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                  </button>
                   {Array.from({ length: totalPages }, (_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentPage(index + 1)}
                       className={`pageNum ${
-                        currentPage === index + 1 ? 'select' : ''
+                        currentPage === index + 1 ? 'select' : 'deselected'
                       }`}
                     >
                       {index + 1}
                     </button>
                   ))}
-                  {currentPage < totalPages && (
-                    <button className="nextBtn" onClick={nextPage}>
-                      다음
-                    </button>
-                  )}
+                  <button
+                    className="nextBtn"
+                    onClick={nextPage}
+                    disabled={currentPage >= totalPages}
+                  >
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </button>
                 </div>
               </div>
             </div>

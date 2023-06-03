@@ -1,8 +1,9 @@
 @import './_reset';
 @import './hashtag.scss';
+@import './address.scss';
 
 .form_wrapper{
-  padding-top: 2vh;
+  padding-top: 16vh;
   .gender_cate_input{
     display: flex;
     .gender_select_input{
@@ -56,6 +57,10 @@
       background-color: #fff;
       color: #3d435f;
       font-size: 18px;
+      width: 120px;
+    }
+    .price_text{
+      color: lightgray;
     }
   }
   .radio_container{
@@ -76,21 +81,21 @@
         display: inline-block;
         cursor: pointer;
         height: 35px;
-        width: 90px;
+        width: 80px;
         background-color: #fff;
-        border: 1px solid #3d435f;
-        color: #3d435f;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        color: gray;
         line-height: 35px;
         text-align: center;
         font-size:15px;
-        border-radius: 5px;
+        border-radius: 10px;
         margin-left: 10px;
       }
       .state_checked_radio,
       .exchange_checked_radio{
-        border: 1px solid #f4f6ff;
-        background-color: #3d435f;
-        color: #f4f6ff;
+        border: 1px solid #3d435f;
+        color: #3d435f;
+        font-weight: 700;
       }
     } 
   }
@@ -196,7 +201,6 @@
     border: none;
     background-color: transparent;
   }
-
 
 .salebar{
   position: fixed;

@@ -1,1 +1,56 @@
 @import "./_reset";
+
+.footer_container{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 350px;
+  background-color: #2d2f43;
+  z-index: -1;
+  .footer_center{
+    height: 350px;
+    width: 1200px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-around;
+    align-items: center;
+    .left_footer{
+      text-align: left;
+      p{
+        color: #f4f6ff;
+        margin-top: 10px;
+        &:nth-child(1){
+          font-weight: 700;
+          font-size: 25px;
+          color: #fff;
+        }
+      }
+    }
+    .right_footer{
+      text-align: left;
+      p{
+        color: #f4f6ff;
+        margin-top: 10px;
+        &:nth-child(1){
+          font-weight: 600;
+          color: #fff;
+        }
+      }
+      .faq_move{
+        display: inline-block;
+        width: 170px;
+        height: 40px;
+        margin-top: 15px;
+        background-color: #f4f6ff;
+        border-radius: 5px;
+        text-align: center;
+        p{
+          color: #3d435f;
+          font-weight: 700;
+          font-size: 17px;
+        }
+      }
+    }
+  }
+}
