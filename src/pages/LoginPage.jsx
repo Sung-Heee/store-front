@@ -114,13 +114,13 @@ export default function LoginPage() {
             <p>|</p>
             <p className="order_inquiry">비회원 주문조회</p>
           </div>
-          <p className="kakao_naver_login">간편 로그인</p>
+          {/* <p className="kakao_naver_login">간편 로그인</p>
           <div className="kakao_login">
             <Link to="">카카오톡으로 로그인</Link>
           </div>
           <div className="naver_login">
             <Link to="">네이버로 로그인</Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

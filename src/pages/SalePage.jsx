@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { saleItems } from '../apis/item';
 import DaumPostcode from 'react-daum-postcode';
 import TopBtn from '../components/TopBtn';
+import ScrollReset from '../components/ScrollReset';
 
 export default function SalePage(props) {
   const genderOptions = [
@@ -63,6 +64,7 @@ export default function SalePage(props) {
       gender: selectedGender.value,
       cate: selectedCate.value,
     };
+
     var tag = '';
     tagList.map((el) => {
       tag += String(el + ' ');
@@ -253,6 +255,7 @@ export default function SalePage(props) {
 
   return (
     <>
+      <ScrollReset />
       <div className="form_wrapper minMax">
         <div className="gender_cate_input">
           <Select

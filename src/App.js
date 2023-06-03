@@ -17,6 +17,7 @@ import ProductDetailsPage from './pages/ProductDetailsPage';
 import ManProductPage from './pages/ManProductPage';
 import WomanProductPage from './pages/WomanProductPage';
 import LoginRequire from './pages/LoginRequire';
+import ScrollReset from './components/ScrollReset';
 
 function App() {
   // 로그인 상태

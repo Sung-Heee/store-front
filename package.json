@@ -29,7 +29,7 @@
     "react-html-parser": "^2.0.2",
     "react-icons": "^4.8.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.11.0",
+    "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
     "react-select": "^5.7.3",
     "redux": "^4.2.1",

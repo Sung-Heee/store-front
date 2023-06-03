@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import '../style/mainPage.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowRightLong,
@@ -12,6 +11,7 @@ import Category from '../components/mainPage/Category';
 import TopBtn from '../components/TopBtn';
 import BottomBtn from '../components/BottomBtn';
 import Footer from '../components/Footer';
+import '../style/mainPage.scss';
 
 export default function MainPage() {
   return (

@@ -165,7 +165,7 @@ export default function Header() {
                   <li>
                     <Link to="/faq">FAQ</Link>
                   </li>
-                  <li className="header_dropdown_menu">
+                  <li className="header_sale_menu">
                     <Link to="/sale">SALE</Link>
                   </li>
                 </>
@@ -177,7 +177,7 @@ export default function Header() {
                   <li>
                     <Link to="/register">JOIN</Link>
                   </li>
-                  <li className="header_dropdown_menu">
+                  <li className="header_sale_menu">
                     <Link to="/sale">SALE</Link>
                   </li>
                 </>
