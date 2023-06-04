@@ -2,23 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { UserName, getUser } from '../../apis/user';
 
 export default function TopBox() {
-  // const [userName, setUserName] = useState();
-
-  // const UserNameInfo = async () => {
-  //   try {
-  //     const userId = sessionStorage.getItem('userId');
-  //     const resUser = await UserName(userId);
-  //     const dbUserInfo = resUser.data; // 조회된 사용자 정보 반환
-  //     setUserName(dbUserInfo.userInfo.userName);
-  //     console.log(dbUserInfo);
-  //   } catch (error) {
-  //     console.error('error');
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   UserNameInfo();
-  // }, []);
   const [userName, setUserName] = useState();
 
   const getUserInfo = async () => {
