@@ -9,15 +9,6 @@ export const getUser = async (userId) => {
   }
 };
 
-export const getItem = async (userId) => {
-  try {
-    const resItem = await axios.get(`/mypage/${userId}`);
-    return resItem;
-  } catch (err) {
-    console.error(err);
-  }
-};
-
 export const Login = async (account) => {
   try {
     const resLogin = await axios.post('/login', account);
@@ -51,35 +42,5 @@ export const NickNameCheck = async (nickName) => {
     return resCheckNickName;
   } catch (error) {
     console.error(error);
-  }
-};
-
-// 찜하기 관심상품
-export const Like = async (likeItem) => {
-  try {
-    const resLike = await axios.get(`/mypage`);
-    return resLike;
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-// 상태
-export const condition = async (condiiton) => {
-  try {
-    const resLike = await axios.get(`/mypage/condition`);
-    return resLike;
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-// 회원정보 수정
-export const change = async (change) => {
-  try {
-    const resLike = await axios.post(`/mypage/change`);
-    return resLike;
-  } catch (err) {
-    console.error(err);
   }
 };

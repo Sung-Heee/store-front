@@ -11,24 +11,6 @@ import Like from '../components/myPage/Like';
 import Update from '../components/myPage/Update';
 
 export default function MyPage() {
-  // const [userName, setUserName] = useState();
-
-  // const getUserInfo = async () => {
-  //   try {
-  //     const userId = sessionStorage.getItem('userId');
-  //     const resUser = await getUser(userId);
-  //     const dbUserInfo = resUser.data; // 조회된 사용자 정보 반환
-  //     setUserName(dbUserInfo.userInfo.userName);
-  //     console.log(dbUserInfo);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getUserInfo();
-  // }, []);
-
   return (
     <>
       <div className="all_content">
