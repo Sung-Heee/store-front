@@ -12,7 +12,7 @@ import axios from 'axios';
 
 export const getMain = async (userId) => {
   try {
-    const resItem = await axios.get('/new', {
+    const resItem = await axios.get('/item', {
       params: {
         userId: userId,
       },
@@ -104,7 +104,7 @@ export const getMainEnd = async (userId) => {
 
 export const getItem = async (userId) => {
   try {
-    const resItem = await axios.get('/item', {
+    const resItem = await axios.get('/itemn', {
       params: {
         userId: userId,
       },

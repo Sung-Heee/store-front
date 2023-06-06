@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../style/mypage/leftbox.scss';
 
 export default function LeftBox() {
   return (

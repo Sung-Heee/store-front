@@ -24,19 +24,16 @@ export default function MainContent() {
       const resUser = await getMain(userId);
       const dbMainInfo = resUser.data;
 
-      setLikeItemImg(dbMainInfo[0].item_img);
-      setLikeItemTitle(dbMainInfo[0].item_title);
-      setLikeItemPrice(dbMainInfo[0].item_price);
-
-      // dbMainInfo.slice(0, 4).map((item) => {
-      //   const itemImg = item.item_img;
-      //   const itemTitle = item.item_title;
-      //   const itemPrice = item.item_price;
-
-      //   return null;
-      // })
-
-      console.log(dbMainInfo);
+      // if (Array.isArray(resUser.data) && resUser.data.length > 0) {
+      //   // 데이터가 있는 경우에만 처리
+      //   dbMainInfo;
+      //   console.log(dbMainInfo);
+      // } else {
+      //   // 데이터가 없는 경우 처리
+      //   console.log('데이터가 없습니다.');
+      // }
+      console.log(dbMainInfo[0].item_content);
+      setItemNewImg(dbMainInfo[0].item_content);
     } catch (error) {
       console.error(error);
     }
@@ -48,7 +45,7 @@ export default function MainContent() {
 
   return (
     <>
-      <div className="main_content ">
+      <div className="main_content off">
         <div className="content">
           <div className="title">최근 거래상품</div>
           {/* {/* <p className="msg">최근 거래 내역이 없습니다</p>  */}

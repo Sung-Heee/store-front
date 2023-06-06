@@ -1,0 +1,39 @@
+.top_box{
+  left: 100px;
+  // width: 1200px;
+  height: 290px;
+  background-color: #f4f6ff;
+  display: flex;
+  margin: auto;
+  .top_left{
+    width: 35%;
+    .img_box {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background-color: white;
+      margin: auto;
+      margin-top: 30px;
+    }
+  }
+  .top_right {
+    width: 65%;
+    .member_name {
+      position: absolute;
+      top: 75px;
+      left: 500px;
+      
+     }
+     .order{
+      display: flex;
+      position: absolute;
+      width: 40%;
+      top: 130px;
+      left: 500px;
+      justify-content: space-between;
+      li{
+        margin-top: 10px;
+      }
+     }
+  }
+}

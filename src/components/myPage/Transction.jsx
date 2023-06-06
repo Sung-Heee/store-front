@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { getItem } from '../../apis/mypage';
+import { getMain } from '../../apis/mypage';
 
 export default function Transction() {
-  const [userTitle, setUserTitle] = useState();
-  const [userDate, setUserDate] = useState();
-  const [userPrice, setUserPrice] = useState();
-  const [userState, setUserState] = useState();
+  const [userItem, setUserItem] = useState();
 
   const getItemInfo = async () => {
     try {
       const userId = sessionStorage.getItem('userId');
-      const resItem = await getItem(userId);
+      const resItem = await getMain(userId);
       const dbresItemInfo = resItem.data;
-      setUserTitle(dbresItemInfo[0].item_title);
-      setUserDate(dbresItemInfo[0].item_date);
-      setUserPrice(dbresItemInfo[0].item_price);
-      setUserPrice(dbresItemInfo[0].item_state);
+
+      console.log(dbresItemInfo);
+
+      const items = dbresItemInfo.map((item) => (
+        <tr key={item.itemId}>
+          <td>{item.item_title}</td>
+          <td>{item.item_content}</td>
+          <td>{item.item_price}</td>
+          <td>{item.item_status}</td>
+        </tr>
+      ));
+
+      setUserItem(items);
     } catch (error) {
       console.error(error);
     }
@@ -26,46 +32,31 @@ export default function Transction() {
 
   return (
     <>
-      <div className="transaction off">
+      <div className="transaction">
         <div className="content">
           <div className="title">거래 내역 조회</div>
           <table border={0}>
             <thead>
-              <th>상품정보</th>
-              <th>거래일자</th>
-              <th>거래금액</th>
-              <th>
-                <select>
-                  <option selected>상태</option>
-                  <option>판매중</option>
-                  <option>판매완료</option>
-                </select>
-              </th>
+              <tr>
+                <th>상품정보</th>
+                <th>거래일자</th>
+                <th>거래금액</th>
+                <th>
+                  <select>
+                    <option selected>상태</option>
+                    <option>판매중</option>
+                    <option>판매완료</option>
+                  </select>
+                </th>
+              </tr>
             </thead>
             <tbody>
+              <td>{userItem}</td>
               <tr>
-                <td>{userTitle}</td>
-                <td>{userDate}</td>
-                <td>{userPrice}</td>
-                <td>{userState}</td>
-              </tr>
-              <tr>
-                <td>내용</td>
-                <td>날자</td>
-                <td>금액</td>
-                <td>판매완료</td>
-              </tr>
-              <tr>
-                <td>내용</td>
-                <td>날자</td>
-                <td>금액</td>
-                <td>판매중</td>
-              </tr>
-              <tr>
-                <td>내용</td>
-                <td>날자</td>
-                <td>금액</td>
-                <td>판매중</td>
+                <td>d</td>
+                <td>d</td>
+                <td>d</td>
+                <td>d</td>
               </tr>
             </tbody>
           </table>
