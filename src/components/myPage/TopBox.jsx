@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { UserName, getUser } from '../../apis/user';
+import { getUser } from '../../apis/user';
+import '../../style/mypage/topbox.scss';
 
 export default function TopBox() {
   const [userName, setUserName] = useState();

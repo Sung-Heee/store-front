@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import SideBar from '../components/myPage/SideBar';
 import '../style/myPage.scss';
-import { getUser } from '../apis/user';
-import Select from 'react-select';
 import MainContent from '../components/myPage/MainContent';
 import TopBox from '../components/myPage/TopBox';
 import LeftBox from '../components/myPage/LeftBox';
