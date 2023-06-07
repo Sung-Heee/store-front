@@ -23,36 +23,40 @@ export default function TopBox() {
 
   return (
     <>
-      <div className="top_box">
-        <div className="top_left">
-          <div className="img_box"></div>
-        </div>
-        <div className="top_right">
-          <div className="member_name">
-            <strong>
-              <span className="m_name">{userName}</span>님
-            </strong>
+      <div className="top_container">
+        <div className="top_box minMax">
+          <div className="top_left">
+            <div className="img_box"></div>
           </div>
-          <ul className="order">
-            <li>
-              <li>판매 중</li>
+          <div className="top_right">
+            <div className="member_name">
               <strong>
-                <li>0</li>
+                <span className="m_name">{userName}</span>님
               </strong>
-            </li>
-            <li>
-              <li>판매 완료</li>
-              <strong>
-                <li>0</li>
-              </strong>
-            </li>
-            <li>
-              <li>관심 상품</li>
-              <strong>
-                <li>0</li>
-              </strong>
-            </li>
-          </ul>
+            </div>
+            <div className="order_controller">
+              <ul className="order">
+                <li>
+                  <li>판매중</li>
+                  <strong>
+                    <li>0</li>
+                  </strong>
+                </li>
+                <li>
+                  <li>판매완료</li>
+                  <strong>
+                    <li>0</li>
+                  </strong>
+                </li>
+                <li>
+                  <li>관심상품</li>
+                  <strong>
+                    <li>0</li>
+                  </strong>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </>

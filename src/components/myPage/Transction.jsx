@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getMain } from '../../apis/mypage';
 
 export default function Transction() {
-  const [userItem, setUserItem] = useState();
+  const [items, setItems] = useState();
 
   const getItemInfo = async () => {
     try {
@@ -21,7 +21,7 @@ export default function Transction() {
         </tr>
       ));
 
-      setUserItem(items);
+      setItems(items);
     } catch (error) {
       console.error(error);
     }
@@ -32,7 +32,7 @@ export default function Transction() {
 
   return (
     <>
-      <div className="transaction">
+      <div className="transaction ">
         <div className="content">
           <div className="title">거래 내역 조회</div>
           <table border={0}>
@@ -50,15 +50,7 @@ export default function Transction() {
                 </th>
               </tr>
             </thead>
-            <tbody>
-              <td>{userItem}</td>
-              <tr>
-                <td>d</td>
-                <td>d</td>
-                <td>d</td>
-                <td>d</td>
-              </tr>
-            </tbody>
+            <tbody>{items}</tbody>
           </table>
         </div>
       </div>
