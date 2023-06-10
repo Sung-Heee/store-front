@@ -17,10 +17,18 @@ export default function MyPage() {
           <LeftBox />
           <div className="right_box">
             <div className="right_controller">
-              <MainContent />
-              <Transction />
-              <Like />
-              <Update />
+              <div className="off">
+                <MainContent />
+              </div>
+              <div className="off">
+                <Transction />
+              </div>
+              <div className="off">
+                <Like />
+              </div>
+              <div className="">
+                <Update />
+              </div>
             </div>
           </div>
         </div>

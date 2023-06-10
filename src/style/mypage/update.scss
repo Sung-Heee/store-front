@@ -1,0 +1,104 @@
+// 회원정보수정
+
+.please {              
+  font-size: 14px;
+  display: flex;
+  width: 90px;
+  justify-content: space-between; 
+}
+.required {
+  color: red;
+  font-size: 20px;    
+  margin: 5px 0 10px;
+}
+.update_form {
+  width: 100%;
+  border: none;
+  tbody {
+    tr{
+      text-align: left;
+      th {
+        border: 0;
+        padding: 0;
+        width: 300px;
+        font-weight: normal;
+        background-color: #fff;
+        color: #2d2f43;
+        font-size: 14px;
+        height: 55px;
+        line-height: 55px;
+        label {
+          display: flex;
+          p {
+            position: relative;
+            left: 10px;
+          }
+        }
+      }
+      td{
+        padding: 0;
+        font-size: 14px;
+        line-height: 55px;
+        font-weight: 400;
+      }
+      input {
+        width: 700px;
+        height: 54px;
+        line-height: 54px;
+        padding: 0;
+        border: 0;
+        border-bottom: 1px solid #d8d9df;
+        color: #2d2f45;
+        font-size: 14px;
+        vertical-align: top;
+        font-weight: 400;
+      }
+    }
+
+  }
+}
+
+.button_controller {
+  display: flex;
+  margin: 55px auto 0;
+  .white_button{
+    cursor: pointer;
+    width: 160px;
+    height: 47px;
+    background-color: #fff;
+    color: #2d2f43;
+    font-size: 16px;
+    font-weight: 500;
+    float: left;
+    display: block;
+    text-align: center;
+    line-height: 47px;
+    border-radius: 50px;
+    border: 1px solid #b4b5c1;
+  }
+  .gray_button {
+    cursor: pointer;
+    width: 160px;
+    height: 47px;
+    background-color: #3d435f;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    float: right;
+    display: block;
+    text-align: center;
+    line-height: 47px;
+    border-radius: 50px;
+    border: 1px solid #3d435f
+  }
+  .end{
+    position: relative;
+    right: -420px;
+  }
+  .update_button {
+    position: relative;
+    width: 340px;
+    left: 31%;
+  }
+}
+            

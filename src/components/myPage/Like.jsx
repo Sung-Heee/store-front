@@ -25,7 +25,7 @@ export default function Like() {
 
   return (
     <>
-      <div className="like off">
+      <div className="like">
         <div className="content">
           <div className="title">관심상품</div>
           <table border={0}>
