@@ -11,7 +11,7 @@ export default function TopBox() {
       const resUser = await getUser(userId);
       const dbUserInfo = resUser.data; // 조회된 사용자 정보 반환
       setUserName(dbUserInfo[0].user_name);
-      console.log(dbUserInfo);
+      // console.log(dbUserInfo);
     } catch (error) {
       console.error(error);
     }

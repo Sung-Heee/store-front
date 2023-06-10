@@ -45,7 +45,7 @@ export default function MainContent() {
 
   return (
     <>
-      <div className="main_content off">
+      <div className="main_content">
         <div className="content">
           <div className="title">최근 거래상품</div>
           {/* {/* <p className="msg">최근 거래 내역이 없습니다</p>  */}

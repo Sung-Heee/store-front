@@ -136,3 +136,19 @@ export const getLike = async (userId) => {
     console.error(err);
   }
 };
+
+//회원 정보 수정
+export const update = async (userId, userInfo) => {
+  try {
+    const resUpdate = await axios.post('/update', {
+      userId: userId,
+      userInfo: userInfo,
+    });
+    return resUpdate.data; // 응답의 데이터만 반환
+  } catch (error) {
+    console.log(userId);
+    console.log(userInfo);
+    console.log(error);
+    throw new Error('업데이트 요청을 처리하는 동안 오류가 발생했습니다.'); // 예외 처리
+  }
+};
