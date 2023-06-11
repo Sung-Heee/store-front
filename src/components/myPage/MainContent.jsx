@@ -2,21 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { getMain } from '../../apis/mypage';
 
 export default function MainContent() {
-  const [itemNewImg, setItemNewImg] = useState();
-  const [itemNewTitle, setItemNewTitle] = useState();
-  const [itemNewPrice, setItemNewPrice] = useState();
-
-  const [likeItemImg, setLikeItemImg] = useState();
-  const [likeItemTitle, setLikeItemTitle] = useState();
-  const [likeItemPrice, setLikeItemPrice] = useState();
-
-  const [ingItemImg, setIngItemImg] = useState();
-  const [ingItemTitle, setIngItemTitle] = useState();
-  const [ingItemPrice, setIngItemPrice] = useState();
-
-  const [endItemImg, setEndItemImg] = useState();
-  const [endItemTitle, setEndItemTitle] = useState();
-  const [endItemPrice, setEndItemPrice] = useState();
+  const [itemNewList, setItemNewList] = useState([]);
+  const [itemLikeList, setItemLikeList] = useState([]);
+  const [itemIngList, setItemIngList] = useState([]);
+  const [itemEndList, setItemEndList] = useState([]);
 
   const getMaininfo = async () => {
     try {
@@ -32,8 +21,8 @@ export default function MainContent() {
       //   // 데이터가 없는 경우 처리
       //   console.log('데이터가 없습니다.');
       // }
-      console.log(dbMainInfo[0].item_content);
-      setItemNewImg(dbMainInfo[0].item_content);
+      // dbMainInfo에 4개의 데이터만 넣어둠
+      setItemNewList(dbMainInfo.slice(0, 4));
     } catch (error) {
       console.error(error);
     }
@@ -50,14 +39,17 @@ export default function MainContent() {
           <div className="title">최근 거래상품</div>
           {/* {/* <p className="msg">최근 거래 내역이 없습니다</p>  */}
           <ul>
-            <li>
-              <p>{itemNewImg}</p>
-              <p>{itemNewTitle}</p>
-              <p>{itemNewPrice}</p>
-            </li>
-            <li></li>
-            <li></li>
-            <li></li>
+            {itemNewList.length > 0 ? (
+              itemNewList.map((item, index) => (
+                <li key={index}>
+                  <p>이미지 {item.item_content}</p>
+                  <p>이름 {item.item_title}</p>
+                  <p>가격 {item.item_price}</p>
+                </li>
+              ))
+            ) : (
+              <p className="msg">최근 거래 내역이 없습니다</p>
+            )}
           </ul>
         </div>
         <div className="content">

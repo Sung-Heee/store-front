@@ -14,7 +14,7 @@ export default function Update() {
 
   const [newPw, setNewPw] = useState('');
   const [newGender, setNewGender] = useState('');
-  const [newName, setNewName] = useState();
+  const [newName, setNewName] = useState('');
   const [newPhoneNumber, setNewPhoneNumber] = useState('');
   const [newNickName, setNewNickName] = useState('');
 
@@ -41,7 +41,7 @@ export default function Update() {
     setNewName(e.target.value);
   };
   const handleGenderChange = (e) => {
-    setNewGender(e.target.value);
+    setNewGender(e.value);
   };
   const handlePhoneNumber = (e) => {
     setNewPhoneNumber(e.target.value);
@@ -158,7 +158,9 @@ export default function Update() {
                     <Select
                       options={genderOptions}
                       placeholder="성별"
-                      value={newGender}
+                      value={genderOptions.find(
+                        (option) => option.value === newGender,
+                      )}
                       onChange={handleGenderChange}
                     />
                   </div>

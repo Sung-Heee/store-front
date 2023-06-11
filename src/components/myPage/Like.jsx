@@ -1,6 +1,7 @@
 import { async } from 'q';
 import React, { useEffect, useState } from 'react';
 import { getLike } from '../../apis/mypage';
+import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 
 export default function Like() {
   const [userTitle, setUserTitle] = useState();
@@ -12,6 +13,7 @@ export default function Like() {
       const userId = sessionStorage.getItem('userId');
       const resLike = await getLike(userId);
       const dbLikeInfo = resLike.data;
+      console.log(dbLikeInfo[0]);
       setUserTitle(dbLikeInfo[0].item_title);
       setUserDate(dbLikeInfo[0].item_date);
       setUserPrice(dbLikeInfo[0].item_price);
@@ -74,6 +76,11 @@ export default function Like() {
               </tr>
             </tbody>
           </table>
+
+          <div className="button">
+            <GoChevronLeft size={50} className="btn" />
+            <GoChevronRight size={50} className="btn" />
+          </div>
         </div>
       </div>
     </>

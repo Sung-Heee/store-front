@@ -22,7 +22,7 @@
     .top_right {
       height: 100%;
       position: absolute;
-      left: 255px;
+      left: 300px;
       top: 50%;
       transform: translateY(-25%);
       .member_name {
@@ -34,7 +34,7 @@
           display: flex;
           width: 100%;
           justify-content: space-between; 
-          margin: 20px;
+          margin-top: 20px;
           li{
             margin-top: 10px;
           }

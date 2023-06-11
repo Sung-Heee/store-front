@@ -31,7 +31,52 @@
     margin: 0 auto;
     margin-top: 100px;
     // background-color: orange;
-    
+    .left_box {
+      width: 22%;
+      .left_controller{
+        width: 170px;
+        // background-color: white;
+        text-align: left;
+      }
+      .my_page{
+        font-size: 20px;
+        font-weight: 700;
+        color: #2d2f45;
+        border-bottom: 2px solid #2d2f45;
+        height: 44px;
+        line-height: 44px;
+        span{
+          cursor: pointer;
+        }
+      }
+      ul {
+        margin: 45px auto 0;
+        li {
+          cursor: pointer;
+          position: relative;
+          font-size: 14px;
+          font-weight: 400;
+          color: #2d2f45;
+          height: 33px;
+          line-height: 33px;
+          padding-left: 17px;
+          z-index: 3;
+          padding-left: 20px;
+          :hover {
+            font-weight: 700;
+          }
+        }
+      }
+      .first_ul{
+        margin :18px auto 0;
+      }
+      .first_li {
+        font-size: 16px;
+        font-weight: 600;
+        color: #2d2f45;
+        padding-left: 0;
+      }
+    }
     .right_box{
       .right_controller{
         text-align: left;
@@ -71,6 +116,7 @@
             font-size: 20px;
             text-align: center;
             color: #abacb1;
+            width: 100%;
             }
 
             // 거래내역 관심상품
@@ -120,6 +166,18 @@
         
       }
       
+    }
+    .button {
+      margin: 0 auto;
+      display: flex;
+      text-align: center;
+      width: 500px;
+      justify-content: space-between;
+      color: #777777;
+      margin-top: 25px;
+      .btn {
+        cursor: pointer;
+      }
     }
   }
 }

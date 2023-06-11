@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getMain } from '../../apis/mypage';
+import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 
 export default function Transction() {
   const [items, setItems] = useState();
@@ -10,14 +11,14 @@ export default function Transction() {
       const resItem = await getMain(userId);
       const dbresItemInfo = resItem.data;
 
-      console.log(dbresItemInfo);
+      // console.log(dbresItemInfo[0].item_status);
 
       const items = dbresItemInfo.map((item) => (
         <tr key={item.itemId}>
           <td>{item.item_title}</td>
           <td>{item.item_content}</td>
           <td>{item.item_price}</td>
-          <td>{item.item_status}</td>
+          <td>{item.item_status === 0 ? '판매중' : '판매완료'}</td>
         </tr>
       ));
 
@@ -52,6 +53,10 @@ export default function Transction() {
             </thead>
             <tbody>{items}</tbody>
           </table>
+          <div className="button">
+            <GoChevronLeft size={50} />
+            <GoChevronRight size={50} />
+          </div>
         </div>
       </div>
     </>
