@@ -190,14 +190,16 @@ export default function Update() {
                   </label>
                 </th>
                 <td>
-                  <input
-                    id="nickInput"
-                    type="text"
-                    maxLength={8}
-                    value={newNickName}
-                    onChange={handleNickNameChange}
-                  />
-                  <button>중복확인</button>
+                  <div className="nickname">
+                    <input
+                      id="nickInput"
+                      type="text"
+                      maxLength={8}
+                      value={newNickName}
+                      onChange={handleNickNameChange}
+                    />
+                    <button>중복확인</button>
+                  </div>
                 </td>
               </tr>
             </tbody>

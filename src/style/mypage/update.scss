@@ -41,6 +41,26 @@
         line-height: 55px;
         font-weight: 400;
       }
+      .nickname{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        input{
+          width: 600px;
+        }
+        button {
+          border: 1px solid #3d435f;
+          color: #3d435f;
+          background-color: transparent;
+          border-radius: 30px;
+          /* padding: 6px 12px; */
+          width: 75px;
+          margin-top: 13px;
+          height: 40px;
+          cursor: pointer;
+          font-size: 12px;
+        }
+      }
       input {
         width: 700px;
         height: 54px;
