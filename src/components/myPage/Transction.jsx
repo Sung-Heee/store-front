@@ -4,6 +4,10 @@ import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 
 export default function Transction() {
   const [items, setItems] = useState();
+  // 현재 페이지 번호를 저장
+  const [currentPage, setCurrentPage] = useState(0);
+  // 전체 페이지 수를 저장
+  const [totalPages, setTotalPages] = useState(0);
 
   const getItemInfo = async () => {
     try {
@@ -13,7 +17,17 @@ export default function Transction() {
 
       // console.log(dbresItemInfo[0].item_status);
 
-      const items = dbresItemInfo.map((item) => (
+      //처음 보여줄 li
+      const itemsPerPage = 4;
+      // 현재 페이지의 시작 인덱스
+      // 시작할 떄 currentPage는 0이여서 0*4 = 0 그래서 0부터 시작
+      const startIndex = currentPage * itemsPerPage;
+      // 현재 페이지의 끝 인덱스
+      const endIndex = startIndex + itemsPerPage;
+      // 현재 페이지에 표시할 항목들 0~4까지 slice
+      const itemsToShow = dbresItemInfo.slice(startIndex, endIndex);
+
+      const items = itemsToShow.map((item) => (
         <tr key={item.itemId}>
           <td>{item.item_title}</td>
           <td>{item.item_content}</td>
@@ -23,14 +37,28 @@ export default function Transction() {
       ));
 
       setItems(items);
+
+      setTotalPages(Math.ceil(dbresItemInfo.length / itemsPerPage));
     } catch (error) {
       console.error(error);
     }
   };
   useEffect(() => {
     getItemInfo();
-  }, []);
+  }, [currentPage]);
 
+  // 다음 버튼 눌렀을 때 다음 li보여주게(5번째)
+  const handleNextPage = () => {
+    if (currentPage < totalPages - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+  // 이전 버튼
+  const handlePreviousPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
   return (
     <>
       <div className="transaction ">
@@ -44,7 +72,7 @@ export default function Transction() {
                 <th>거래금액</th>
                 <th>
                   <select>
-                    <option selected>상태</option>
+                    <option defaultValue>상태</option>
                     <option>판매중</option>
                     <option>판매완료</option>
                   </select>
@@ -54,8 +82,18 @@ export default function Transction() {
             <tbody>{items}</tbody>
           </table>
           <div className="button">
-            <GoChevronLeft size={50} />
-            <GoChevronRight size={50} />
+            <GoChevronLeft
+              size={50}
+              className="btn"
+              onClick={handlePreviousPage}
+            />
+            <GoChevronRight
+              size={50}
+              className="btn"
+              onClick={handleNextPage}
+              // 다음 페이지로 이동할 수 없을 때 버튼 비활성화
+              disabled={currentPage === totalPages - 1}
+            />
           </div>
         </div>
       </div>
