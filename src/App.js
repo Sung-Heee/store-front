@@ -26,9 +26,14 @@ function App() {
   useEffect(() => {
     const checkLoggedInUser = async () => {
       const storedUserId = sessionStorage.getItem('userId');
+
       if (storedUserId) {
         try {
-          const resUser = await getUser(storedUserId);
+          const resUser = await getUser({
+            params: {
+              encryptedEmail: storedUserId,
+            },
+          });
           const dbUserId = resUser.data.userInfo.userEmail;
           if (storedUserId !== dbUserId) {
             alert('잘못된 로그인입니다.');

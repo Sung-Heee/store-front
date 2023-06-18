@@ -95,8 +95,8 @@ export default function WomanProductPage() {
     <>
       <div className="product_container">
         <div className="bottom_box">
-          <div className="left_box">
-            <div className="left_controller">
+          <div className="left_menu_box">
+            <div className="left_menu">
               <div className="product">
                 <span>PRODUCT</span>
               </div>

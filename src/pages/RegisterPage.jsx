@@ -99,13 +99,14 @@ export default function RegisterPage() {
     if (!registerIdInput.current.value) return alert('이메일을 입력해주세요.');
 
     const email = {
-      id: aes128Encode(
-        // eslint-disable-next-line no-undef
-        process.env.REACT_APP_AES_SECRET_KEY,
-        // eslint-disable-next-line no-undef
-        process.env.REACT_APP_AES_SECRET_IV,
-        registerIdInput.current.value,
-      ),
+      // id: aes128Encode(
+      //   // eslint-disable-next-line no-undef
+      //   process.env.REACT_APP_AES_SECRET_KEY,
+      //   // eslint-disable-next-line no-undef
+      //   process.env.REACT_APP_AES_SECRET_IV,
+      //   registerIdInput.current.value,
+      // ),
+      id: registerIdInput.current.value,
     };
 
     try {
