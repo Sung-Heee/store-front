@@ -6,6 +6,7 @@ import TopBox from '../components/myPage/TopBox';
 import Transction from '../components/myPage/Transction';
 import Like from '../components/myPage/Like';
 import Update from '../components/myPage/Update';
+import Ready from '../components/myPage/Ready';
 
 export default function MyPage() {
   const [activeTab, setActiveTab] = useState('main');
@@ -51,13 +52,13 @@ export default function MyPage() {
               <ul>
                 <li className="first_li">고객센터</li>
                 <li>
-                  <a href="#">1:1 문의</a>
+                  <a onClick={() => handleTabClick('ready1')}>1:1 문의</a>
                 </li>
                 <li>
-                  <a href="#">공지사항</a>
+                  <a onClick={() => handleTabClick('ready2')}>공지사항</a>
                 </li>
                 <li>
-                  <a href="#">이용안내</a>
+                  <a onClick={() => handleTabClick('ready3')}>이용안내</a>
                 </li>
               </ul>
             </div>
@@ -75,6 +76,24 @@ export default function MyPage() {
               </div>
               <div className={getClassName('update')}>
                 <Update />
+              </div>
+              <div className={getClassName('ready1')}>
+                <div className="content">
+                  <div className="title">1:1 문의</div>
+                </div>
+                <Ready />
+              </div>
+              <div className={getClassName('ready2')}>
+                <div className="content">
+                  <div className="title">공지사항</div>
+                </div>
+                <Ready />
+              </div>
+              <div className={getClassName('ready3')}>
+                <div className="content">
+                  <div className="title">이용안내</div>
+                </div>
+                <Ready />
               </div>
             </div>
           </div>
