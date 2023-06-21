@@ -3,7 +3,7 @@ import { getMain } from '../../apis/mypage';
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 
 export default function Transction() {
-  const [items, setItems] = useState();
+  const [items, setItems] = useState([]);
   // 현재 페이지 번호를 저장
   const [currentPage, setCurrentPage] = useState(0);
   // 전체 페이지 수를 저장
@@ -35,12 +35,12 @@ export default function Transction() {
           <td>{item.item_status === 0 ? '판매중' : '판매완료'}</td>
         </tr>
       ));
-
       setItems(items);
-
+      console.log(items);
       setTotalPages(Math.ceil(dbresItemInfo.length / itemsPerPage));
     } catch (error) {
-      console.error(error);
+      // console.error(error);
+      console.log(items);
     }
   };
   useEffect(() => {
@@ -61,40 +61,45 @@ export default function Transction() {
   };
   return (
     <>
-      <div className="transaction ">
+      <div className="transaction">
         <div className="content">
           <div className="title">거래 내역 조회</div>
-          <table border={0}>
-            <thead>
-              <tr>
-                <th>상품정보</th>
-                <th>거래일자</th>
-                <th>거래금액</th>
-                <th>
-                  <select>
-                    <option defaultValue>상태</option>
-                    <option>판매중</option>
-                    <option>판매완료</option>
-                  </select>
-                </th>
-              </tr>
-            </thead>
-            <tbody>{items}</tbody>
-          </table>
-          <div className="button">
-            <GoChevronLeft
-              size={50}
-              className="btn"
-              onClick={handlePreviousPage}
-            />
-            <GoChevronRight
-              size={50}
-              className="btn"
-              onClick={handleNextPage}
-              // 다음 페이지로 이동할 수 없을 때 버튼 비활성화
-              disabled={currentPage === totalPages - 1}
-            />
-          </div>
+          {items.length > 0 ? (
+            <table border={0}>
+              <thead>
+                <tr>
+                  <th>상품정보</th>
+                  <th>거래일자</th>
+                  <th>거래금액</th>
+                  <th>
+                    <select>
+                      <option defaultValue>상태</option>
+                      <option>판매중</option>
+                      <option>판매완료</option>
+                    </select>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>{items}</tbody>
+            </table>
+          ) : (
+            <p className="msg">거래 내역이 없습니다</p>
+          )}
+          {items.length > 0 && (
+            <div className="button">
+              <GoChevronLeft
+                size={50}
+                className="btn"
+                onClick={handlePreviousPage}
+              />
+              <GoChevronRight
+                size={50}
+                className="btn"
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages - 1}
+              />
+            </div>
+          )}
         </div>
       </div>
     </>

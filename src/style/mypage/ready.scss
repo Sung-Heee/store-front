@@ -1,0 +1,20 @@
+.ready_controller{
+  width: 89.5%;
+  height: 485px;
+  // background: orange;
+  .emo{
+    color: #abacb1;
+    position: relative;
+    left: 45%;
+    top: -40%;
+  }
+  .msg{
+    position: relative;
+    font-size: 20px;
+    top: -34%;
+    border: 0;
+    text-align: center;
+    color: #abacb1;
+    width: 100%;
+  }
+}

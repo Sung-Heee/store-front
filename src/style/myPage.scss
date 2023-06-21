@@ -99,13 +99,15 @@
             }
             ul{
               display: flex;
-              justify-content: space-between;
+              justify-content: flex-start;
               margin-top: 20px;
+              margin-left: 45px;
               li{
                 position: relative;
                 top: 50px;
                 width: 150px;
                 height: 150px;
+                margin-right: 69px;
                 border: 1px solid #2d2f43;
                 border-radius: 5px;
               }
