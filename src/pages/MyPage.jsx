@@ -7,6 +7,9 @@ import Like from '../components/myPage/Like';
 import Update from '../components/myPage/Update';
 import Ready from '../components/myPage/Ready';
 import { Link } from 'react-scroll';
+import BottomBtn from '../components/BottomBtn';
+import TopBtn from '../components/TopBtn';
+import ScrollReset from '../components/ScrollReset';
 
 export default function MyPage() {
   const [activeTab, setActiveTab] = useState('main');
@@ -52,6 +55,7 @@ export default function MyPage() {
   }`;
   return (
     <>
+      <ScrollReset />
       <div className="all_content">
         <TopBox />
         <div className="bottom_box">
@@ -138,6 +142,8 @@ export default function MyPage() {
           </div>
         </div>
       </div>
+      <TopBtn />
+      <BottomBtn />
     </>
   );
 }
