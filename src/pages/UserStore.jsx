@@ -7,6 +7,8 @@ import Ready from '../components/userStore/Ready';
 import { Link } from 'react-scroll';
 import Footer from '../components/Footer';
 import ScrollReset from '../components/ScrollReset';
+import TopBtn from '../components/TopBtn';
+import BottomBtn from '../components/BottomBtn';
 
 export default function UserStore() {
   const [activeTab, setActiveTab] = useState('main');
@@ -110,6 +112,8 @@ export default function UserStore() {
           </div>
         </div>
       </div>
+      <TopBtn />
+      <BottomBtn />
       {/* <Footer /> */}
     </>
   );
