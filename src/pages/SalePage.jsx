@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useRef } from 'react';
@@ -45,81 +45,6 @@ export default function SalePage(props) {
   const editorTextInput = useRef();
   const navigate = useNavigate();
   const addressText = useRef();
-
-  const saveSale = async (e) => {
-    e.preventDefault();
-    const data = editorTextInput.current.editor.getData();
-
-    if (
-      !saleTitleInput.current.value ||
-      !itemNameInput.current.value ||
-      !itemPriceInput.current.value ||
-      !data ||
-      !selectedCate ||
-      !addressText.current.innerText
-    )
-      return alert('내용을 입력하세요');
-
-    const cateObject = {
-      gender: selectedGender.value,
-      cate: selectedCate.value,
-    };
-
-    var tag = '';
-    tagList.map((el) => {
-      tag += String(el + ' ');
-    });
-
-    console.log(tag);
-    console.log(cateObject);
-    console.log(saleTitleInput.current.value);
-    console.log(itemNameInput.current.value);
-    console.log(itemPriceInput.current.value);
-    console.log(tagList[0]);
-    console.log('사용자', userId);
-    console.log(selectedRadio);
-    console.log(selectedRadio_ex);
-    console.log(addressText.current.innerText);
-
-    const saleItemInfo = {
-      id: userId,
-      gender: cateObject.gender,
-      categories: cateObject.cate,
-      saleTitle: saleTitleInput.current.value,
-      itemName: itemNameInput.current.value,
-      itemPrice: itemPriceInput.current.value,
-      saleTag: tag,
-      editorText: data,
-      state: selectedRadio,
-      exchange: selectedRadio_ex,
-      address: addressText.current.innerText,
-    };
-
-    // 이미지 전송
-    const formData = new FormData();
-    showImages.forEach((image) => {
-      formData.append('images', image);
-    });
-
-    // FormData 객체의 키-값 쌍 출력
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
-
-    try {
-      const resSale = await saleItems(saleItemInfo, formData);
-
-      const message = resSale.data.message;
-      if (resSale.data.status === '200') {
-        alert(message); // 작성완
-      } else {
-        return alert(message); // 작성실패
-      }
-    } catch (error) {
-      console.error(error);
-      alert(error.response.data);
-    }
-  };
 
   const cancleSale = async () => {
     if (window.confirm('작성취소')) {
@@ -183,6 +108,7 @@ export default function SalePage(props) {
   // 이미지 첨부파일
   const [showImages, setShowImages] = useState([]);
   const inputImg = useRef(null);
+  const formData = useRef(new FormData());
 
   // 이미지 상대경로 저장
   const handleAddImages = (event) => {
@@ -190,8 +116,9 @@ export default function SalePage(props) {
     let imageUrlLists = [...showImages];
 
     for (let i = 0; i < imageLists.length; i++) {
-      const currentImageUrl = URL.createObjectURL(imageLists[i]);
-      imageUrlLists.push(currentImageUrl);
+      const currentImageFile = imageLists[i];
+      imageUrlLists.push(URL.createObjectURL(currentImageFile));
+      formData.current.append('images', currentImageFile);
     }
 
     if (imageUrlLists.length > 6) {
@@ -204,6 +131,87 @@ export default function SalePage(props) {
   // X버튼 클릭 시 이미지 삭제
   const handleDeleteImage = (id) => {
     setShowImages(showImages.filter((_, index) => index !== id));
+  };
+
+  const saveSale = async (e) => {
+    e.preventDefault();
+    const data = editorTextInput.current.editor.getData();
+
+    if (
+      !saleTitleInput.current.value ||
+      !itemNameInput.current.value ||
+      !itemPriceInput.current.value ||
+      !data ||
+      !selectedCate ||
+      !addressText.current.innerText
+    )
+      return alert('내용을 입력하세요');
+
+    const cateObject = {
+      gender: selectedGender.value,
+      cate: selectedCate.value,
+    };
+
+    var tag = '';
+    tagList.map((el) => {
+      tag += String(el + ' ');
+    });
+
+    console.log(tag);
+    console.log(cateObject);
+    console.log(saleTitleInput.current.value);
+    console.log(itemNameInput.current.value);
+    console.log(itemPriceInput.current.value);
+    console.log(tagList[0]);
+    console.log('사용자', userId);
+    console.log(selectedRadio);
+    console.log(selectedRadio_ex);
+    console.log(addressText.current.innerText);
+
+    const saleItemInfo = {
+      id: userId,
+      gender: cateObject.gender,
+      categories: cateObject.cate,
+      saleTitle: saleTitleInput.current.value,
+      itemName: itemNameInput.current.value,
+      itemPrice: itemPriceInput.current.value,
+      saleTag: tag,
+      editorText: data,
+      state: selectedRadio,
+      exchange: selectedRadio_ex,
+      address: addressText.current.innerText,
+    };
+
+    console.log(`fd:`, formData.current);
+    for (let [key, value] of formData.current.entries()) {
+      console.log(key, value);
+    }
+
+    // // 이미지 전송
+    // const formData = new FormData();
+    // showImages.forEach((image) => {
+    //   formData.append('images', image);
+    // });
+    // console.log(`fd:`, formData);
+
+    // // FormData 객체의 키-값 쌍 출력
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
+
+    try {
+      const resSale = await saleItems(saleItemInfo, formData.current);
+
+      const message = resSale.data.message;
+      if (resSale.data.status === '200') {
+        alert(message); // 작성완료
+      } else {
+        return alert(message); // 작성실패
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data);
+    }
   };
 
   //주소 토글
@@ -474,6 +482,7 @@ export default function SalePage(props) {
             </div>
           ))}
         </div>
+
         <CKEditor
           editor={ClassicEditor}
           data=""
