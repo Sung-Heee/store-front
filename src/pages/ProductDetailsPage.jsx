@@ -192,7 +192,7 @@ export default function ProductDetailsPage() {
             {/* 판매자 정보 */}
             <div className="seller-info">
               <p>판매자 정보</p>
-              <p>{selectedItem.userID}</p>
+              <Link to="/user_store">{selectedItem.userID}</Link>
             </div>
           </div>
         </div>
