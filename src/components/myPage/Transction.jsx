@@ -63,7 +63,6 @@ export default function Transction() {
     <>
       <div className="transaction">
         <div className="content">
-          <div className="title">거래 내역 조회</div>
           {items.length > 0 ? (
             <table border={0}>
               <thead>

@@ -1,15 +1,40 @@
 import React, { useEffect, useRef, useState } from 'react';
 import SideBar from '../components/myPage/SideBar';
 import '../style/myPage.scss';
-import MainContent from '../components/myPage/MainContent';
 import TopBox from '../components/myPage/TopBox';
 import Transction from '../components/myPage/Transction';
 import Like from '../components/myPage/Like';
 import Update from '../components/myPage/Update';
 import Ready from '../components/myPage/Ready';
+import { Link } from 'react-scroll';
 
 export default function MyPage() {
   const [activeTab, setActiveTab] = useState('main');
+  const [ScrollY, setScrollY] = useState(0); // window 의 pageYOffset값을 저장
+  const [ScrollActive, setScrollActive] = useState(false);
+
+  const handleScroll = () => {
+    if (ScrollY > 350) {
+      setScrollY(window.pageYOffset);
+      setScrollActive(true);
+    } else {
+      setScrollY(window.pageYOffset);
+      setScrollActive(false);
+    }
+  };
+
+  useEffect(() => {
+    const scrollListener = () => {
+      window.addEventListener('scroll', handleScroll);
+    }; //  window 에서 스크롤을 감시 시작
+    scrollListener(); // window 에서 스크롤을 감시
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    }; //  window 에서 스크롤을 감시를 종료
+  });
+
+  // console.log(ScrollY);
+  // console.log(ScrollActive);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -22,7 +47,9 @@ export default function MyPage() {
       return 'off';
     }
   };
-
+  const leftControllerClassName = `left_controller ${
+    ScrollActive ? 'fix' : ''
+  }`;
   return (
     <>
       <div className="all_content">
@@ -30,49 +57,61 @@ export default function MyPage() {
         <div className="bottom_box">
           <div className="left_box">
             <div className="left_controller">
-              <div className="my_page">
-                <span onClick={() => handleTabClick('main')}>MY PAGE</span>
+              <div className={leftControllerClassName}>
+                <div className="my_page">
+                  <span>MY PAGE</span>
+                </div>
+                <ul className="first_ul">
+                  <li className="first_li">나의 거래 정보</li>
+                  <li>
+                    <Link to="1" smooth="true">
+                      <a onClick={() => handleTabClick('main')}>거래내역</a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="2" smooth="true">
+                      <a onClick={() => handleTabClick('main')}>관심상품</a>
+                    </Link>
+                  </li>
+                </ul>
+                <ul>
+                  <li className="first_li">회원정보</li>
+                  <li>
+                    <a onClick={() => handleTabClick('update')}>
+                      회원 정보 수정
+                    </a>
+                  </li>
+                </ul>
+                <ul>
+                  <li className="first_li">고객센터</li>
+                  <li>
+                    <a onClick={() => handleTabClick('ready1')}>1:1 문의</a>
+                  </li>
+                  <li>
+                    <a onClick={() => handleTabClick('ready2')}>공지사항</a>
+                  </li>
+                  <li>
+                    <a onClick={() => handleTabClick('ready3')}>이용안내</a>
+                  </li>
+                </ul>
               </div>
-
-              <ul className="first_ul">
-                <li className="first_li">나의 거래 정보</li>
-                <li>
-                  <a onClick={() => handleTabClick('transaction')}>거래내역</a>
-                </li>
-                <li>
-                  <a onClick={() => handleTabClick('like')}>관심상품</a>
-                </li>
-              </ul>
-              <ul>
-                <li className="first_li">회원정보</li>
-                <li>
-                  <a onClick={() => handleTabClick('update')}>회원 정보 수정</a>
-                </li>
-              </ul>
-              <ul>
-                <li className="first_li">고객센터</li>
-                <li>
-                  <a onClick={() => handleTabClick('ready1')}>1:1 문의</a>
-                </li>
-                <li>
-                  <a onClick={() => handleTabClick('ready2')}>공지사항</a>
-                </li>
-                <li>
-                  <a onClick={() => handleTabClick('ready3')}>이용안내</a>
-                </li>
-              </ul>
             </div>
           </div>
           <div className="right_box">
             <div className="right_controller">
               <div className={getClassName('main')}>
-                <MainContent />
-              </div>
-              <div className={getClassName('transaction')}>
-                <Transction />
-              </div>
-              <div className={getClassName('like')}>
-                <Like />
+                <div className="content">
+                  <div className="title" id="1">
+                    거래내역
+                  </div>
+                  <Transction />
+                </div>
+                <div className="content">
+                  <div className="title" id="2">
+                    관심상품
+                  </div>
+                  <Like />
+                </div>
               </div>
               <div className={getClassName('update')}>
                 <Update />

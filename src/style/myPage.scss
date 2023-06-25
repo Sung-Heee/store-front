@@ -10,6 +10,10 @@
 .off {
   display: none;
 }
+.fix {
+  position: fixed;
+  top: 20%;
+}
 
 .all_content{
   position: relative;
@@ -37,6 +41,7 @@
         width: 170px;
         // background-color: white;
         text-align: left;
+        
       }
       .my_page{
         font-size: 20px;
@@ -84,7 +89,6 @@
         //content title 공통
           .content {
             width: 100%;
-            height: 300px;
             margin-bottom: 30px;
             .title {
             font-size: 17px;
@@ -154,8 +158,8 @@
                   width: 25%;
                 }
               input[type=checkbox] {
-                width: 24px;
-                height: 24px;
+                width: 25px;
+                height: 18px;
                 border: 0;
                 vertical-align: middle;
                 border-radius: 50%;

@@ -29,7 +29,6 @@ export default function Like() {
     <>
       <div className="like">
         <div className="content">
-          <div className="title">관심상품</div>
           <table border={0}>
             <thead>
               <tr>
