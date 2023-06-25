@@ -18,6 +18,7 @@ import ManProductPage from './pages/ManProductPage';
 import WomanProductPage from './pages/WomanProductPage';
 import LoginRequire from './pages/LoginRequire';
 import ScrollReset from './components/ScrollReset';
+import UserStore from './pages/UserStore';
 
 function App() {
   // 로그인 상태
@@ -70,6 +71,7 @@ function App() {
           path="/productdetails/:itemID"
           element={<ProductDetailsPage />}
         />
+        <Route path="/user_store" element={<UserStore />} />
       </Routes>
       {/* <LoginRequire /> */}
       {/* <Footer /> */}
