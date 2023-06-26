@@ -124,6 +124,8 @@ export default function AllProductPage() {
       return item.itemGender === selectedGender;
     }
   });
+  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+  console.log(items);
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 
   return (
@@ -294,7 +296,7 @@ export default function AllProductPage() {
                         <Link to={`/productdetails/${item.itemID}`}>
                           <img
                             className="item"
-                            src="/images/exam.jpeg"
+                            src="/images/이찬호.jpeg"
                             alt="상품이미지"
                           />
                         </Link>
