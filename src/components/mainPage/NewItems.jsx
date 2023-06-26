@@ -59,8 +59,8 @@ export default function NewItems() {
         </div>
         <div>
           {/* swiper navigation 버튼 */}
-          <button onClick={slidePrev}>이전</button>
-          <button onClick={slideNext}>다음</button>
+          {/* <button onClick={slidePrev}>이전</button>
+          <button onClick={slideNext}>다음</button> */}
 
           <Swiper
             ref={swiperRef}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useRef } from 'react';
@@ -36,6 +36,22 @@ export default function SalePage(props) {
   const [selectedRadio, setSelectedRadio] = useState('중고');
   const [selectedRadio_ex, setSelectedRadio_ex] = useState('가능');
 
+  // hashtag
+  const [tagItem, setTagItem] = useState('');
+  const [tagList, setTagList] = useState([]);
+
+  // 이미지 첨부파일
+  const [showImages, setShowImages] = useState([]);
+  // 이미지 파일 객체
+  const [imageFiles, setImageFiles] = useState([]);
+
+  //주소 토글
+  const [showPostcode, setShowPostcode] = useState(false);
+  const [fullAddress, setFullAddress] = useState('');
+
+  //숫자만 입력
+  const [price, setPrice] = useState('');
+
   const userId = sessionStorage.getItem('userId');
 
   const saleTitleInput = useRef();
@@ -45,6 +61,7 @@ export default function SalePage(props) {
   const editorTextInput = useRef();
   const navigate = useNavigate();
   const addressText = useRef();
+  const inputImg = useRef(null);
 
   const saveSale = async (e) => {
     e.preventDefault();
@@ -70,16 +87,16 @@ export default function SalePage(props) {
       tag += String(el + ' ');
     });
 
-    console.log(tag);
-    console.log(cateObject);
-    console.log(saleTitleInput.current.value);
-    console.log(itemNameInput.current.value);
-    console.log(itemPriceInput.current.value);
-    console.log(tagList[0]);
-    console.log('사용자', userId);
-    console.log(selectedRadio);
-    console.log(selectedRadio_ex);
-    console.log(addressText.current.innerText);
+    // console.log(tag);
+    // console.log(cateObject);
+    // console.log(saleTitleInput.current.value);
+    // console.log(itemNameInput.current.value);
+    // console.log(itemPriceInput.current.value);
+    // console.log(tagList[0]);
+    // console.log('사용자', userId);
+    // console.log(selectedRadio);
+    // console.log(selectedRadio_ex);
+    // console.log(addressText.current.innerText);
 
     const saleItemInfo = {
       id: userId,
@@ -97,9 +114,11 @@ export default function SalePage(props) {
 
     // 이미지 전송
     const formData = new FormData();
-    showImages.forEach((image) => {
-      formData.append('images', image);
+    imageFiles.forEach((file) => {
+      formData.append('images', file);
     });
+
+    console.log(`fd:`, formData);
 
     // FormData 객체의 키-값 쌍 출력
     for (let [key, value] of formData.entries()) {
@@ -126,10 +145,6 @@ export default function SalePage(props) {
       navigate('/');
     }
   };
-
-  // hashtag
-  const [tagItem, setTagItem] = useState('');
-  const [tagList, setTagList] = useState([]);
 
   const onKeyPress = (e) => {
     if (
@@ -180,35 +195,31 @@ export default function SalePage(props) {
     // console.log(result);
   };
 
-  // 이미지 첨부파일
-  const [showImages, setShowImages] = useState([]);
-  const inputImg = useRef(null);
-
   // 이미지 상대경로 저장
   const handleAddImages = (event) => {
     const imageLists = event.target.files;
     let imageUrlLists = [...showImages];
+    let newImageFiles = [...imageFiles];
 
     for (let i = 0; i < imageLists.length; i++) {
       const currentImageUrl = URL.createObjectURL(imageLists[i]);
       imageUrlLists.push(currentImageUrl);
+      newImageFiles.push(imageLists[i]);
     }
 
     if (imageUrlLists.length > 6) {
       imageUrlLists = imageUrlLists.slice(0, 6);
+      alert('이미지는 최대 6장까지 첨부할 수 있습니다.');
     }
 
     setShowImages(imageUrlLists);
+    setImageFiles(newImageFiles);
   };
 
   // X버튼 클릭 시 이미지 삭제
   const handleDeleteImage = (id) => {
     setShowImages(showImages.filter((_, index) => index !== id));
   };
-
-  //주소 토글
-  const [showPostcode, setShowPostcode] = useState(false);
-  const [fullAddress, setFullAddress] = useState('');
 
   const handleComplete = (data) => {
     let formattedAddress = data.address;
@@ -235,9 +246,6 @@ export default function SalePage(props) {
   const handleCloseClick = () => {
     setShowPostcode(false);
   };
-
-  //숫자만 입력
-  const [price, setPrice] = useState('');
 
   const handlePriceChange = (e) => {
     const inputValue = e.target.value;
@@ -474,6 +482,7 @@ export default function SalePage(props) {
             </div>
           ))}
         </div>
+
         <CKEditor
           editor={ClassicEditor}
           data=""

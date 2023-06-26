@@ -18,6 +18,7 @@ import ManProductPage from './pages/ManProductPage';
 import WomanProductPage from './pages/WomanProductPage';
 import LoginRequire from './pages/LoginRequire';
 import ScrollReset from './components/ScrollReset';
+import UserStore from './pages/UserStore';
 
 function App() {
   // 로그인 상태
@@ -26,9 +27,14 @@ function App() {
   useEffect(() => {
     const checkLoggedInUser = async () => {
       const storedUserId = sessionStorage.getItem('userId');
+
       if (storedUserId) {
         try {
-          const resUser = await getUser(storedUserId);
+          const resUser = await getUser({
+            params: {
+              encryptedEmail: storedUserId,
+            },
+          });
           const dbUserId = resUser.data.userInfo.userEmail;
           if (storedUserId !== dbUserId) {
             alert('잘못된 로그인입니다.');
@@ -65,6 +71,7 @@ function App() {
           path="/productdetails/:itemID"
           element={<ProductDetailsPage />}
         />
+        <Route path="/user_store" element={<UserStore />} />
       </Routes>
       {/* <LoginRequire /> */}
       {/* <Footer /> */}

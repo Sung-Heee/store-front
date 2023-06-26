@@ -1,13 +1,22 @@
 import axios from 'axios';
 
-export const getUser = async (userId) => {
+export const getUser = async (params) => {
   try {
-    const resUser = await axios.get(`/user/${userId}`);
+    const resUser = await axios.get('/user', { params });
     return resUser;
   } catch (err) {
     console.error(err);
   }
 };
+
+// export const getUser = async (userId) => {
+//   try {
+//     const resUser = await axios.get(`/user/${userId}`);
+//     return resUser;
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };
 
 export const Login = async (account) => {
   try {

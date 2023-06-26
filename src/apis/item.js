@@ -22,8 +22,14 @@ export const showAllItems = async () => {
 
 export const saleItems = async (saleItemInfo, formData) => {
   try {
-    formData.append('data', JSON.stringify(saleItemInfo));
-    const resSale = await axios.post('/main/sale', formData);
+    const itemFormData = new FormData();
+    itemFormData.append('saleItemInfo', JSON.stringify(saleItemInfo));
+
+    formData.forEach((value, key) => {
+      itemFormData.append(key, value);
+    });
+
+    const resSale = await axios.post('/main/sale', itemFormData);
     return resSale;
   } catch (error) {
     console.error(error);

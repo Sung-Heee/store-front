@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getUser } from '../../apis/user';
-import '../../style/mypage/topbox.scss';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStore } from '@fortawesome/free-solid-svg-icons';
+import '../../style/userStore/storeTop.scss';
 
 export default function TopBox() {
   const [userName, setUserName] = useState();
@@ -36,15 +33,29 @@ export default function TopBox() {
               <strong>
                 <span className="m_name">{userName}</span>
               </strong>
-              <span className="store_name">님</span>
+              <span className="store_name">의 상점</span>
             </div>
-            <div className="user_store_controller">
-              <div className="user_store">
-                <Link to="/user_store">
-                  내 상점으로 이동
-                  <FontAwesomeIcon icon={faStore} className="store_icon" />
-                </Link>
-              </div>
+            <div className="order_controller">
+              <ul className="order">
+                <li>
+                  <li>판매중</li>
+                  <strong>
+                    <li>0</li>
+                  </strong>
+                </li>
+                <li>
+                  <li>판매완료</li>
+                  <strong>
+                    <li>0</li>
+                  </strong>
+                </li>
+                <li>
+                  <li>후기</li>
+                  <strong>
+                    <li>0</li>
+                  </strong>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

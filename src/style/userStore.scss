@@ -1,0 +1,182 @@
+@import './_reset';
+
+.off {
+  display: none;
+}
+.fix {
+  position: fixed;
+  top: 20%;
+}
+
+.all_content{
+  position: relative;
+  // background-color: orange;
+  height: 100%;
+  margin: 0 auto;
+  top: 110px;
+  strong {
+    font-size: 35px;
+    color: #2d2f45;
+    font-weight: 750;
+    margin-right: 15px;
+    // vertical-align: middle;
+    }
+  
+  .bottom_box{
+    display: flex;
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 100px;
+    // background-color: orange;
+    .left_box {
+      width: 22%;
+      .left_controller{
+        width: 170px;
+        // background-color: white;
+        text-align: left;
+        
+      }
+      .my_page{
+        font-size: 20px;
+        font-weight: 700;
+        color: #2d2f45;
+        border-bottom: 2px solid #2d2f45;
+        height: 44px;
+        line-height: 44px;
+        span{
+          cursor: pointer;
+        }
+      }
+      ul {
+        margin: 45px auto 0;
+        li {
+          cursor: pointer;
+          position: relative;
+          font-size: 14px;
+          font-weight: 400;
+          color: #2d2f45;
+          height: 33px;
+          line-height: 33px;
+          padding-left: 17px;
+          z-index: 3;
+          padding-left: 20px;
+          :hover {
+            font-weight: 700;
+          }
+        }
+      }
+      .first_ul{
+        margin :18px auto 0;
+      }
+      .first_li {
+        font-size: 16px;
+        font-weight: 600;
+        color: #2d2f45;
+        padding-left: 0;
+      }
+    }
+    .right_box{
+      .right_controller{
+        text-align: left;
+        width: 920px;
+        //content title 공통
+          .content {
+            width: 100%;
+            margin-bottom: 30px;
+            .title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #2d2f45;
+            border-bottom: 2px solid #2d2f45;
+            height: 44px;
+            line-height: 44px;
+            letter-spacing: -0.5px;
+            display: flex;
+            justify-content: space-between;
+            }
+            ul{
+              display: flex;
+              justify-content: flex-start;
+              margin-top: 20px;
+              margin-left: 45px;
+              li{
+                position: relative;
+                top: 50px;
+                width: 150px;
+                height: 150px;
+                margin-right: 69px;
+                border: 1px solid #2d2f43;
+                border-radius: 5px;
+              }
+            }
+            .msg{
+            border: 0;
+            padding: 120px 0;
+            font-size: 20px;
+            text-align: center;
+            color: #abacb1;
+            width: 100%;
+            }
+
+            // 거래내역 관심상품
+            table {
+              width: 100%;
+              text-align: center;
+              font-size: 14px;
+              font-weight: 400;
+              thead {
+                th {
+                  color: #98989f;
+                  padding: 0;
+                  margin: 0;
+                  padding: 20px 15px;
+                  line-height: 20px;
+                  background-color: #fff;
+                  border-bottom: 1px solid #dfdfdf;
+                  select {
+                    width: 90px;
+                    height: 35px;
+                    color: #98989f;
+                    font-size: 14px;
+                    font-weight: 600;
+                    border: 1px solid #999;
+                    text-align: center;
+                  }
+                }
+              } 
+                td {
+                  padding: 25px 15px;
+                  // border-bottom: 1px solid #dfdfdf;
+                  color: #000;
+                  width: 25%;
+                }
+              input[type=checkbox] {
+                width: 25px;
+                height: 18px;
+                border: 0;
+                vertical-align: middle;
+                border-radius: 50%;
+            }
+                    
+            }
+
+
+          }
+        
+      }
+      
+    }
+    .button {
+      margin: 0 auto;
+      display: flex;
+      text-align: center;
+      width: 500px;
+      justify-content: space-between;
+      color: #777777;
+      margin-top: 25px;
+      .btn {
+        cursor: pointer;
+      }
+    }
+  }
+}
