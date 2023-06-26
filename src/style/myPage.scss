@@ -57,7 +57,6 @@
       ul {
         margin: 45px auto 0;
         li {
-          cursor: pointer;
           position: relative;
           font-size: 14px;
           font-weight: 400;
@@ -69,6 +68,9 @@
           padding-left: 20px;
           :hover {
             font-weight: 700;
+          }
+          a {
+            cursor: pointer;
           }
         }
       }
@@ -166,7 +168,24 @@
             }
                     
             }
+            
+            .page-numbers{
+              display: flex;
+              position: relative;
+              margin: auto;
+              width: 50%;
+              top: 15px;
+              margin-top: 25px;
+              cursor: pointer;
+              /* background: orange; */
+              justify-content: space-evenly;
 
+                .active {
+                  /* 현재 선택된 페이지의 스타일을 여기에 추가 */
+                  font-weight: bold;
+                  color: #98989F;
+                }
+            }
 
           }
         

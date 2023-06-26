@@ -6,7 +6,6 @@ import Transction from '../components/myPage/Transction';
 import Like from '../components/myPage/Like';
 import Update from '../components/myPage/Update';
 import Ready from '../components/myPage/Ready';
-import { Link } from 'react-scroll';
 import BottomBtn from '../components/BottomBtn';
 import TopBtn from '../components/TopBtn';
 import ScrollReset from '../components/ScrollReset';
@@ -61,59 +60,61 @@ export default function MyPage() {
         <div className="bottom_box">
           <div className="left_box">
             <div className="left_controller">
-              <div className={leftControllerClassName}>
-                <div className="my_page">
-                  <span>MY PAGE</span>
-                </div>
-                <ul className="first_ul">
-                  <li className="first_li">나의 거래 정보</li>
-                  <li>
-                    <Link to="1" smooth="true">
-                      <a onClick={() => handleTabClick('main')}>거래내역</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="2" smooth="true">
-                      <a onClick={() => handleTabClick('main')}>관심상품</a>
-                    </Link>
-                  </li>
-                </ul>
-                <ul>
-                  <li className="first_li">회원정보</li>
-                  <li>
-                    <a onClick={() => handleTabClick('update')}>
-                      회원 정보 수정
-                    </a>
-                  </li>
-                </ul>
-                <ul>
-                  <li className="first_li">고객센터</li>
-                  <li>
-                    <a onClick={() => handleTabClick('ready1')}>1:1 문의</a>
-                  </li>
-                  <li>
-                    <a onClick={() => handleTabClick('ready2')}>공지사항</a>
-                  </li>
-                  <li>
-                    <a onClick={() => handleTabClick('ready3')}>이용안내</a>
-                  </li>
-                </ul>
+              <div className="my_page">
+                <span>MY PAGE</span>
               </div>
+              <ul className="first_ul">
+                <li className="first_li">나의 거래 정보</li>
+                <li
+                  onClick={() => {
+                    window.scrollTo({
+                      top: 350,
+                      behavior: 'smooth',
+                    });
+                  }}
+                >
+                  <a onClick={() => handleTabClick('main')}>거래내역</a>
+                </li>
+                <li
+                  onClick={() => {
+                    window.scrollTo({
+                      top: 750,
+                      behavior: 'smooth',
+                    });
+                  }}
+                >
+                  <a onClick={() => handleTabClick('main')}>관심상품</a>
+                </li>
+              </ul>
+              <ul>
+                <li className="first_li">회원정보</li>
+                <li>
+                  <a onClick={() => handleTabClick('update')}>회원 정보 수정</a>
+                </li>
+              </ul>
+              <ul>
+                <li className="first_li">고객센터</li>
+                <li>
+                  <a onClick={() => handleTabClick('ready1')}>1:1 문의</a>
+                </li>
+                <li>
+                  <a onClick={() => handleTabClick('ready2')}>공지사항</a>
+                </li>
+                <li>
+                  <a onClick={() => handleTabClick('ready3')}>이용안내</a>
+                </li>
+              </ul>
             </div>
           </div>
           <div className="right_box">
             <div className="right_controller">
               <div className={getClassName('main')}>
                 <div className="content">
-                  <div className="title" id="1">
-                    거래내역
-                  </div>
+                  <div className="title">거래내역</div>
                   <Transction />
                 </div>
                 <div className="content">
-                  <div className="title" id="2">
-                    관심상품
-                  </div>
+                  <div className="title">관심상품</div>
                   <Like />
                 </div>
               </div>
