@@ -24,30 +24,30 @@ function App() {
   // 로그인 상태
   const isLogin = sessionStorage.getItem('userId') !== null;
 
-  useEffect(() => {
-    const checkLoggedInUser = async () => {
-      const storedUserId = sessionStorage.getItem('userId');
+  // useEffect(() => {
+  //   const checkLoggedInUser = async () => {
+  //     const storedUserId = sessionStorage.getItem('userId');
 
-      if (storedUserId) {
-        try {
-          const resUser = await getUser({
-            params: {
-              encryptedEmail: storedUserId,
-            },
-          });
-          const dbUserId = resUser.data.userInfo.userEmail;
-          if (storedUserId !== dbUserId) {
-            alert('잘못된 로그인입니다.');
-            // 로그아웃
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
+  //     if (storedUserId) {
+  //       try {
+  //         const resUser = await getUser({
+  //           params: {
+  //             encryptedEmail: storedUserId,
+  //           },
+  //         });
+  //         const dbUserId = resUser.data.userInfo.userEmail;
+  //         if (storedUserId !== dbUserId) {
+  //           alert('잘못된 로그인입니다.');
+  //           // 로그아웃
+  //         }
+  //       } catch (error) {
+  //         console.error(error);
+  //       }
+  //     }
+  //   };
 
-    checkLoggedInUser();
-  }, []);
+  //   checkLoggedInUser();
+  // }, []);
 
   return (
     <div className="App">

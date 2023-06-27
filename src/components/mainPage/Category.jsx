@@ -4,6 +4,8 @@ import { Link, Route } from 'react-router-dom';
 import axios from 'axios';
 import { showItems } from '../../apis/item';
 import ProductDetailsPage from '../../pages/ProductDetailsPage';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 export default function Category() {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
@@ -139,19 +141,35 @@ export default function Category() {
                   key={index}
                   className="items_div"
                 >
-                  {item.itemTitle}
+                  {item.imagePath ? (
+                    <img
+                      className="item_img"
+                      src={`/${item.imagePath.replace(
+                        'src/main/resources/static/',
+                        '',
+                      )}`}
+                      alt="상품이미지"
+                    />
+                  ) : (
+                    <div className="no_image_div">
+                      <div className="no_image">
+                        <FontAwesomeIcon
+                          icon={faCircleExclamation}
+                          size="4x"
+                          style={{ color: '#2d2f45' }}
+                        />
+                        <p>No Image</p>
+                      </div>
+                    </div>
+                  )}
                   <div className="img_desc">
-                    <p>
-                      [
-                      {
-                        categories.find(
-                          (category) =>
-                            category.category_id === item.categoryId,
-                        )?.name
-                      }
-                      ] {item.itemName}
-                    </p>
-                    <p>가격 : {item.itemPrice}</p>
+                    <div className="img_text_desc">
+                      <div className="category_desc">
+                        {item.itemGender.toUpperCase()} &gt; {item.categoryId}
+                      </div>
+                      <div className="title_desc">{item.itemName}</div>
+                      <div className="price_desc">{item.itemPrice} 원</div>
+                    </div>
                   </div>
                 </Link>
               </>

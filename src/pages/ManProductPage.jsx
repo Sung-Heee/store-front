@@ -166,11 +166,27 @@ export default function ManProductPage() {
                     getCurrentItems().map((item, index) => (
                       <div className="itemContainer" key={index}>
                         <Link to={`/productdetails/${item.itemID}`}>
-                          <img
-                            className="item"
-                            src="/images/exam.jpeg"
-                            alt="상품이미지"
-                          />
+                          {item.imagePath ? (
+                            <img
+                              className="item"
+                              src={`/${item.imagePath.replace(
+                                'src/main/resources/static/',
+                                '',
+                              )}`}
+                              alt="상품이미지"
+                            />
+                          ) : (
+                            <div className="no_image_div">
+                              <div className="no_image">
+                                <FontAwesomeIcon
+                                  icon={faCircleExclamation}
+                                  size="4x"
+                                  style={{ color: '#2d2f45' }}
+                                />
+                                <p>No Image</p>
+                              </div>
+                            </div>
+                          )}
                         </Link>
                         <div className="item_top_desc">
                           <div className="item_desc">

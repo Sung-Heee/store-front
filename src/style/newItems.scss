@@ -31,14 +31,61 @@
         height: 350px;
         position: relative;
         cursor: pointer;
-        background-color: #eaeaea;
+        background-color: #e6f2ff;
         color: #3d435f;
       }
+      .no_image_div {
+        width: 100%;
+        height: 100%;
+        .no_image {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          grid-column: 1 / -1;
+          height: 100%;
+        }
+
+        p {
+          margin-top: 20px;
+          font-size: 20px;
+          font-weight: 900;
+          color: #2d2f45;
+        }
+      }
+
       .img_desc {
-        height: 100px;
-        background-color: #3d435fa0;
+        height: 70px;
+        background-color: #3d435fd4;
         color: #fff;
         transition: transform 0.7s;
+
+        .img_text_desc {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          height: 70px;
+          padding: 10px;
+
+          .category_desc {
+            height: 25%;
+            color: #c8c8c8;
+            font-size: 12px;
+          }
+          .title_desc {
+            height: 35%;
+            color: white;
+            font-size: 15px;
+          }
+          .price_desc {
+            height: 40%;
+            color: white;
+            font-weight: 900;
+            font-size: 17px;
+          }
+        }
       }
     }
     .swiper-scrollbar {
