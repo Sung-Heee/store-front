@@ -142,6 +142,27 @@
                 height: 250px;
                 width: 100%;
               }
+              .no_image_div {
+                height: 250px;
+                width: 100%;
+                .no_image {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  text-align: center;
+                  grid-column: 1 / -1;
+                  height: 100%;
+                  background-color: whitesmoke;
+                }
+
+                p {
+                  margin-top: 20px;
+                  font-size: 20px;
+                  font-weight: 900;
+                  color: #2d2f45;
+                }
+              }
               .item_top_desc {
                 display: flex;
                 position: absolute;

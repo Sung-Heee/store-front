@@ -17,6 +17,8 @@ import SwiperCore, {
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { showItems } from '../../apis/item';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 SwiperCore.use([Navigation, Pagination, Mousewheel, Scrollbar, Autoplay]);
 
 export default function NewItems() {
@@ -77,15 +79,36 @@ export default function NewItems() {
                     to={`/productdetails/${item.itemID}`}
                     className="item_img"
                   >
-                    {item.itemTitle}
+                    {item.imagePath ? (
+                      <img
+                        className="item_img"
+                        src={`/${item.imagePath.replace(
+                          'src/main/resources/static/',
+                          '',
+                        )}`}
+                        alt="상품이미지"
+                      />
+                    ) : (
+                      <div className="no_image_div">
+                        <div className="no_image">
+                          <FontAwesomeIcon
+                            icon={faCircleExclamation}
+                            size="4x"
+                            style={{ color: '#2d2f45' }}
+                          />
+                          <p>No Image</p>
+                        </div>
+                      </div>
+                    )}
                   </Link>
                   <div className="img_desc">
-                    <p>
-                      {' '}
-                      [{item.categoryId}]{` `}
-                      {item.itemName}
-                    </p>
-                    <p>가격 : {item.itemPrice}</p>
+                    <div className="img_text_desc">
+                      <div className="category_desc">
+                        {item.itemGender.toUpperCase()} &gt; {item.categoryId}
+                      </div>
+                      <div className="title_desc">{item.itemName}</div>
+                      <div className="price_desc">{item.itemPrice} 원</div>
+                    </div>
                   </div>
                 </SwiperSlide>
               </>
