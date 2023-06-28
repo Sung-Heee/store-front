@@ -9,6 +9,7 @@ import Ready from '../components/myPage/Ready';
 import BottomBtn from '../components/BottomBtn';
 import TopBtn from '../components/TopBtn';
 import ScrollReset from '../components/ScrollReset';
+import Footer from '../components/Footer';
 
 export default function MyPage() {
   const [activeTab, setActiveTab] = useState('main');
@@ -49,9 +50,9 @@ export default function MyPage() {
       return 'off';
     }
   };
-  const leftControllerClassName = `left_controller ${
-    ScrollActive ? 'fix' : ''
-  }`;
+  // const leftControllerClassName = `left_controller ${
+  //   ScrollActive ? 'fix' : ''
+  // }`;
   return (
     <>
       <ScrollReset />
@@ -145,6 +146,7 @@ export default function MyPage() {
       </div>
       <TopBtn />
       <BottomBtn />
+      {/* <Footer /> */}
     </>
   );
 }
