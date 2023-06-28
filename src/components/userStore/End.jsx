@@ -15,7 +15,7 @@ export default function Ing() {
       const dbEndInfo = resEnd.data;
 
       const renderedItems = dbEndInfo
-        .filter((item) => item.item_status === 1)
+        .filter((item) => item.status === 1)
         .map((item) => (
           <tr key={item.itemId}>
             <td>{item.item_title}</td>
