@@ -83,8 +83,8 @@ export default function NewItems() {
                       <img
                         className="item_img"
                         src={`/${item.imagePath.replace(
-                          'src/main/resources/static/',
-                          '',
+                          /.*[\\/]images[\\/]/,
+                          'images/',
                         )}`}
                         alt="상품이미지"
                       />
