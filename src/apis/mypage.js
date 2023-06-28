@@ -140,7 +140,7 @@ export const getLike = async (userId) => {
 //회원 정보 수정
 export const update = async (userId, userInfo) => {
   try {
-    const resUpdate = await axios.post('/update', {
+    const resUpdate = await axios.post(`/update/${userId}`, {
       userId: userId,
       userInfo: userInfo,
     });
