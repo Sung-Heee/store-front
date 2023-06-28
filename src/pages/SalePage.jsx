@@ -110,7 +110,7 @@ export default function SalePage(props) {
       state: selectedRadio,
       exchange: selectedRadio_ex,
       address: addressText.current.innerText,
-      status: 1,
+      status: 0,
     };
 
     // 이미지 전송
