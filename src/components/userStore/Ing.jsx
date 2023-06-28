@@ -12,9 +12,9 @@ export default function Ing() {
       const userId = sessionStorage.getItem('userId');
       const resIng = await getMain(userId);
       const dbIngInfo = resIng.data;
-
+      console.log(dbIngInfo);
       const renderedItems = dbIngInfo
-        .filter((item) => item.item_status === 0)
+        .filter((item) => item.status === 0)
         .map((item) => (
           <tr key={item.itemId}>
             <td>
