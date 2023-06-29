@@ -4,6 +4,7 @@ import '../../style/mypage/update.scss';
 import { getUser } from '../../apis/user';
 import { update } from '../../apis/mypage';
 import { useNavigate } from 'react-router-dom';
+import CryptoJS, { SHA256 } from 'crypto-js';
 
 export default function Update() {
   const genderOptions = [
@@ -11,8 +12,9 @@ export default function Update() {
     { value: '여성', label: '여성' },
   ];
   const [userID, setUserID] = useState();
-
-  const [newPw, setNewPw] = useState('');
+  const [password, setPassword] = useState(''); // 실제 비밀번호 입력값
+  const [newPw, setNewPw] = useState(''); // 암호화된 비밀번호
+  const newPwInput = useRef();
   const [newGender, setNewGender] = useState('');
   const [newName, setNewName] = useState('');
   const [newPhoneNumber, setNewPhoneNumber] = useState('');
@@ -35,17 +37,29 @@ export default function Update() {
   };
 
   const handlePwChange = (e) => {
-    setNewPw(e.target.value);
+    setPassword(e.target.value); // 실제 비밀번호 값 설정
+
+    setNewPw(
+      SHA256(
+        e.target.value,
+        // eslint-disable-next-line no-undef
+        process.env.REACT_APP_PASSWORD_SHA_SECRET_KEY,
+      ).toString(),
+    );
   };
+
   const handleNameChange = (e) => {
     setNewName(e.target.value);
   };
+
   const handleGenderChange = (e) => {
     setNewGender(e.value);
   };
+
   const handlePhoneNumber = (e) => {
     setNewPhoneNumber(e.target.value);
   };
+
   const handleNickNameChange = (e) => {
     setNewNickName(e.target.value);
   };
@@ -81,6 +95,7 @@ export default function Update() {
   useEffect(() => {
     getIdInfo();
   }, []);
+
   return (
     <>
       <div className="update">
@@ -110,7 +125,8 @@ export default function Update() {
                     name="password"
                     type="password"
                     placeholder="영문/숫자 포함 8자 이상"
-                    value={newPw}
+                    value={password}
+                    ref={newPwInput}
                     onChange={handlePwChange}
                   />
                 </td>
