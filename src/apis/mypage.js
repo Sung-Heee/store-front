@@ -141,7 +141,7 @@ export const getLike = async (userId) => {
 export const update = async (userId, userInfo) => {
   try {
     const resUpdate = await axios.post(`/update`, {
-      Id: userId,
+      id: userId,
       userInfo: userInfo,
     });
     return resUpdate.data; // 응답의 데이터만 반환

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import '../style/productDetails.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faWonSign } from '@fortawesome/free-solid-svg-icons';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { showItems } from '../apis/item';
+import { deleteItem, showItems } from '../apis/item';
 import ReactHtmlParser from 'react-html-parser';
 import 'swiper/swiper.min.css'; //basic
 import 'swiper/components/navigation/navigation.min.css';
@@ -12,12 +12,16 @@ import 'swiper/components/pagination/pagination.min.css';
 import { Swiper, SwiperSlide } from 'swiper/react'; // basic
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import ScrollReset from '../components/ScrollReset';
+import CryptoJS, { SHA256 } from 'crypto-js';
 SwiperCore.use([Navigation, Pagination]);
 
 export default function ProductDetailsPage() {
   const { itemID } = useParams();
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
+  const [userId, setUserId] = useState();
+
+  const navigate = useNavigate();
 
   // 모든 물품 가져오는 함수
   const getItems = async () => {
@@ -41,6 +45,32 @@ export default function ProductDetailsPage() {
       setSelectedItem(foundItem);
     }
   }, [items, itemID]);
+
+  // 아이디 암호화
+  const aes128Encode = (secretKey, Iv, data) => {
+    const cipher = CryptoJS.AES.encrypt(
+      data,
+      CryptoJS.enc.Utf8.parse(secretKey),
+      {
+        iv: CryptoJS.enc.Utf8.parse(Iv), // [Enter IV (Optional) 지정 방식]
+        padding: CryptoJS.pad.Pkcs7,
+        mode: CryptoJS.mode.CBC, // [cbc 모드 선택]
+      },
+    );
+    return cipher.toString();
+  };
+
+  const dbUserId = aes128Encode(
+    // eslint-disable-next-line no-undef
+    process.env.REACT_APP_EMAIL_AES_SECRET_KEY,
+    // eslint-disable-next-line no-undef
+    process.env.REACT_APP_AES_SECRET_IV,
+    selectedItem.userID,
+  );
+
+  useEffect(() => {
+    setUserId(sessionStorage.getItem('userId'));
+  }, []);
 
   // 해당 itemID를 가진 user(판매자-seller)의 정보를 가져오는 함수
   const [sellerInfo, setSellerInfo] = useState([]);
@@ -90,6 +120,27 @@ export default function ProductDetailsPage() {
       }
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  // 삭제하기
+  const deleteItemFunc = async (e) => {
+    e.preventDefault(); // 자동 새로고침 방지
+
+    if (window.confirm('상품을 삭제하시겠습니까?')) {
+      try {
+        const itemId = selectedItem.itemID;
+        const resDelete = await deleteItem(itemId);
+        const message = resDelete.data.message;
+        if (resDelete.data.status === '200') {
+          alert(message); // 삭제되었습니다.
+          navigate('/');
+        } else {
+          return alert(message); // 삭제 실패
+        }
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
@@ -173,21 +224,28 @@ export default function ProductDetailsPage() {
               </ul>
               <ul className="product-status">
                 <li>거래 지역</li>
-                <li>안양시 동안구</li>
+                <li>{selectedItem.address}</li>
               </ul>
               <ul className="product-status">
                 <li>상품 상태</li>
-                <li>새상품</li>
+                <li>{selectedItem.itemState}</li>
               </ul>
               <ul className="product-status">
                 <li>교환</li>
-                <li>가능</li>
+                <li>{selectedItem.itemExchange}</li>
               </ul>
             </div>
-            <div className="product_btn">
-              <p>1:1 채팅하기</p>
-              <p onClick={wishList}>위시리스트 담기</p>
-            </div>
+            {userId === dbUserId ? (
+              <div className="product_btn">
+                <p onClick={deleteItemFunc}>삭제하기</p>
+                <p>ㅇㅇ하기</p>
+              </div>
+            ) : (
+              <div className="product_btn">
+                <p>1:1 채팅하기</p>
+                <p onClick={wishList}>위시리스트 담기</p>
+              </div>
+            )}
 
             {/* 판매자 정보 */}
             <div className="seller-info">
