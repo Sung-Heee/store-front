@@ -21,18 +21,20 @@ export default function Transction() {
 
       if (selectedStatus !== 'all') {
         filteredItems = dbresItemInfo.filter(
-          (item) => item.item_status === (selectedStatus === 'selling' ? 0 : 1),
+          (item) => item.state === (selectedStatus === 'selling' ? 0 : 1),
         );
       }
 
       const itemsToShow = filteredItems.slice(startIndex, endIndex);
+
+      console.log(dbresItemInfo);
 
       const renderedItems = itemsToShow.map((item) => (
         <tr key={item.itemId}>
           <td>{item.item_title}</td>
           <td>{item.item_content}</td>
           <td>{item.item_price}</td>
-          <td>{item.item_status === 0 ? '판매중' : '판매완료'}</td>
+          <td>{item.state === 0 ? '판매중' : '판매완료'}</td>
         </tr>
       ));
 
@@ -85,7 +87,7 @@ export default function Transction() {
                       onChange={handleStatusChange}
                     >
                       <option value="all">상태</option>
-                      <option value="selling">판매중</option>
+                      <option value="selling">구매완료</option>
                       <option value="sold">판매완료</option>
                     </select>
                   </th>

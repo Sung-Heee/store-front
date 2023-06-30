@@ -54,11 +54,6 @@ export default function Ing() {
             </thead>
             <tbody>{items}</tbody>
           </table>
-
-          <div className="button">
-            <GoChevronLeft size={50} className="btn" />
-            <GoChevronRight size={50} className="btn" />
-          </div>
         </div>
       </div>
     </>
