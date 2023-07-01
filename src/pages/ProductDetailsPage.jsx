@@ -20,6 +20,7 @@ export default function ProductDetailsPage() {
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
   const [userId, setUserId] = useState();
+  const [wish, setWishList] = useState();
 
   const navigate = useNavigate();
 
@@ -74,6 +75,7 @@ export default function ProductDetailsPage() {
 
   // 해당 itemID를 가진 user(판매자-seller)의 정보를 가져오는 함수
   const [sellerInfo, setSellerInfo] = useState([]);
+
   const getSellerInfo = async () => {
     try {
       const resSellerInfo = await axios.get(`/productDetails/${itemID}`);
@@ -91,10 +93,22 @@ export default function ProductDetailsPage() {
   const [wishCount, setWishCount] = useState(0);
   const WishListCount = async () => {
     try {
-      const res = await axios.get('/wishlist');
+      const res = await axios.get('/main/wishlist', {
+        params: {
+          itemID: itemID,
+          userID: sessionStorage.getItem('userId'),
+        },
+      });
       // 찜한 개수 데이터 받아옴
       const wishListCount = res.data.count;
       setWishCount(wishListCount);
+
+      // 내가 위시리스트에 상품담았는지 안담았는지 확인
+      if (res.data.message === '데이터가 있음') {
+        setWishList('위시리스트 삭제');
+      } else {
+        setWishList('위시리스트 담기');
+      }
     } catch (error) {
       console.error(error);
     }
@@ -103,12 +117,20 @@ export default function ProductDetailsPage() {
     WishListCount();
   }, []);
 
-  // 위시리스트에 post 요청
+  // 위시리스트에 이미 담겨있을땐 삭제 요청
+  const delwishList = () => {
+    console.log('삭제요청');
+  };
+
+  //위시리스트에 담겨 있지 않다면 추가 요청.
   const wishList = async () => {
+    console.log('클릭');
     try {
-      const resWish = await axios.post('/wishlist', {
-        itemID: itemID,
-        userID: selectedItem.userID,
+      const resWish = await axios.post('/main/wishlist', null, {
+        params: {
+          itemID: itemID,
+          userID: selectedItem.userID,
+        },
       });
 
       // 찜했을때 받을 메세지
@@ -243,7 +265,11 @@ export default function ProductDetailsPage() {
             ) : (
               <div className="product_btn">
                 <p>1:1 채팅하기</p>
-                <p onClick={wishList}>위시리스트 담기</p>
+                {wish === '위시리스트 담기' ? (
+                  <p onClick={wishList}>{wish}</p>
+                ) : (
+                  <p onClick={delwishList}>{wish}</p>
+                )}
               </div>
             )}
 
