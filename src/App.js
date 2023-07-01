@@ -71,7 +71,10 @@ function App() {
           path="/productdetails/:itemID"
           element={<ProductDetailsPage />}
         />
-        <Route path="/user_store" element={<UserStore />} />
+        <Route
+          path="/user_store"
+          element={isLogin ? <UserStore /> : <LoginRequire />}
+        />
       </Routes>
       {/* <LoginRequire /> */}
       {/* <Footer /> */}
