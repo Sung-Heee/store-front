@@ -4,10 +4,16 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faUser } from '@fortawesome/free-regular-svg-icons';
-import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import {
+  faMagnifyingGlass,
+  faXmark,
+  faAngleUp,
+  faAngleDown,
+} from '@fortawesome/free-solid-svg-icons';
+import { faComment } from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
+import Dropdown from './header/Dropdown';
 // import logo from '../images/logo.png';
 
 export default function Header() {
@@ -151,34 +157,75 @@ export default function Header() {
     };
   }, []);
 
+  //드롭다운
+  const [dropDown, setDropDown] = useState(false);
+
   return (
     <>
       <div className={`all_container ${isHeaderScrolled ? 'scrolled' : ''}`}>
         <div className="header_sub_container minMax">
           <div className="header_sub_menu">
-            <ul>
+            <ul className="header_sub_menu_ul">
               {isLogin ? (
                 <>
-                  <li>
+                  <li className="header_sub_menu_li">
                     <Link onClick={logout}>LOGOUT</Link>
                   </li>
-                  <li>
+                  <li className="header_sub_menu_li">
                     <Link to="/faq">FAQ</Link>
                   </li>
-                  <li className="header_sale_menu">
-                    <Link to="/sale">SALE</Link>
+                  <li className="header_dropdown_menu header_sub_menu_li">
+                    <ul
+                      className="header_dropdown_ul"
+                      onClick={() => {
+                        setDropDown(!dropDown);
+                      }}
+                    >
+                      임시텍스트{' '}
+                      {dropDown ? (
+                        <FontAwesomeIcon
+                          icon={faAngleUp}
+                          className="dropdown_icon"
+                        />
+                      ) : (
+                        <FontAwesomeIcon
+                          icon={faAngleDown}
+                          className="dropdown_icon"
+                        />
+                      )}
+                      {dropDown && <Dropdown />}
+                    </ul>
                   </li>
                 </>
               ) : (
                 <>
-                  <li>
+                  <li className="header_sub_menu_li">
                     <Link to="/login">LOGIN</Link>
                   </li>
-                  <li>
+                  <li className="header_sub_menu_li">
                     <Link to="/register">JOIN</Link>
                   </li>
-                  <li className="header_sale_menu">
-                    <Link to="/sale">SALE</Link>
+                  <li className="header_dropdown_menu header_sub_menu_li">
+                    <ul
+                      className="header_dropdown_ul"
+                      onClick={() => {
+                        setDropDown(!dropDown);
+                      }}
+                    >
+                      임시텍스트{' '}
+                      {dropDown ? (
+                        <FontAwesomeIcon
+                          icon={faAngleUp}
+                          className="dropdown_icon"
+                        />
+                      ) : (
+                        <FontAwesomeIcon
+                          icon={faAngleDown}
+                          className="dropdown_icon"
+                        />
+                      )}
+                      {dropDown && <Dropdown />}
+                    </ul>
                   </li>
                 </>
               )}
@@ -225,12 +272,12 @@ export default function Header() {
                 </p>
               </li>
               <li>
-                <Link to="/mypage">
+                <p>
                   <FontAwesomeIcon
-                    icon={faHeart}
-                    className="header_heart_icon"
+                    icon={faComment}
+                    className="header_comment_icon"
                   />
-                </Link>
+                </p>
               </li>
             </ul>
           </div>
