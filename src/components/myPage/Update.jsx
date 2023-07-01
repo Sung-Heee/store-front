@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Select from 'react-select';
 import '../../style/mypage/update.scss';
 import { NickNameCheck, getUser } from '../../apis/user';
-import { update } from '../../apis/mypage';
+import { Withdrawal, update } from '../../apis/mypage';
 import { useNavigate } from 'react-router-dom';
 import CryptoJS, { SHA256 } from 'crypto-js';
 
@@ -94,37 +94,45 @@ export default function Update() {
         nickName: nickname == '' ? preNickName : nickname,
       };
       const resUpdate = await update(userId, userInfo);
-      // const dbUpdateInfo = resUpdate.data;
+      const dbUpdateInfo = resUpdate.data;
+      alert(`수정 되었습니다 !`);
+      console.log(`data    ` + resUpdate.data);
+      console.log(`status    ` + resUpdate.status);
+      console.log(`data status   ` + resUpdate.data.status);
 
       const message = resUpdate.data.message; // 객체에 있는 message
-      if (resUpdate.data.status === '200') {
+
+      console.log(`data` + resUpdate.status);
+      //여기밑에서부터 안들어옴
+      if (resUpdate.status === 200) {
         alert(message + `\n수정 되었습니다`);
         navigate('/update');
-        // console.log(dbUpdateInfo);
+        console.log('수정');
       } else {
-        return alert(message);
+        // return alert(message);
+        console.log('수정ㄴㄴ');
       }
     } catch (error) {
       // console.log(userInfo);
       console.error(error);
-      alert(error.response.data);
+      alert(error.response.status);
     }
   };
 
   // NickName 중복 확인.
   const checkNickName = async (e) => {
-    console.log(password);
     e.preventDefault(); // 자동 새로고침 방지
-    if (!nickNameInput.current.value) return alert('닉네임을 입력해주세요.');
+    console.log('gg');
 
     try {
       const resCheckNickName = await NickNameCheck(nickname);
+      console.log('제발');
 
       // 어떤 데이터값이 넘어왔는지 확인
       console.log('백엔드에서 넘어온 데이터 : ', resCheckNickName.data);
 
       const message = resCheckNickName.data.message;
-
+      console.log(message);
       if (resCheckNickName.data.status === '200') {
         setNickNameCheck('닉네임확인');
         alert(message); // 사용 가능한 닉네임
@@ -138,6 +146,33 @@ export default function Update() {
     }
   };
 
+  // 취소버튼
+  const handleCancel = () => {
+    const isConfirmed = window.confirm('회원 정보 수정을 취소하시겠습니까?');
+    if (isConfirmed) {
+      // 이전 데이터를 유지
+      setNewPw('');
+      setNewName('');
+      setNewGender('');
+      setNewPhoneNumber('');
+      setNickName('');
+    }
+  };
+
+  // 회원탈퇴
+  const handleWd = async () => {
+    const isConfirmed = window.confirm('회원 탈퇴 하시겠습니까?');
+    try {
+      if (isConfirmed) {
+        const userId = sessionStorage.getItem('userId');
+        const resUserId = await Withdrawal(userId);
+
+        console.log(resUserId);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
     getIdInfo();
   }, []);
@@ -271,12 +306,16 @@ export default function Update() {
           </table>
           <div className="button_controller">
             <div className="update_button">
-              <a className="white_button">취소</a>
+              <a className="white_button" onClick={handleCancel}>
+                취소
+              </a>
               <a className="gray_button" type="submit" onClick={updateUser}>
                 확인
               </a>
             </div>
-            <a className="white_button end">회원 탈퇴</a>
+            <a className="white_button end" onClick={handleWd}>
+              회원 탈퇴
+            </a>
           </div>
         </div>
       </div>
