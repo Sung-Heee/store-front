@@ -29,14 +29,21 @@ export default function Header() {
   const navigate = useNavigate();
 
   //검색창 키워드 랜덤 생성
-  const randomKeyWord = ['신발', '상의', '하의', '모자', '직거래'];
-  const randomIndex = [];
-  randomKeyWord.map(() => {
-    let i = Math.floor(Math.random() * randomKeyWord.length);
-    if (randomIndex.length === 0 || !randomIndex.includes(i)) {
-      randomIndex.push(i);
-    }
-  });
+  const [keyWord, setKeyWord] = useState([]);
+  const [index, setIndex] = useState([]);
+  useEffect(() => {
+    const randomKeyWord = ['신발', '상의', '하의', '모자', '직거래'];
+    const randomIndex = [];
+    randomKeyWord.map(() => {
+      let i = Math.floor(Math.random() * randomKeyWord.length);
+      if (randomIndex.length === 0 || !randomIndex.includes(i)) {
+        randomIndex.push(i);
+      }
+    });
+    setKeyWord(randomKeyWord);
+    setIndex(randomIndex);
+  }, []);
+
   // randomIndex.splice(0, Math.floor(Math.random() * 5));
 
   // 상품 검색 함수
@@ -45,15 +52,15 @@ export default function Header() {
     if (!searchInputRef.current.value) return alert('검색어를 입력하세요');
     try {
       console.log('검색 했니');
-      const response = await axios.post(
-        `/searchproduct/${searchInputRef.current.value}`,
-        {
-          params: {
-            searchProduct: searchInputRef.current.value,
-          },
-        },
-      );
-      console.log(response.data.status);
+      // const response = await axios.post(
+      //   `/searchproduct/${searchInputRef.current.value}`,
+      //   {
+      //     params: {
+      //       searchProduct: searchInputRef.current.value,
+      //     },
+      //   },
+      // );
+      //console.log(response.data.status);
       //최근 검색어 저장
       let getLocal = localStorage.getItem('data');
       if (getLocal === null) {
@@ -260,9 +267,9 @@ export default function Header() {
             </div>
             {/* 키워드(해시태그) */}
             <div className="keyword">
-              {randomIndex.map((el, idx) => (
-                <p key={idx} onClick={() => keywordClick(randomKeyWord[el])}>
-                  #{randomKeyWord[el]}
+              {index.map((el, idx) => (
+                <p key={idx} onClick={() => keywordClick(keyWord[el])}>
+                  #{keyWord[el]}
                 </p>
               ))}
 
