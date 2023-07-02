@@ -127,6 +127,18 @@ export default function Header() {
     }
   };
 
+  // 최근 본 상품 가져오기
+  const [recentlyViewed, setRecentlyViewed] = useState([]);
+
+  useEffect(() => {
+    const storedRecentlyViewed = JSON.parse(
+      localStorage.getItem('recentlyViewed'),
+    );
+    if (storedRecentlyViewed) {
+      setRecentlyViewed(storedRecentlyViewed);
+    }
+  }, []);
+
   // 로그인 상태
   const [isLogin, setIsLogin] = useState(false);
 
@@ -312,16 +324,20 @@ export default function Header() {
               </div>
               {/* 최근 본 상품 */}
               <div className="recent-look-product">
+                <p>최근 본 상품</p>
                 <ul>
-                  <li>최근 본 상품</li>
-                  <li>최근 본 상품이 없습니다.</li>
-                  <li>
-                    <img></img>
-                    <img></img>
-                    <img></img>
-                    <img></img>
-                  </li>
+                  {recentlyViewed.length > 0 ? (
+                    recentlyViewed.map((product, idx) => (
+                      <li key={idx}>{product.itemName}</li>
+                    ))
+                  ) : (
+                    <li>최근 본 상품이 없습니다.</li>
+                  )}
                 </ul>
+                <img></img>
+                <img></img>
+                <img></img>
+                <img></img>
               </div>
             </div>
           </div>
