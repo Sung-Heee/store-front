@@ -18,7 +18,7 @@ export default function Update() {
   const [newGender, setNewGender] = useState('');
   const [newName, setNewName] = useState('');
   const [newPhoneNumber, setNewPhoneNumber] = useState('');
-  const [nickname, setNickName] = useState('');
+  const [nickName, setNickName] = useState('');
 
   // 미리 보여줄 데이터
   const [prePw, setPrePw] = useState();
@@ -91,26 +91,24 @@ export default function Update() {
         gender: newGender == '' ? preGender : newGender,
         name: newName == '' ? preName : newName,
         phone: newPhoneNumber == '' ? prePhoneNumber : newPhoneNumber,
-        nickName: nickname == '' ? preNickName : nickname,
+        nickName: nickName == '' ? preNickName : nickName,
       };
       const resUpdate = await update(userId, userInfo);
       const dbUpdateInfo = resUpdate.data;
-      alert(`수정 되었습니다 !`);
-      console.log(`data    ` + resUpdate.data);
-      console.log(`status    ` + resUpdate.status);
-      console.log(`data status   ` + resUpdate.data.status);
 
-      const message = resUpdate.data.message; // 객체에 있는 message
+      const message = resUpdate.message; // 객체에 있는 message
+      // console.log(` message   ` + resUpdate.message);
+      // console.log(` messagee  ` + message);
 
-      console.log(`data` + resUpdate.status);
+      // console.log(`status    ` + resUpdate.status);
       //여기밑에서부터 안들어옴
       if (resUpdate.status === 200) {
-        alert(message + `\n수정 되었습니다`);
+        alert(message);
         navigate('/update');
         console.log('수정');
       } else {
-        // return alert(message);
-        console.log('수정ㄴㄴ');
+        return alert(message);
+        // console.log('수정ㄴㄴ');
       }
     } catch (error) {
       // console.log(userInfo);
@@ -122,11 +120,14 @@ export default function Update() {
   // NickName 중복 확인.
   const checkNickName = async (e) => {
     e.preventDefault(); // 자동 새로고침 방지
-    console.log('gg');
+
+    const nickName = {
+      nickName: nickNameInput.current.value,
+    };
 
     try {
-      const resCheckNickName = await NickNameCheck(nickname);
-      console.log('제발');
+      const resCheckNickName = await NickNameCheck(nickName);
+      console.log(resCheckNickName);
 
       // 어떤 데이터값이 넘어왔는지 확인
       console.log('백엔드에서 넘어온 데이터 : ', resCheckNickName.data);
@@ -167,6 +168,7 @@ export default function Update() {
         const userId = sessionStorage.getItem('userId');
         const resUserId = await Withdrawal(userId);
 
+        alert('탈퇴 되셨습니다');
         console.log(resUserId);
       }
     } catch (error) {
@@ -206,7 +208,7 @@ export default function Update() {
                     name="password"
                     type="password"
                     placeholder="영문/숫자 포함 8자 이상"
-                    value={password}
+                    // value={password}
                     ref={newPwInput}
                     onChange={handlePwChange}
                   />
@@ -238,7 +240,7 @@ export default function Update() {
                   <input
                     id="nameInput"
                     type="text"
-                    value={newName}
+                    // value={newName}
                     onChange={handleNameChange}
                     placeholder={preName}
                   />
@@ -275,7 +277,7 @@ export default function Update() {
                   <input
                     id="telInput"
                     type="tel"
-                    value={newPhoneNumber}
+                    // value={newPhoneNumber}
                     onChange={handlePhoneNumber}
                     placeholder={prePhoneNumber}
                   />
@@ -294,7 +296,7 @@ export default function Update() {
                       id="nickInput"
                       type="text"
                       maxLength={8}
-                      value={nickname}
+                      ref={nickNameInput}
                       onChange={handleNickNameChange}
                       placeholder={preNickName}
                     />

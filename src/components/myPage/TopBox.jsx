@@ -29,7 +29,13 @@ export default function TopBox() {
       <div className="top_container">
         <div className="top_box minMax">
           <div className="top_left">
-            <div className="img_box"></div>
+            <div>
+              <img
+                className="img_box"
+                src="C:\Users\user\OneDrive\바탕 화면\store-front\src\img\프로필사진.png"
+                alt="이미지사진"
+              />
+            </div>
           </div>
           <div className="top_right">
             <div className="member_name">
