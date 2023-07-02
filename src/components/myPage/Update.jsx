@@ -3,7 +3,7 @@ import Select from 'react-select';
 import '../../style/mypage/update.scss';
 import { NickNameCheck, getUser } from '../../apis/user';
 import { Withdrawal, update } from '../../apis/mypage';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CryptoJS, { SHA256 } from 'crypto-js';
 
 export default function Update() {
@@ -97,23 +97,19 @@ export default function Update() {
       const dbUpdateInfo = resUpdate.data;
 
       const message = resUpdate.message; // 객체에 있는 message
-      // console.log(` message   ` + resUpdate.message);
-      // console.log(` messagee  ` + message);
 
-      // console.log(`status    ` + resUpdate.status);
-      //여기밑에서부터 안들어옴
       if (resUpdate.status === 200) {
         alert(message);
         navigate('/update');
         console.log('수정');
+        window.location.reload();
       } else {
         return alert(message);
-        // console.log('수정ㄴㄴ');
       }
+      location.reload();
     } catch (error) {
       // console.log(userInfo);
       console.error(error);
-      alert(error.response.status);
     }
   };
 
@@ -311,9 +307,11 @@ export default function Update() {
               <a className="white_button" onClick={handleCancel}>
                 취소
               </a>
-              <a className="gray_button" type="submit" onClick={updateUser}>
-                확인
-              </a>
+              <Link to="/">
+                <a className="gray_button" type="submit" onClick={updateUser}>
+                  확인
+                </a>
+              </Link>
             </div>
             <a className="white_button end" onClick={handleWd}>
               회원 탈퇴

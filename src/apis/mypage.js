@@ -46,52 +46,6 @@ export const getMainLike = async (userId) => {
   }
 };
 
-// 처음 화면 판매중
-// export const getMainIng = async (userId) => {
-//     try {
-//       const resItem = await axios.get(`/ing/${userId}`);
-//       return resItem;
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
-
-export const getMainIng = async (userId) => {
-  try {
-    const resItem = await axios.get('/ing', {
-      params: {
-        userId: userId,
-      },
-    });
-    return resItem;
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-// 처음 화면 판매완료
-// export const getMainIng = async (userId) => {
-//     try {
-//       const resItem = await axios.get(`/end/${userId}`);
-//       return resItem;
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
-
-export const getMainEnd = async (userId) => {
-  try {
-    const resItem = await axios.get('/end', {
-      params: {
-        userId: userId,
-      },
-    });
-    return resItem;
-  } catch (err) {
-    console.error(err);
-  }
-};
-
 // 마이페이지 거래내역
 // export const getItem = async (userId) => {
 //   try {
@@ -161,9 +115,24 @@ export const Withdrawal = async (userId) => {
     });
     return resUpdate.data; // 응답의 데이터만 반환
   } catch (error) {
-    // console.log(userId);
-    // console.log(userInfo);
-    // console.log(error);
+    throw new Error('업데이트 요청을 처리하는 동안 오류가 발생했습니다.'); // 예외 처리
+  }
+};
+
+// 프로필 사진
+export const Profile = async (userId, userImg) => {
+  try {
+    const resUpdate = await axios.post(`/profile`, {
+      id: userId,
+      userImg: userImg,
+    });
+
+    console.log(`성공    ` + userId);
+    console.log(`성공    ` + userImg);
+    return resUpdate.data; // 응답의 데이터만 반환
+  } catch (error) {
+    console.log(`실패    ` + userId);
+    console.log(`실패    ` + userImg);
     throw new Error('업데이트 요청을 처리하는 동안 오류가 발생했습니다.'); // 예외 처리
   }
 };

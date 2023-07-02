@@ -13,10 +13,25 @@
       position: absolute;
       left: 0;
       .img_box {
-        width: 200px;
-        height: 200px;
         border-radius: 50%;
         background-color: white;
+        img {
+          width: 200px;
+        }
+      }
+      .edit{
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        top: 185px;
+        right: 0;
+        border-radius: 50%;
+        background-color: #ffff;
+        cursor: pointer;
+        .pencil_icon{
+          width: 25px;
+          height: 60px;
+        }
       }
     }
     .top_right {
