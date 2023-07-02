@@ -82,7 +82,40 @@
         //content title 공통
           .content {
             width: 100%;
-            margin-bottom: 30px;
+            .userStore_ing{
+              .userStore_content{
+                margin-bottom: 0;
+              }
+              .pagination{
+                text-align: right;
+                margin:10px 8% 0 0;
+                .ing_prev_btn,
+                .ing_next_btn{
+                  background: inherit ; 
+                  border:none; 
+                  box-shadow:none; 
+                  padding:0; 
+                  overflow:visible; 
+                  cursor:pointer;
+                  width: 40px;
+                  line-height: 40px;
+                  height: 40px;
+                  font-size: 25px;
+                  background-color: #f4f6ff;
+                  border-radius: 50%;
+                  margin: 0 10px;
+                  font-weight: 500;
+                  color: gray;
+                  transition: all .1s;
+                  &:hover{
+                    background-color: #fff; 
+                    border: .5px solid #3d435f; 
+                    transition: all .1s;   
+                    color: #3d435f;                   
+                  }                  
+                }
+              }
+            }
             .title {
             font-size: 17px;
             font-weight: 700;
@@ -93,6 +126,7 @@
             letter-spacing: -0.5px;
             display: flex;
             justify-content: space-between;
+            
             }
             ul{
               display: flex;
@@ -149,6 +183,23 @@
                   // border-bottom: 1px solid #dfdfdf;
                   color: #000;
                   width: 25%;
+                  .ing_change_btn{
+                    width: 33%;
+                    height: 33px;
+                    margin: 0 auto;
+                    line-height: 33px;
+                    border-radius: 5px;
+                    font-weight: 700;
+                    cursor: pointer;
+                    border: 1px solid rgba(0, 0, 0, 0.2);
+                    color: gray;
+                    transition: all .1s;
+                    &:hover{
+                      border: 1px solid #3d435f;
+                      color: #3d435f;
+                      transition: all .1s;
+                    }
+                  }
                 }
               input[type=checkbox] {
                 width: 25px;

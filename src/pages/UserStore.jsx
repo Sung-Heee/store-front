@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import SideBar from '../components/myPage/SideBar';
 import '../style/userStore.scss';
 import TopBox from '../components/userStore/TopBox';
-import Transction from '../components/userStore/Transction';
 import Ready from '../components/userStore/Ready';
-import { Link } from 'react-scroll';
 import Footer from '../components/Footer';
 import ScrollReset from '../components/ScrollReset';
 import TopBtn from '../components/TopBtn';
 import BottomBtn from '../components/BottomBtn';
+import Ing from '../components/userStore/Ing';
+import End from '../components/userStore/End';
 
 export default function UserStore() {
   const [activeTab, setActiveTab] = useState('main');
@@ -49,9 +49,9 @@ export default function UserStore() {
       return 'off';
     }
   };
-  const leftControllerClassName = `left_controller ${
-    ScrollActive ? 'fix' : ''
-  }`;
+  // const leftControllerClassName = `left_controller ${
+  //   ScrollActive ? 'fix' : ''
+  // }`;
   return (
     <>
       <ScrollReset />
@@ -60,21 +60,16 @@ export default function UserStore() {
         <div className="bottom_box">
           <div className="left_box">
             <div className="left_controller">
-              {/* <div className={leftControllerClassName}> */}
               <div className="my_page">
                 <span>STORE</span>
               </div>
               <ul className="first_ul">
                 <li className="first_li">판매정보</li>
                 <li>
-                  <Link to="1" smooth="true">
-                    <a onClick={() => handleTabClick('main')}>판매중</a>
-                  </Link>
+                  <a onClick={() => handleTabClick('main')}>판매중</a>
                 </li>
                 <li>
-                  <Link to="2" smooth="true">
-                    <a onClick={() => handleTabClick('main')}>판매완료</a>
-                  </Link>
+                  <a onClick={() => handleTabClick('main')}>판매완료</a>
                 </li>
               </ul>
               <ul>
@@ -83,23 +78,17 @@ export default function UserStore() {
                   <a onClick={() => handleTabClick('ready')}>후기</a>
                 </li>
               </ul>
-              {/* </div> */}
             </div>
           </div>
           <div className="right_box">
             <div className="right_controller">
               <div className={getClassName('main')}>
                 <div className="content">
-                  <div className="title" id="1">
-                    판매중{' '}
-                  </div>
-                  <Transction />
+                  <Ing />
                 </div>
                 <div className="content">
-                  <div className="title" id="2">
-                    판매완료
-                  </div>
-                  <Transction />
+                  <div className="title">판매완료</div>
+                  <End />
                 </div>
               </div>
               <div className={getClassName('ready')}>

@@ -56,7 +56,7 @@
       }
 
       .img_desc {
-        height: 70px;
+        height: 80px;
         background-color: #3d435fd4;
         color: #fff;
         transition: transform 0.7s;
@@ -66,11 +66,11 @@
           flex-direction: column;
           align-items: flex-start;
           width: 100%;
-          height: 70px;
+          height: 80px;
           padding: 10px;
 
           .category_desc {
-            height: 25%;
+            height: 30%;
             color: #c8c8c8;
             font-size: 12px;
           }
@@ -80,7 +80,7 @@
             font-size: 15px;
           }
           .price_desc {
-            height: 40%;
+            height: 35%;
             color: white;
             font-weight: 900;
             font-size: 17px;

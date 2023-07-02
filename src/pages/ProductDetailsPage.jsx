@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import '../style/productDetails.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faWonSign } from '@fortawesome/free-solid-svg-icons';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { showItems } from '../apis/item';
+import { deleteItem, showItems } from '../apis/item';
 import ReactHtmlParser from 'react-html-parser';
 import 'swiper/swiper.min.css'; //basic
 import 'swiper/components/navigation/navigation.min.css';
@@ -12,12 +12,17 @@ import 'swiper/components/pagination/pagination.min.css';
 import { Swiper, SwiperSlide } from 'swiper/react'; // basic
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import ScrollReset from '../components/ScrollReset';
+import CryptoJS, { SHA256 } from 'crypto-js';
 SwiperCore.use([Navigation, Pagination]);
 
 export default function ProductDetailsPage() {
   const { itemID } = useParams();
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
+  const [userId, setUserId] = useState();
+  const [wish, setWishList] = useState();
+
+  const navigate = useNavigate();
 
   // 모든 물품 가져오는 함수
   const getItems = async () => {
@@ -42,8 +47,35 @@ export default function ProductDetailsPage() {
     }
   }, [items, itemID]);
 
+  // 아이디 암호화
+  const aes128Encode = (secretKey, Iv, data) => {
+    const cipher = CryptoJS.AES.encrypt(
+      data,
+      CryptoJS.enc.Utf8.parse(secretKey),
+      {
+        iv: CryptoJS.enc.Utf8.parse(Iv), // [Enter IV (Optional) 지정 방식]
+        padding: CryptoJS.pad.Pkcs7,
+        mode: CryptoJS.mode.CBC, // [cbc 모드 선택]
+      },
+    );
+    return cipher.toString();
+  };
+
+  const dbUserId = aes128Encode(
+    // eslint-disable-next-line no-undef
+    process.env.REACT_APP_EMAIL_AES_SECRET_KEY,
+    // eslint-disable-next-line no-undef
+    process.env.REACT_APP_AES_SECRET_IV,
+    selectedItem.userID,
+  );
+
+  useEffect(() => {
+    setUserId(sessionStorage.getItem('userId'));
+  }, []);
+
   // 해당 itemID를 가진 user(판매자-seller)의 정보를 가져오는 함수
   const [sellerInfo, setSellerInfo] = useState([]);
+
   const getSellerInfo = async () => {
     try {
       const resSellerInfo = await axios.get(`/productDetails/${itemID}`);
@@ -61,10 +93,22 @@ export default function ProductDetailsPage() {
   const [wishCount, setWishCount] = useState(0);
   const WishListCount = async () => {
     try {
-      const res = await axios.get('/wishlist');
+      const res = await axios.get('/main/wishlist', {
+        params: {
+          itemID: itemID,
+          userID: sessionStorage.getItem('userId'),
+        },
+      });
       // 찜한 개수 데이터 받아옴
       const wishListCount = res.data.count;
       setWishCount(wishListCount);
+
+      // 내가 위시리스트에 상품담았는지 안담았는지 확인
+      if (res.data.message === '데이터가 있음') {
+        setWishList('위시리스트 삭제');
+      } else {
+        setWishList('위시리스트 담기');
+      }
     } catch (error) {
       console.error(error);
     }
@@ -73,12 +117,20 @@ export default function ProductDetailsPage() {
     WishListCount();
   }, []);
 
-  // 위시리스트에 post 요청
+  // 위시리스트에 이미 담겨있을땐 삭제 요청
+  const delwishList = () => {
+    console.log('삭제요청');
+  };
+
+  //위시리스트에 담겨 있지 않다면 추가 요청.
   const wishList = async () => {
+    console.log('클릭');
     try {
-      const resWish = await axios.post('/wishlist', {
-        itemID: itemID,
-        userID: selectedItem.userID,
+      const resWish = await axios.post('/main/wishlist', null, {
+        params: {
+          itemID: itemID,
+          userID: selectedItem.userID,
+        },
       });
 
       // 찜했을때 받을 메세지
@@ -90,6 +142,27 @@ export default function ProductDetailsPage() {
       }
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  // 삭제하기
+  const deleteItemFunc = async (e) => {
+    e.preventDefault(); // 자동 새로고침 방지
+
+    if (window.confirm('상품을 삭제하시겠습니까?')) {
+      try {
+        const itemId = selectedItem.itemID;
+        const resDelete = await deleteItem(itemId);
+        const message = resDelete.data.message;
+        if (resDelete.data.status === '200') {
+          alert(message); // 삭제되었습니다.
+          navigate('/');
+        } else {
+          return alert(message); // 삭제 실패
+        }
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
@@ -173,21 +246,32 @@ export default function ProductDetailsPage() {
               </ul>
               <ul className="product-status">
                 <li>거래 지역</li>
-                <li>안양시 동안구</li>
+                <li>{selectedItem.address}</li>
               </ul>
               <ul className="product-status">
                 <li>상품 상태</li>
-                <li>새상품</li>
+                <li>{selectedItem.itemState}</li>
               </ul>
               <ul className="product-status">
                 <li>교환</li>
-                <li>가능</li>
+                <li>{selectedItem.itemExchange}</li>
               </ul>
             </div>
-            <div className="product_btn">
-              <p>1:1 채팅하기</p>
-              <p onClick={wishList}>위시리스트 담기</p>
-            </div>
+            {userId === dbUserId ? (
+              <div className="product_btn">
+                <p onClick={deleteItemFunc}>삭제하기</p>
+                <p>ㅇㅇ하기</p>
+              </div>
+            ) : (
+              <div className="product_btn">
+                <p>1:1 채팅하기</p>
+                {wish === '위시리스트 담기' ? (
+                  <p onClick={wishList}>{wish}</p>
+                ) : (
+                  <p onClick={delwishList}>{wish}</p>
+                )}
+              </div>
+            )}
 
             {/* 판매자 정보 */}
             <div className="seller-info">

@@ -145,6 +145,8 @@ export default function RegisterPage() {
 
     try {
       const resCheckNickName = await NickNameCheck(nickName);
+      console.log(`바뀡ㅁ ` + typeof nickname);
+      console.log(resCheckNickName);
 
       // 어떤 데이터값이 넘어왔는지 확인
       console.log('백엔드에서 넘어온 데이터 : ', resCheckNickName.data);

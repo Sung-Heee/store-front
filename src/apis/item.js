@@ -35,3 +35,12 @@ export const saleItems = async (saleItemInfo, formData) => {
     console.error(error);
   }
 };
+
+export const deleteItem = async (itemId) => {
+  try {
+    const resDeleteItem = await axios.delete(`/main/delete/${itemId}`);
+    return resDeleteItem;
+  } catch (err) {
+    console.error(err);
+  }
+};
