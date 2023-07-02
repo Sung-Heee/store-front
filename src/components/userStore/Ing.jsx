@@ -6,6 +6,9 @@ import { getMain } from '../../apis/mypage';
 
 export default function Ing() {
   const [items, setItems] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(4);
+  const [totalItems, setTotalItems] = useState(0);
 
   const getIngInfo = async () => {
     try {
@@ -13,17 +16,27 @@ export default function Ing() {
       const resIng = await getMain(userId);
       const dbIngInfo = resIng.data;
       console.log(dbIngInfo);
-      const renderedItems = dbIngInfo
-        .filter((item) => item.status === 0)
-        .map((item) => (
-          <tr key={item.itemId}>
-            <td>
-              <input type="checkbox"></input>
-            </td>
-            <td>{item.item_title}</td>
-            <td>{item.item_price}</td>
-          </tr>
-        ));
+
+      const filteredItems = dbIngInfo.filter((item) => item.status === 0);
+      setTotalItems(filteredItems.length);
+
+      const indexOfLastItem = currentPage * itemsPerPage;
+      const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+      const currentItems = filteredItems.slice(
+        indexOfFirstItem,
+        indexOfLastItem,
+      );
+
+      const renderedItems = currentItems.map((item) => (
+        <tr key={item.itemId}>
+          <td>{item.item_title}</td>
+          <td>{item.item_name}</td>
+          <td>{item.item_price}</td>
+          <td>
+            <p className="ing_change_btn">완료</p>
+          </td>
+        </tr>
+      ));
 
       setItems(renderedItems);
     } catch (error) {
@@ -32,28 +45,74 @@ export default function Ing() {
   };
   useEffect(() => {
     getIngInfo();
-  }, []);
+  }, [currentPage]);
+
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const previousPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
 
   return (
     <>
-      <div className="like">
-        <div className="content">
-          <div className="title">
-            판매중
-            <div className="ok_btn">확인</div>
-          </div>
+      <div className="userStore_ing">
+        <div className="userStore_content">
+          <div className="title">판매중</div>
           <table border={0}>
             <thead>
               <tr>
-                <th>
-                  <input type="checkbox"></input>
-                </th>
-                <th>상품정보</th>
+                <th>제목 </th>
+                <th>상품명</th>
                 <th>거래금액</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>{items}</tbody>
           </table>
+        </div>
+        <div className="pagination">
+          <button
+            onClick={previousPage}
+            disabled={currentPage === 1}
+            className="ing_prev_btn"
+          >
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <GoChevronLeft
+                style={{
+                  stroke: '#f4f6ff',
+                  strokeWidth: '1px',
+                }}
+              />
+            </div>
+          </button>
+          <button
+            onClick={nextPage}
+            disabled={currentPage * itemsPerPage >= totalItems}
+            className="ing_next_btn"
+          >
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <GoChevronRight
+                style={{
+                  stroke: '#f4f6ff',
+                  strokeWidth: '1px',
+                }}
+              />
+            </div>
+          </button>
         </div>
       </div>
     </>
