@@ -6,18 +6,19 @@
   font-weight: normal;
   font-style: normal;
 }
-.all_container.scrolled{
-  background-color: rgba(255,255,255,.8);
-  transition: all .3s;
-  border-bottom: 1px solid rgba(0,0,0,.1);
+.all_container.scrolled {
+  background-color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .all_container {
   background-color: #fff;
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   z-index: 10;
-  transition: all .3s;
+  transition: all 0.3s;
   .header_main_container {
     display: flex;
     height: 80px;
@@ -32,7 +33,7 @@
         display: flex;
         li {
           float: left;
-          height:80px;
+          height: 80px;
           line-height: 80px;
           padding: 0;
           margin-right: 35px;
@@ -110,10 +111,10 @@
           color: #9d979e;
           background: none;
           letter-spacing: 0.5px;
-          transition: all .2s;
-          &:hover{
+          transition: all 0.2s;
+          &:hover {
             color: #2d2f43;
-            transition: all .2s;
+            transition: all 0.2s;
           }
         }
       }
@@ -269,30 +270,32 @@
       }
       // 최근 본 상품
       .recent-look-product {
+        text-align: left;
+        line-height: 4vh;
+        p {
+          font-weight: 700;
+          font-size: 1.1rem;
+        }
         ul {
-          text-align: left;
+          display: flex;
+          width: 40vw;
           color: #2d2f43;
-          line-height: 4vh;
+
           li {
-            &:first-child {
-              font-weight: 700;
-              font-size: 1.1rem;
-            }
-            &:nth-child(2) {
-              margin-bottom: 1vh;
-              color: #888888;
-            }
-            img {
-              width: 8vw;
-              height: 8vw;
-              border: 1px solid #2d2f43;
-              border-radius: 5px;
-              margin-right: 2.6vw;
-              margin-bottom: 5vh;
-              &:last-child {
-                margin-right: 0;
-              }
-            }
+            padding-right: 25px;
+            margin-bottom: 1vh;
+            color: #888888;
+          }
+        }
+        img {
+          width: 8vw;
+          height: 8vw;
+          border: 1px solid #2d2f43;
+          border-radius: 5px;
+          margin-right: 2.6vw;
+          margin-bottom: 5vh;
+          &:last-child {
+            margin-right: 0;
           }
         }
       }

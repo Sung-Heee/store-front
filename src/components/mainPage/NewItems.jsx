@@ -53,6 +53,28 @@ export default function NewItems() {
   // 최근에 올라온 상품 15개 출력
   const recentItems = items.slice(-15).reverse();
 
+  //최근 본 상품 추가 ()
+  const [recentlyViewed, setRecentlyViewed] = useState([]);
+
+  useEffect(() => {
+    const storedRecentlyViewed = JSON.parse(
+      localStorage.getItem('recentlyViewed'),
+    );
+    if (storedRecentlyViewed) {
+      setRecentlyViewed(storedRecentlyViewed);
+    }
+  }, []);
+
+  // 상품 클릭 시 최근 본 상품에 추가
+  const handleProductClick = (product) => {
+    const updatedRecentlyViewed = [product, ...recentlyViewed.slice(0, 4)];
+    setRecentlyViewed(new Set(updatedRecentlyViewed));
+    localStorage.setItem(
+      'recentlyViewed',
+      JSON.stringify(updatedRecentlyViewed),
+    );
+  };
+
   return (
     <>
       <div className="new_items_container">
@@ -78,6 +100,7 @@ export default function NewItems() {
                   <Link
                     to={`/productdetails/${item.itemID}`}
                     className="item_img"
+                    onClick={() => handleProductClick(item)}
                   >
                     {item.imagePath ? (
                       <img
