@@ -18,13 +18,18 @@ export default function Header() {
 
   // 검색창 토글 함수
   const toggleSearchWindow = () => {
-    setIsSearchOpen((isSearchOpen) => !isSearchOpen);
+    setIsSearchOpen(true);
   };
 
   // 검색창 닫기 함수
   const closeSearchWindow = () => {
-    setIsSearchOpen((isSearchOpen) => !isSearchOpen);
+    setIsSearchOpen(false);
   };
+
+  // 페이지 이동 시 검색창 닫기
+  useEffect(() => {
+    closeSearchWindow();
+  }, [location.pathname]);
 
   const navigate = useNavigate();
 
@@ -51,17 +56,7 @@ export default function Header() {
   const searchProduct = async () => {
     if (!searchInputRef.current.value) return alert('검색어를 입력하세요');
     try {
-      console.log('검색 했니');
-      // const response = await axios.post(
-      //   `/searchproduct/${searchInputRef.current.value}`,
-      //   {
-      //     params: {
-      //       searchProduct: searchInputRef.current.value,
-      //     },
-      //   },
-      // );
-      //console.log(response.data.status);
-      //최근 검색어 저장
+      //최근 검색어 로컬스토리지에 저장
       let getLocal = localStorage.getItem('data');
       if (getLocal === null) {
         getLocal = [];
@@ -71,11 +66,23 @@ export default function Header() {
       getLocal.push(searchInputRef.current.value);
       const uniqueData = [...new Set(getLocal)]; // 검색어 중복된거 제거
       localStorage.setItem('data', JSON.stringify(uniqueData));
+
+      console.log('검색 했니', uniqueData);
+
+      //검색어 params로 붙여서 보내기
+      const response = await axios.post(
+        `/searchproduct/${searchInputRef.current.value}`,
+        {
+          params: {
+            searchProduct: searchInputRef.current.value,
+          },
+        },
+      );
+      console.log(response.data.status);
     } catch (error) {
       console.error(error);
       console.log('검색 잘못되었따');
     }
-
     // 검색어 입력 필드 초기화
     searchInputRef.current.value = '';
   };
