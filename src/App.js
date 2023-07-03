@@ -11,7 +11,6 @@ import MyPage from './pages/MyPage';
 import SalePage from './pages/SalePage';
 import AllProductPage from './pages/AllProductPage';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from './apis/user';
 import { init } from './store/modules/user';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import ManProductPage from './pages/ManProductPage';

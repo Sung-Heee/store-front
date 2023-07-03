@@ -13,6 +13,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'; // basic
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import ScrollReset from '../components/ScrollReset';
 import CryptoJS, { SHA256 } from 'crypto-js';
+import ChatModal from '../components/ChatModal';
+
 SwiperCore.use([Navigation, Pagination]);
 
 export default function ProductDetailsPage() {
@@ -21,6 +23,7 @@ export default function ProductDetailsPage() {
   const [selectedItem, setSelectedItem] = useState({});
   const [userId, setUserId] = useState();
   const [wish, setWishList] = useState();
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -118,8 +121,27 @@ export default function ProductDetailsPage() {
   }, []);
 
   // 위시리스트에 이미 담겨있을땐 삭제 요청
-  const delwishList = () => {
+  const deleteWishList = async () => {
     console.log('삭제요청');
+    try {
+      const resDeleteWish = await axios.post('/main/delete/wishlist', null, {
+        params: {
+          itemID: itemID,
+          userID: selectedItem.userID,
+        },
+      });
+
+      // 삭제 눌렀을때 받을 메세지
+      const message = resDeleteWish.data.message;
+      if (resDeleteWish.data.status === '200') {
+        alert(message);
+        location.reload(); // 삭제되고 페이지 새로고침
+      } else {
+        return alert(message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   //위시리스트에 담겨 있지 않다면 추가 요청.
@@ -137,6 +159,7 @@ export default function ProductDetailsPage() {
       const message = resWish.data.message;
       if (resWish.data.status === '200') {
         alert(message);
+        location.reload(); // 찜 담고 페이지 새로고침
       } else {
         return alert(message);
       }
@@ -164,6 +187,14 @@ export default function ProductDetailsPage() {
         console.error(err);
       }
     }
+  };
+
+  const handleOpenChatModal = () => {
+    setIsChatModalOpen(true);
+  };
+
+  const handleCloseChatModal = () => {
+    setIsChatModalOpen(false);
   };
 
   return (
@@ -264,11 +295,17 @@ export default function ProductDetailsPage() {
               </div>
             ) : (
               <div className="product_btn">
-                <p>1:1 채팅하기</p>
+                <p onClick={handleOpenChatModal}>1:1 채팅하기</p>
+                {/* {isChatModalOpen && (
+                  <ChatModal
+                    isOpen={isChatModalOpen}
+                    onClose={handleCloseChatModal}
+                  />
+                )} */}
                 {wish === '위시리스트 담기' ? (
                   <p onClick={wishList}>{wish}</p>
                 ) : (
-                  <p onClick={delwishList}>{wish}</p>
+                  <p onClick={deleteWishList}>{wish}</p>
                 )}
               </div>
             )}

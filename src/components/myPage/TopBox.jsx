@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { getUser } from '../../apis/user';
 import '../../style/mypage/topbox.scss';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStore } from '@fortawesome/free-solid-svg-icons';
 import { FaPencilAlt } from 'react-icons/fa';
 import { Profile } from '../../apis/mypage';
+import axios from 'axios';
 
 export default function TopBox() {
   const [userName, setUserName] = useState();
@@ -24,8 +24,11 @@ export default function TopBox() {
 
   const getUserInfo = async () => {
     try {
-      const userId = sessionStorage.getItem('userId');
-      const resUser = await getUser(userId);
+      const resUser = await axios.get('/user/userInfo', {
+        params: {
+          userId: sessionStorage.getItem('userId'),
+        },
+      });
       const dbUserInfo = resUser.data;
       setUserName(dbUserInfo[0].user_name);
       setUserImg(dbUserInfo[0].user_img);
@@ -33,6 +36,10 @@ export default function TopBox() {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   const updateProfile = async () => {
     try {
@@ -47,10 +54,6 @@ export default function TopBox() {
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    getUserInfo();
-  }, []);
 
   return (
     <>

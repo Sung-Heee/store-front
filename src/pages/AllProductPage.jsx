@@ -10,9 +10,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 export default function AllProductPage() {
+  const { itemID } = useParams();
   const [allOpen, setAllOpen] = useState(false);
   const [manOpen, setManOpen] = useState(false);
   const [womanOpen, setWomanOpen] = useState(false);
@@ -47,10 +49,38 @@ export default function AllProductPage() {
     setSelectedGender('woman');
   };
 
-  // 하트 누르기
-  const clickHeart = () => {
-    setHeart(!heart);
-  };
+  // // 하트 누르기
+  // const clickHeart = () => {
+  //   setHeart(!heart);
+  // };
+
+  // 위시리스트에 추가 했는지 체크 (하트)
+  // 화요일에 질문
+  // const wishListCheck = async () => {
+  //   try {
+  //     const resWishCheck = axios.get('/main/wishCheck', {
+  //       params: {
+  //         itemID: itemID,
+  //         userID: sessionStorage.getItem('userId'),
+  //       },
+  //     });
+
+  //     const message = resWishCheck.data.message;
+  //     // 만약 둘 다 같이 들어간 테이블이 있으면 꽉찬 하트 됨
+  //     if (resWishCheck.data.status === '200') {
+  //       //
+  //     } else {
+  //       //
+  //     }
+
+  //     console.log(resWishCheck.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   wishListCheck();
+  // }, []);
 
   // 백에서 item 데이터 가져오기
   const getAllItems = async () => {
@@ -331,7 +361,9 @@ export default function AllProductPage() {
                             <p className="price_desc">{item.itemPrice} 원</p>
                           </div>
                           {/* 하트 추후 수정 */}
-                          <div className="heart_icon" onClick={clickHeart}>
+                          {/* 통신 후 하트 수정 */}
+                          {/* <div className="heart_icon" onClick={clickHeart}> */}
+                          <div className="heart_icon">
                             {heart ? (
                               <FontAwesomeIcon icon={solidHeart} />
                             ) : (
