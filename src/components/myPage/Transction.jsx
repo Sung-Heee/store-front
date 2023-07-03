@@ -34,7 +34,7 @@ export default function Transction() {
           <td>{item.item_title}</td>
           <td>{item.item_content}</td>
           <td>{item.item_price}</td>
-          <td>{item.state === 0 ? '판매중' : '판매완료'}</td>
+          <td>{item.status === 0 ? '판매중' : '판매완료'}</td>
         </tr>
       ));
 

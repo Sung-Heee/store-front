@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { getUser } from '../../apis/user';
 import '../../style/userStore/storeTop.scss';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 export default function TopBox() {
   const [userName, setUserName] = useState();
 
   const getUserInfo = async () => {
     try {
-      const userId = sessionStorage.getItem('userId');
-      const resUser = await getUser(userId);
-      const dbUserInfo = resUser.data; // 조회된 사용자 정보 반환
+      const resUser = await axios.get('/user/userInfo', {
+        params: {
+          userId: sessionStorage.getItem('userId'),
+        },
+      });
+      const dbUserInfo = resUser.data;
       setUserName(dbUserInfo[0].user_name);
-      // console.log(dbUserInfo);
     } catch (error) {
       console.error(error);
     }
@@ -23,7 +25,6 @@ export default function TopBox() {
   useEffect(() => {
     getUserInfo();
   }, []);
-
   return (
     <>
       <div className="top_container">

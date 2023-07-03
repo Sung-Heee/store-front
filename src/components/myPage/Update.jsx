@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Select from 'react-select';
 import '../../style/mypage/update.scss';
-import { NickNameCheck, getUser } from '../../apis/user';
+import { NickNameCheck } from '../../apis/user';
 import { Withdrawal, update } from '../../apis/mypage';
 import { Link, useNavigate } from 'react-router-dom';
 import CryptoJS, { SHA256 } from 'crypto-js';
+import axios from 'axios';
 
 export default function Update() {
   const genderOptions = [
@@ -36,8 +37,11 @@ export default function Update() {
 
   const getIdInfo = async () => {
     try {
-      const userId = sessionStorage.getItem('userId');
-      const resUserId = await getUser(userId);
+      const resUserId = await axios.get('/user/userInfo', {
+        params: {
+          userId: sessionStorage.getItem('userId'),
+        },
+      });
       const dbUserIdInfo = resUserId.data;
       setUserID(dbUserIdInfo[0].user_email);
       setPreName(dbUserIdInfo[0].user_name);
@@ -45,12 +49,14 @@ export default function Update() {
       setPhoneNumber(dbUserIdInfo[0].user_phone);
       setPreNickName(dbUserIdInfo[0].user_nickname);
       setPrePw(dbUserIdInfo[0].user_pw);
-
-      // console.log(dbUserIdInfo);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
+
+  useEffect(() => {
+    getIdInfo();
+  }, []);
 
   // 비밀번호 암호화
   const handlePwChange = (e) => {
@@ -171,9 +177,6 @@ export default function Update() {
       console.error(error);
     }
   };
-  useEffect(() => {
-    getIdInfo();
-  }, []);
 
   return (
     <>

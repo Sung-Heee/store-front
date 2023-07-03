@@ -1,4 +1,4 @@
-@import './_reset';
+@import "./_reset";
 .detail-container {
   width: 1200px;
   height: 100vh;
@@ -163,8 +163,10 @@
           li {
             &:first-child {
               color: #b1b2b7;
-              width: 70px;
-              margin-right: 10px;
+              width: 90px;
+            }
+            &:last-child {
+              width: 250px;
             }
           }
         }
@@ -210,7 +212,6 @@
             font-size: 18px;
           }
         }
-        
       }
     }
   }
