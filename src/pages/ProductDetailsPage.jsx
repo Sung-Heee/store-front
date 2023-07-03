@@ -127,7 +127,7 @@ export default function ProductDetailsPage() {
       const resDeleteWish = await axios.post('/main/delete/wishlist', null, {
         params: {
           itemID: itemID,
-          userID: selectedItem.userID,
+          userID: sessionStorage.getItem('userId'),
         },
       });
 
@@ -151,7 +151,7 @@ export default function ProductDetailsPage() {
       const resWish = await axios.post('/main/wishlist', null, {
         params: {
           itemID: itemID,
-          userID: selectedItem.userID,
+          userID: sessionStorage.getItem('userId'),
         },
       });
 
@@ -175,7 +175,12 @@ export default function ProductDetailsPage() {
     if (window.confirm('상품을 삭제하시겠습니까?')) {
       try {
         const itemId = selectedItem.itemID;
-        const resDelete = await deleteItem(itemId);
+        const resDelete = axios.post('/main/itemDelete/', null, {
+          params: {
+            itemID: itemId,
+            userID: sessionStorage.getItem('userId'),
+          },
+        });
         const message = resDelete.data.message;
         if (resDelete.data.status === '200') {
           alert(message); // 삭제되었습니다.
