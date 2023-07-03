@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../style/_header.scss';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faUser } from '@fortawesome/free-regular-svg-icons';
@@ -21,6 +21,40 @@ export default function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const dispatch = useDispatch();
+
+  //드롭다운
+  const [dropDown, setDropDown] = useState(false);
+  const location = useLocation();
+
+  //페이지 이동시 드롭다운 닫기
+  // const closeDropDown = () => {
+  //   setDropDown(false);
+  // };
+
+  // const handleLinkClick = () => {
+  //   closeDropDown();
+  // };
+
+  // useEffect(() => {
+  //   closeDropDown();
+  // }, [location]);
+
+  //페이지 이동 외에 다른곳 클릭시 드롭다운 닫기
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      const targetClassName = event.target.className;
+      const isDropDownUl = targetClassName.includes('header_dropdown_ul');
+      if (!isDropDownUl && dropDown) {
+        setDropDown(false);
+      }
+    };
+
+    window.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      window.removeEventListener('click', handleOutsideClick);
+    };
+  }, [dropDown]);
 
   // 검색창 토글 함수
   const toggleSearchWindow = () => {
@@ -182,9 +216,6 @@ export default function Header() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  //드롭다운
-  const [dropDown, setDropDown] = useState(false);
 
   return (
     <>
