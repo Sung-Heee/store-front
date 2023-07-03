@@ -50,9 +50,6 @@ export default function MyPage() {
       return 'off';
     }
   };
-  // const leftControllerClassName = `left_controller ${
-  //   ScrollActive ? 'fix' : ''
-  // }`;
   return (
     <>
       <ScrollReset />
