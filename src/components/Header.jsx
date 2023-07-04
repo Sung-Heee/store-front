@@ -42,8 +42,8 @@ export default function Header() {
   //페이지 이동 외에 다른곳 클릭시 드롭다운 닫기
   useEffect(() => {
     const handleOutsideClick = (event) => {
-      const targetClassName = event.target.className;
-      const isDropDownUl = targetClassName.includes('header_dropdown_ul');
+      const targetClassList = event.target.classList;
+      const isDropDownUl = targetClassList.contains('header_dropdown_ul');
       if (!isDropDownUl && dropDown) {
         setDropDown(false);
       }
