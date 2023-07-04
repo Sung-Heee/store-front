@@ -92,9 +92,6 @@ export default function AllProductPage() {
       console.error(error);
     }
   };
-  useEffect(() => {
-    getAllItems();
-  }, []);
 
   // 카테고리 클릭 핸들러
   const handleCategoryClick = (selectedCategory) => {
@@ -157,6 +154,31 @@ export default function AllProductPage() {
   console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
   console.log(items);
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+
+  //최근 본 상품 추가 ()
+  const [recentlyViewed, setRecentlyViewed] = useState([]);
+
+  // 상품 클릭 시 최근 본 상품에 추가
+  const handleProductClick = (product) => {
+    console.log('all 최근 본 상품');
+    const updatedRecentlyViewed = [product, ...recentlyViewed.slice(0, 4)];
+    const uniqueRecentlyViewed = [...new Set(updatedRecentlyViewed)]; //상품 중복처리
+    setRecentlyViewed(uniqueRecentlyViewed);
+    localStorage.setItem(
+      'recentlyViewed',
+      JSON.stringify(uniqueRecentlyViewed),
+    );
+  };
+
+  useEffect(() => {
+    getAllItems();
+    const storedRecentlyViewed = JSON.parse(
+      localStorage.getItem('recentlyViewed'),
+    );
+    if (storedRecentlyViewed) {
+      setRecentlyViewed(storedRecentlyViewed);
+    }
+  }, []);
 
   return (
     <>
@@ -323,7 +345,10 @@ export default function AllProductPage() {
                   ) : (
                     getCurrentItems().map((item, index) => (
                       <div className="itemContainer" key={index}>
-                        <Link to={`/productdetails/${item.itemID}`}>
+                        <Link
+                          to={`/productdetails/${item.itemID}`}
+                          onClick={() => handleProductClick(item)}
+                        >
                           {item.imagePath ? (
                             <img
                               className="item"
@@ -355,6 +380,7 @@ export default function AllProductPage() {
                             <Link
                               to={`/productdetails/${item.itemID}`}
                               className="title_desc"
+                              onClick={() => handleProductClick(item)}
                             >
                               {item.itemTitle}
                             </Link>

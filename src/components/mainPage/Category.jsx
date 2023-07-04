@@ -59,8 +59,29 @@ export default function Category() {
       console.error(error);
     }
   };
+  //최근 본 상품 추가 ()
+  const [recentlyViewed, setRecentlyViewed] = useState([]);
+
+  // 상품 클릭 시 최근 본 상품에 추가
+  const handleProductClick = (product) => {
+    console.log('category 최근 본 상품');
+    const updatedRecentlyViewed = [product, ...recentlyViewed.slice(0, 4)];
+    const uniqueRecentlyViewed = [...new Set(updatedRecentlyViewed)]; //상품 중복처리
+    setRecentlyViewed(uniqueRecentlyViewed);
+    localStorage.setItem(
+      'recentlyViewed',
+      JSON.stringify(uniqueRecentlyViewed),
+    );
+  };
+
   useEffect(() => {
     getItems();
+    const storedRecentlyViewed = JSON.parse(
+      localStorage.getItem('recentlyViewed'),
+    );
+    if (storedRecentlyViewed) {
+      setRecentlyViewed(storedRecentlyViewed);
+    }
   }, []);
 
   // 선택된 카테고리에 따라 보여줄 아이템 필터링
@@ -140,6 +161,7 @@ export default function Category() {
                   to={`/productdetails/${item.itemID}`}
                   key={index}
                   className="items_div"
+                  onClick={() => handleProductClick(item)}
                 >
                   {item.imagePath ? (
                     <img
