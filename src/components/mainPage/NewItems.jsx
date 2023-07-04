@@ -67,11 +67,13 @@ export default function NewItems() {
 
   // 상품 클릭 시 최근 본 상품에 추가
   const handleProductClick = (product) => {
+    console.log('newitems 최근 본 상품');
     const updatedRecentlyViewed = [product, ...recentlyViewed.slice(0, 4)];
-    setRecentlyViewed(new Set(updatedRecentlyViewed));
+    const uniqueRecentlyViewed = [...new Set(updatedRecentlyViewed)]; //상품 중복처리
+    setRecentlyViewed(uniqueRecentlyViewed);
     localStorage.setItem(
       'recentlyViewed',
-      JSON.stringify(updatedRecentlyViewed),
+      JSON.stringify(uniqueRecentlyViewed),
     );
   };
 
