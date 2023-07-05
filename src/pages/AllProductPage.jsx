@@ -349,12 +349,12 @@ export default function AllProductPage() {
                           to={`/productdetails/${item.itemID}`}
                           onClick={() => handleProductClick(item)}
                         >
-                          {item.imagePath ? (
+                          {item.imagePath1 ? (
                             <img
                               className="item"
-                              src={`/${item.imagePath.replace(
-                                'src/main/resources/static/',
-                                '',
+                              src={`/${item.imagePath1.replace(
+                                /.*[\\/]images[\\/]/,
+                                'images/',
                               )}`}
                               alt="상품이미지"
                             />

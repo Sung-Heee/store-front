@@ -166,12 +166,12 @@ export default function WomanProductPage() {
                     getCurrentItems().map((item, index) => (
                       <div className="itemContainer" key={index}>
                         <Link to={`/productdetails/${item.itemID}`}>
-                          {item.imagePath ? (
+                          {item.imagePath1 ? (
                             <img
                               className="item"
-                              src={`/${item.imagePath.replace(
-                                'src/main/resources/static/',
-                                '',
+                              src={`/${item.imagePath1.replace(
+                                /.*[\\/]images[\\/]/,
+                                'images/',
                               )}`}
                               alt="상품이미지"
                             />

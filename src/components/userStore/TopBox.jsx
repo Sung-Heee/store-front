@@ -7,6 +7,7 @@ import axios from 'axios';
 
 export default function TopBox() {
   const [userName, setUserName] = useState();
+  const [userImg, setUserImg] = useState();
 
   const getUserInfo = async () => {
     try {
@@ -17,6 +18,7 @@ export default function TopBox() {
       });
       const dbUserInfo = resUser.data;
       setUserName(dbUserInfo[0].user_name);
+      setUserImg(dbUserInfo[0].user_img);
     } catch (error) {
       console.error(error);
     }
@@ -30,7 +32,24 @@ export default function TopBox() {
       <div className="top_container">
         <div className="top_box minMax">
           <div className="top_left">
-            <div className="img_box"></div>
+            <div className="img_box">
+              {userImg ? (
+                <img
+                  className="profile_img"
+                  src={`/${userImg.replace(
+                    /.*[\\/]profile_image[\\/]/,
+                    'profile_image/',
+                  )}`}
+                  alt="프로필사진"
+                />
+              ) : (
+                <img
+                  className="profile_img"
+                  src={`/images/profile.png`}
+                  alt="프로필사진"
+                />
+              )}
+            </div>
           </div>
           <div className="top_right">
             <div className="member_name">

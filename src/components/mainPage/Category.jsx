@@ -163,12 +163,12 @@ export default function Category() {
                   className="items_div"
                   onClick={() => handleProductClick(item)}
                 >
-                  {item.imagePath ? (
+                  {item.imagePath1 ? (
                     <img
                       className="item_img"
-                      src={`/${item.imagePath.replace(
-                        'src/main/resources/static/',
-                        '',
+                      src={`/${item.imagePath1.replace(
+                        /.*[\\/]images[\\/]/,
+                        'images/',
                       )}`}
                       alt="상품이미지"
                     />
