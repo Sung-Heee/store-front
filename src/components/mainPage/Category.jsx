@@ -90,11 +90,10 @@ export default function Category() {
     selectedCategory === 'ALL'
       ? items
       : items.filter((item) => item.categoryId === selectedCategory);
-
   console.log(itemsShow);
   // 랜덤으로 9개까지만 띄우게 하기
   const randomItems = itemsShow.sort(() => Math.random() - 0.5).slice(0, 9);
-
+  console.log(randomItems);
   return (
     <>
       <div className="category_container">
