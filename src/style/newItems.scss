@@ -33,6 +33,13 @@
         cursor: pointer;
         background-color: #e6f2ff;
         color: #3d435f;
+
+        object-fit: cover;
+        flex: 1;
+        top: 50%;
+        // position: relative;
+        left: 50%;
+        transform: translate(-50%, -50%);
       }
       .no_image_div {
         width: 100%;
