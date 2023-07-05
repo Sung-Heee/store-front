@@ -57,9 +57,9 @@
   }
   .category_items {
     .items_list {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr); /* 한 줄에 5개 */
-      gap: 20px;
+      // display: grid;
+      // grid-template-columns: repeat(5, 1fr); /* 한 줄에 5개 */
+      // gap: 20px;
       width: 80vw;
       display: flex;
       flex-wrap: wrap;
@@ -97,8 +97,9 @@
       // 아이템
       .items_div {
         margin: auto;
-        width: calc(20% - 20px); /* 20%의 너비로 설정 (5개의 열 중 하나) */
-        height: 300px;
+        margin-bottom: 20px;
+        width: calc(20% - 20px); /* 5개 열 중 하나의 너비로 설정 */
+        aspect-ratio: 1/1; /* 가로세로 비율 1:1로 유지 */
         background-color: whitesmoke;
         position: relative;
         overflow: hidden;

@@ -9,15 +9,15 @@
     font-weight: 900;
     color: #3d435f;
   }
-
+  $width: 80vw;
   .swiper-container {
     margin: 30px auto;
-    height: 380px;
-    width: 80vw;
+    height: calc(($width - 50px)/5 + 30px);
+    width: $width;
     position: relative;
 
     .swiper-slide {
-      height: 350px;
+      height: calc(($width - 50px)/5);
       overflow: hidden;
       position: relative;
       &:hover {
@@ -27,8 +27,8 @@
       }
       .item_img {
         display: flex;
-        width: 100%;
-        height: 350px;
+        // width: 100%;
+        height: 100%;
         position: relative;
         cursor: pointer;
         background-color: #e6f2ff;
