@@ -19,8 +19,9 @@
         background-color: white;
         display: flex;
         align-items: center;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-        img {
+        .profile_img {
           width: 100%;
         }
       }
@@ -33,6 +34,7 @@
         border-radius: 50%;
         background-color: #ffff;
         cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         .pencil_icon {
           width: 25px;
           height: 60px;
