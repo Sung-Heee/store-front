@@ -194,6 +194,18 @@ export default function ProductDetailsPage() {
     }
   };
 
+  // 이미지 경로 담는 배열
+  const itemImageArr = [];
+
+  for (let i = 1; i <= 3; i++) {
+    // selectedItem에서 imagePath1, imagePath2, imagePath3 값 가져오기
+    const imagePath = selectedItem[`imagePath${i}`];
+    // imagePath 값이 존재하면 추가, 없으면 null 값 추가
+    itemImageArr.push(imagePath || null);
+  }
+
+  console.log(itemImageArr);
+
   const handleOpenChatModal = () => {
     setIsChatModalOpen(true);
   };
@@ -218,16 +230,22 @@ export default function ProductDetailsPage() {
               centeredSlides={true}
               navigation
               pagination={{ clickable: true }}
+              initialSlide={2}
             >
-              <SwiperSlide className="swiper-slide">
-                <img src="/images/exam.jpeg" alt="상품이미지" />
-              </SwiperSlide>
-              <SwiperSlide className="swiper-slide">
-                <img src="/images/exam.jpeg" alt="상품이미지" />
-              </SwiperSlide>
-              <SwiperSlide className="swiper-slide">
-                <img src="/images/exam.jpeg" alt="상품이미지" />
-              </SwiperSlide>
+              {itemImageArr.map(
+                (item, index) =>
+                  item !== null && (
+                    <SwiperSlide key={index} className="swiper-slide">
+                      <img
+                        src={`/${item.replace(
+                          /.*[\\/]images[\\/]/,
+                          'images/',
+                        )}`}
+                        alt="상품이미지"
+                      />
+                    </SwiperSlide>
+                  ),
+              )}
             </Swiper>
           </div>
           {/* 상품 정보 */}

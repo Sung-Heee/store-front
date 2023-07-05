@@ -13,15 +13,42 @@ export default function TopBox() {
   const [imageFiles, setImageFiles] = useState([]);
   const imageInput = useRef();
 
-  const onCickImageUpload = () => {
+  const onClickImageUpload = () => {
     imageInput.current.click();
   };
 
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files);
     setImageFiles(files);
-    console.log(files);
   };
+
+  const updateProfile = async () => {
+    try {
+      const formData = new FormData();
+      imageFiles.forEach((file) => {
+        formData.append('images', file);
+      });
+
+      const resProfile = await axios.post('/user/profile', formData, {
+        params: {
+          id: sessionStorage.getItem('userId'),
+        },
+      });
+      const message = resProfile.data.message;
+      if (resProfile.data.status === '200') {
+        alert(message);
+        location.reload();
+      } else {
+        return alert(message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    updateProfile();
+  }, [imageFiles]);
 
   const getUserInfo = async () => {
     try {
@@ -42,36 +69,28 @@ export default function TopBox() {
     getUserInfo();
   }, []);
 
-  const updateProfile = async () => {
-    try {
-      const formData = new FormData();
-      imageFiles.forEach((file) => {
-        formData.append('images', file);
-      });
-
-      const resProfile = await axios.post('/user/profile', formData, {
-        params: {
-          id: sessionStorage.getItem('userId'),
-        },
-      });
-      const message = resProfile.data.message;
-      if (resProfile.data.status === '200') {
-        alert(message);
-      } else {
-        return alert(message);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <>
       <div className="top_container">
         <div className="top_box minMax">
           <div className="top_left">
             <div className="img_box">
-              {userImg && <img src={userImg} alt="프로필사진" />}
+              {userImg ? (
+                <img
+                  className="profile_img"
+                  src={`/${userImg.replace(
+                    /.*[\\/]profile_image[\\/]/,
+                    'profile_image/',
+                  )}`}
+                  alt="프로필사진"
+                />
+              ) : (
+                <img
+                  className="profile_img"
+                  src={`/images/profile.png`}
+                  alt="프로필사진"
+                />
+              )}
             </div>
             <div className="edit">
               <input
@@ -80,10 +99,11 @@ export default function TopBox() {
                 ref={imageInput}
                 onChange={handleImageUpload}
               />
-              <div onClick={onCickImageUpload}>
-                <FaPencilAlt className="pencil_icon" />
-              </div>
-              <button onClick={updateProfile}>사진 변경</button>
+
+              <FaPencilAlt
+                onClick={onClickImageUpload}
+                className="pencil_icon"
+              />
             </div>
           </div>
           <div className="top_right">
