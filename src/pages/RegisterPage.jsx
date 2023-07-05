@@ -217,6 +217,7 @@ export default function RegisterPage() {
       name: userNameInput.current.value,
       phone: phoneNumberInput.current.value,
       nickName: nickNameInput.current.value,
+      profileImg: null,
     };
 
     try {

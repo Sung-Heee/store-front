@@ -20,6 +20,7 @@ export default function TopBox() {
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files);
     setImageFiles(files);
+    console.log(files);
   };
 
   const getUserInfo = async () => {
@@ -48,8 +49,17 @@ export default function TopBox() {
         formData.append('images', file);
       });
 
-      const userId = sessionStorage.getItem('userId');
-      await Profile(userId, formData);
+      const resProfile = await axios.post('/user/profile', formData, {
+        params: {
+          id: sessionStorage.getItem('userId'),
+        },
+      });
+      const message = resProfile.data.message;
+      if (resProfile.data.status === '200') {
+        alert(message);
+      } else {
+        return alert(message);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -69,11 +79,11 @@ export default function TopBox() {
                 style={{ display: 'none' }}
                 ref={imageInput}
                 onChange={handleImageUpload}
-                onClick={updateProfile}
               />
               <div onClick={onCickImageUpload}>
                 <FaPencilAlt className="pencil_icon" />
               </div>
+              <button onClick={updateProfile}>사진 변경</button>
             </div>
           </div>
           <div className="top_right">
