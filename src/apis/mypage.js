@@ -120,19 +120,19 @@ export const Withdrawal = async (userId) => {
 };
 
 // 프로필 사진
-export const Profile = async (userId, userImg) => {
+export const Profile = async (userId, formData) => {
   try {
     const resUpdate = await axios.post(`/profile`, {
       id: userId,
-      userImg: userImg,
+      userImg: formData,
     });
 
     console.log(`성공    ` + userId);
-    console.log(`성공    ` + userImg);
+    console.log(`성공    ` + formData);
     return resUpdate.data; // 응답의 데이터만 반환
   } catch (error) {
     console.log(`실패    ` + userId);
-    console.log(`실패    ` + userImg);
+    console.log(`실패    ` + formData);
     throw new Error('업데이트 요청을 처리하는 동안 오류가 발생했습니다.'); // 예외 처리
   }
 };
