@@ -104,10 +104,10 @@ export default function NewItems() {
                     className="item_img"
                     onClick={() => handleProductClick(item)}
                   >
-                    {item.imagePath ? (
+                    {item.imagePath1 ? (
                       <img
                         className="item_img"
-                        src={`/${item.imagePath.replace(
+                        src={`/${item.imagePath1.replace(
                           /.*[\\/]images[\\/]/,
                           'images/',
                         )}`}

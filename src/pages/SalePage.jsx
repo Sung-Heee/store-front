@@ -360,7 +360,7 @@ export default function SalePage(props) {
             </label>
           </div>
           <div className="exchange_container">
-            <p>환불 : </p>
+            <p>교환 : </p>
             <input
               id="radio_possible"
               type="radio"
