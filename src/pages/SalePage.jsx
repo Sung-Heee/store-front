@@ -208,9 +208,9 @@ export default function SalePage(props) {
       newImageFiles.push(imageLists[i]);
     }
 
-    if (imageUrlLists.length > 6) {
-      imageUrlLists = imageUrlLists.slice(0, 6);
-      alert('이미지는 최대 6장까지 첨부할 수 있습니다.');
+    if (imageUrlLists.length > 3) {
+      imageUrlLists = imageUrlLists.slice(0, 3);
+      alert('이미지는 최대 3장까지 첨부할 수 있습니다.');
     }
 
     setShowImages(imageUrlLists);
@@ -457,7 +457,7 @@ export default function SalePage(props) {
             >
               <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
             </svg>
-            <p className="plus_text">최대 6 장</p>
+            <p className="plus_text">최대 3 장</p>
           </label>
 
           {/*화면에 이미지 출력 */}
