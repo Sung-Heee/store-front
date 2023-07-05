@@ -39,6 +39,8 @@ export default function ProductDetailsPage() {
     }
   };
 
+  console.log(selectedItem);
+
   useEffect(() => {
     getItems();
   }, []);
