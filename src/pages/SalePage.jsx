@@ -42,6 +42,7 @@ export default function SalePage(props) {
 
   // 이미지 첨부파일
   const [showImages, setShowImages] = useState([]);
+
   // 이미지 파일 객체
   const [imageFiles, setImageFiles] = useState([]);
 
@@ -132,6 +133,7 @@ export default function SalePage(props) {
       const message = resSale.data.message;
       if (resSale.data.status === '200') {
         alert(message); // 작성완
+        navigate('/all_product');
       } else {
         return alert(message); // 작성실패
       }
@@ -142,7 +144,7 @@ export default function SalePage(props) {
   };
 
   const cancleSale = async () => {
-    if (window.confirm('작성취소')) {
+    if (window.confirm('작성을 취소하시겠습니까?')) {
       navigate('/');
     }
   };
