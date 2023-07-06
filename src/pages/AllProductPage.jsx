@@ -77,6 +77,7 @@ export default function AllProductPage() {
     try {
       const resAllItems = await showAllItems();
       const itemsData = resAllItems.data;
+      console.log(itemsData);
       setItems(itemsData);
     } catch (error) {
       console.error(error);
@@ -161,6 +162,7 @@ export default function AllProductPage() {
   };
 
   useEffect(() => {
+    getWishList();
     getAllItems();
     wishListCheck();
     const storedRecentlyViewed = JSON.parse(
