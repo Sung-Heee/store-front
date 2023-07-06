@@ -19,6 +19,7 @@ export default function AllProductPage() {
   const [manOpen, setManOpen] = useState(false);
   const [womanOpen, setWomanOpen] = useState(false);
   const [items, setItems] = useState([]);
+  const [wishList, setWishList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedGender, setSelectedGender] = useState('');
   const [category, setCategory] = useState('');
@@ -49,44 +50,27 @@ export default function AllProductPage() {
     setSelectedGender('woman');
   };
 
-  // // 하트 누르기
-  // const clickHeart = () => {
-  //   setHeart(!heart);
-  // };
-
-  // 위시리스트에 추가 했는지 체크 (하트)
-  // 화요일에 질문
-  // const wishListCheck = async () => {
-  //   try {
-  //     const resWishCheck = axios.get('/main/wishCheck', {
-  //       params: {
-  //         itemID: itemID,
-  //         userID: sessionStorage.getItem('userId'),
-  //       },
-  //     });
-
-  //     const message = resWishCheck.data.message;
-  //     // 만약 둘 다 같이 들어간 테이블이 있으면 꽉찬 하트 됨
-  //     if (resWishCheck.data.status === '200') {
-  //       //
-  //     } else {
-  //       //
-  //     }
-
-  //     console.log(resWishCheck.data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   wishListCheck();
-  // }, []);
+  // 백에서 wishList목록 List로 받아오기
+  const getWishList = async () => {
+    try {
+      const resWishList = await axios.get(`/main/allwishlist`, {
+        params: {
+          id: sessionStorage.getItem('userId'),
+        },
+      });
+      console.log(resWishList.data);
+    } catch (error) {
+      console.error(error);
+      console.log('위시리스트 뽑기 잘못되었다.');
+    }
+  };
 
   // 백에서 item 데이터 가져오기
   const getAllItems = async () => {
     try {
       const resAllItems = await showAllItems();
       const itemsData = resAllItems.data;
+      console.log(itemsData);
       setItems(itemsData);
     } catch (error) {
       console.error(error);
@@ -171,6 +155,7 @@ export default function AllProductPage() {
   };
 
   useEffect(() => {
+    getWishList();
     getAllItems();
     const storedRecentlyViewed = JSON.parse(
       localStorage.getItem('recentlyViewed'),
@@ -386,9 +371,7 @@ export default function AllProductPage() {
                             </Link>
                             <p className="price_desc">{item.itemPrice} 원</p>
                           </div>
-                          {/* 하트 추후 수정 */}
-                          {/* 통신 후 하트 수정 */}
-                          {/* <div className="heart_icon" onClick={clickHeart}> */}
+
                           <div className="heart_icon">
                             {heart ? (
                               <FontAwesomeIcon icon={solidHeart} />
