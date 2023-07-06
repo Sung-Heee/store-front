@@ -11,10 +11,12 @@ import {
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function ManProductPage() {
   const [manOpen, setManOpen] = useState(false);
   const [items, setItems] = useState([]);
+  const [wishListItems, setWishListItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [category, setCategory] = useState('');
   const [heart, setHeart] = useState(false);
@@ -27,9 +29,26 @@ export default function ManProductPage() {
     setCategory('');
   };
 
-  // 하트 누르기
-  const clickHeart = () => {
-    setHeart(!heart);
+  // // 하트 누르기
+  // const clickHeart = () => {
+  //   setHeart(!heart);
+  // };
+
+  // 위시리스트에 추가 했는지 체크 (하트)
+  const wishListCheck = async () => {
+    try {
+      const resWishCheck = await axios.get('/main/allwishlist', {
+        params: {
+          id: sessionStorage.getItem('userId'),
+        },
+      });
+
+      const wishListData = resWishCheck.data;
+      setWishListItems(wishListData);
+      console.log(wishListData);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // 백에서 item 데이터 가져오기
@@ -44,6 +63,7 @@ export default function ManProductPage() {
   };
   useEffect(() => {
     getAllItems();
+    wishListCheck();
   }, []);
 
   // 카테고리 클릭 핸들러
@@ -163,58 +183,64 @@ export default function ManProductPage() {
                       <p>제품이 존재하지 않습니다.</p>
                     </div>
                   ) : (
-                    getCurrentItems().map((item, index) => (
-                      <div className="itemContainer" key={index}>
-                        <Link to={`/productdetails/${item.itemID}`}>
-                          {item.imagePath1 ? (
-                            <img
-                              className="item"
-                              src={`/${item.imagePath1.replace(
-                                /.*[\\/]images[\\/]/,
-                                'images/',
-                              )}`}
-                              alt="상품이미지"
-                            />
-                          ) : (
-                            <div className="no_image_div">
-                              <div className="no_image">
-                                <FontAwesomeIcon
-                                  icon={faCircleExclamation}
-                                  size="4x"
-                                  style={{ color: '#2d2f45' }}
-                                />
-                                <p>No Image</p>
+                    getCurrentItems().map((item, index) => {
+                      const isWishList = wishListItems.some(
+                        (wishListItem) =>
+                          wishListItem.itemId === String(item.itemID),
+                      );
+                      return (
+                        <div className="itemContainer" key={index}>
+                          <Link to={`/productdetails/${item.itemID}`}>
+                            {item.imagePath1 ? (
+                              <img
+                                className="item"
+                                src={`/${item.imagePath1.replace(
+                                  /.*[\\/]images[\\/]/,
+                                  'images/',
+                                )}`}
+                                alt="상품이미지"
+                              />
+                            ) : (
+                              <div className="no_image_div">
+                                <div className="no_image">
+                                  <FontAwesomeIcon
+                                    icon={faCircleExclamation}
+                                    size="4x"
+                                    style={{ color: '#2d2f45' }}
+                                  />
+                                  <p>No Image</p>
+                                </div>
                               </div>
+                            )}
+                          </Link>
+                          <div className="item_top_desc">
+                            <div className="item_desc">
+                              <p className="category_desc">
+                                {item.itemGender.toUpperCase()} &gt;{' '}
+                                {item.categoryId}
+                              </p>
+                              <Link
+                                to={`/productdetails/${item.itemID}`}
+                                className="title_desc"
+                              >
+                                {item.itemTitle}
+                              </Link>
+                              <p className="price_desc">{item.itemPrice} 원</p>
                             </div>
-                          )}
-                        </Link>
-                        <div className="item_top_desc">
-                          <div className="item_desc">
-                            <p className="category_desc">
-                              {item.itemGender.toUpperCase()} &gt;{' '}
-                              {item.categoryId}
-                            </p>
-                            <Link
-                              to={`/productdetails/${item.itemID}`}
-                              className="title_desc"
-                            >
-                              {item.itemTitle}
-                            </Link>
-                            <p className="price_desc">{item.itemPrice} 원</p>
-                          </div>
-                          {/* 하트 추후 수정 */}
-                          <div className="heart_icon" onClick={clickHeart}>
-                            {heart ? (
+                            {/* 하트 추후 수정 */}
+                            {/* <div className="heart_icon" onClick={clickHeart}></div> */}
+                            {isWishList ? (
                               <FontAwesomeIcon icon={solidHeart} />
                             ) : (
                               <FontAwesomeIcon icon={regularHeart} />
                             )}
                           </div>
                         </div>
-                      </div>
-                    ))
+                      );
+                    })
                   )}
                 </div>
+
                 <div className="pagination">
                   {getCurrentItems().length > 0 && currentPage >= 1 && (
                     <button

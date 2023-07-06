@@ -19,6 +19,7 @@ export default function AllProductPage() {
   const [manOpen, setManOpen] = useState(false);
   const [womanOpen, setWomanOpen] = useState(false);
   const [items, setItems] = useState([]);
+  const [wishListItems, setWishListItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedGender, setSelectedGender] = useState('');
   const [category, setCategory] = useState('');
@@ -55,32 +56,21 @@ export default function AllProductPage() {
   // };
 
   // 위시리스트에 추가 했는지 체크 (하트)
-  // 화요일에 질문
-  // const wishListCheck = async () => {
-  //   try {
-  //     const resWishCheck = axios.get('/main/wishCheck', {
-  //       params: {
-  //         itemID: itemID,
-  //         userID: sessionStorage.getItem('userId'),
-  //       },
-  //     });
+  const wishListCheck = async () => {
+    try {
+      const resWishCheck = await axios.get('/main/allwishlist', {
+        params: {
+          id: sessionStorage.getItem('userId'),
+        },
+      });
 
-  //     const message = resWishCheck.data.message;
-  //     // 만약 둘 다 같이 들어간 테이블이 있으면 꽉찬 하트 됨
-  //     if (resWishCheck.data.status === '200') {
-  //       //
-  //     } else {
-  //       //
-  //     }
-
-  //     console.log(resWishCheck.data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   wishListCheck();
-  // }, []);
+      const wishListData = resWishCheck.data;
+      setWishListItems(wishListData);
+      console.log(wishListData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // 백에서 item 데이터 가져오기
   const getAllItems = async () => {
@@ -151,8 +141,8 @@ export default function AllProductPage() {
       return item.itemGender === selectedGender;
     }
   });
-  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-  console.log(items);
+
+  // console.log(items);
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 
   //최근 본 상품 추가 ()
@@ -172,6 +162,7 @@ export default function AllProductPage() {
 
   useEffect(() => {
     getAllItems();
+    wishListCheck();
     const storedRecentlyViewed = JSON.parse(
       localStorage.getItem('recentlyViewed'),
     );
@@ -343,64 +334,72 @@ export default function AllProductPage() {
                       <p>제품이 존재하지 않습니다.</p>
                     </div>
                   ) : (
-                    getCurrentItems().map((item, index) => (
-                      <div className="itemContainer" key={index}>
-                        <Link
-                          to={`/productdetails/${item.itemID}`}
-                          onClick={() => handleProductClick(item)}
-                        >
-                          {item.imagePath1 ? (
-                            <img
-                              className="item"
-                              src={`/${item.imagePath1.replace(
-                                /.*[\\/]images[\\/]/,
-                                'images/',
-                              )}`}
-                              alt="상품이미지"
-                            />
-                          ) : (
-                            <div className="no_image_div">
-                              <div className="no_image">
-                                <FontAwesomeIcon
-                                  icon={faCircleExclamation}
-                                  size="4x"
-                                  style={{ color: '#2d2f45' }}
-                                />
-                                <p>No Image</p>
-                              </div>
-                            </div>
-                          )}
-                        </Link>
-                        <div className="item_top_desc">
-                          <div className="item_desc">
-                            <p className="category_desc">
-                              {item.itemGender.toUpperCase()} &gt;{' '}
-                              {item.categoryId}
-                            </p>
-                            <Link
-                              to={`/productdetails/${item.itemID}`}
-                              className="title_desc"
-                              onClick={() => handleProductClick(item)}
-                            >
-                              {item.itemTitle}
-                            </Link>
-                            <p className="price_desc">{item.itemPrice} 원</p>
-                          </div>
-                          {/* 하트 추후 수정 */}
-                          {/* 통신 후 하트 수정 */}
-                          {/* <div className="heart_icon" onClick={clickHeart}> */}
-                          <div className="heart_icon">
-                            {heart ? (
-                              <FontAwesomeIcon icon={solidHeart} />
+                    getCurrentItems().map((item, index) => {
+                      const isWishList = wishListItems.some(
+                        (wishListItem) =>
+                          wishListItem.itemId === String(item.itemID),
+                      );
+
+                      return (
+                        <div className="itemContainer" key={index}>
+                          <Link
+                            to={`/productdetails/${item.itemID}`}
+                            onClick={() => handleProductClick(item)}
+                          >
+                            {item.imagePath1 ? (
+                              <img
+                                className="item"
+                                src={`/${item.imagePath1.replace(
+                                  /.*[\\/]images[\\/]/,
+                                  'images/',
+                                )}`}
+                                alt="상품이미지"
+                              />
                             ) : (
-                              <FontAwesomeIcon icon={regularHeart} />
+                              <div className="no_image_div">
+                                <div className="no_image">
+                                  <FontAwesomeIcon
+                                    icon={faCircleExclamation}
+                                    size="4x"
+                                    style={{ color: '#2d2f45' }}
+                                  />
+                                  <p>No Image</p>
+                                </div>
+                              </div>
                             )}
+                          </Link>
+                          <div className="item_top_desc">
+                            <div className="item_desc">
+                              <p className="category_desc">
+                                {item.itemGender.toUpperCase()} &gt;{' '}
+                                {item.categoryId}
+                              </p>
+                              <Link
+                                to={`/productdetails/${item.itemID}`}
+                                className="title_desc"
+                                onClick={() => handleProductClick(item)}
+                              >
+                                {item.itemTitle}
+                              </Link>
+                              <p className="price_desc">{item.itemPrice} 원</p>
+                            </div>
+                            {/* 하트 추후 수정 */}
+                            {/* 통신 후 하트 수정 */}
+                            {/* <div className="heart_icon" onClick={clickHeart}> */}
+                            <div className="heart_icon">
+                              {isWishList ? (
+                                <FontAwesomeIcon icon={solidHeart} />
+                              ) : (
+                                <FontAwesomeIcon icon={regularHeart} />
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))
+                      );
+                    })
                   )}
                 </div>
+
                 <div className="pagination">
                   {getCurrentItems().length > 0 && currentPage >= 1 && (
                     <button
