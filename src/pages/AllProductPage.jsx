@@ -161,6 +161,7 @@ export default function AllProductPage() {
   };
 
   useEffect(() => {
+    // getWishList();
     getAllItems();
     wishListCheck();
     const storedRecentlyViewed = JSON.parse(
