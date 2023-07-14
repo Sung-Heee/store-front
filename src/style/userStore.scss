@@ -86,9 +86,23 @@
               .userStore_content{
                 margin-bottom: 0;
               }
-              .pagination{
-                text-align: right;
-                margin:10px 8% 0 0;
+              
+            }
+            .title {
+              p{
+                
+            font-size: 17px;
+            font-weight: 700;
+            color: #2d2f45;
+            // border-bottom: 2px solid #2d2f45;
+            height: 44px;
+            line-height: 44px;
+            letter-spacing: -0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+              }
+            .pagination{
                 .ing_prev_btn,
                 .ing_next_btn{
                   background: inherit ; 
@@ -97,9 +111,9 @@
                   padding:0; 
                   overflow:visible; 
                   cursor:pointer;
-                  width: 40px;
-                  line-height: 40px;
-                  height: 40px;
+                  width: 35px;
+                  line-height: 35px;
+                  height: 35px;
                   font-size: 25px;
                   background-color: #f4f6ff;
                   border-radius: 50%;
@@ -115,18 +129,6 @@
                   }                  
                 }
               }
-            }
-            .title {
-            font-size: 17px;
-            font-weight: 700;
-            color: #2d2f45;
-            border-bottom: 2px solid #2d2f45;
-            height: 44px;
-            line-height: 44px;
-            letter-spacing: -0.5px;
-            display: flex;
-            justify-content: space-between;
-            
             }
             ul{
               display: flex;

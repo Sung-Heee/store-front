@@ -14,6 +14,7 @@ import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import ScrollReset from '../components/ScrollReset';
 import CryptoJS, { SHA256 } from 'crypto-js';
 import ChatModal from '../components/ChatModal';
+import ChatRoom from '../components/ChatRoom';
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -207,7 +208,7 @@ export default function ProductDetailsPage() {
   console.log(itemImageArr);
 
   const handleOpenChatModal = () => {
-    setIsChatModalOpen(true);
+    setIsChatModalOpen((prevState) => !prevState);
   };
 
   const handleCloseChatModal = () => {
@@ -310,7 +311,16 @@ export default function ProductDetailsPage() {
                 <li>교환</li>
                 <li>{selectedItem.itemExchange}</li>
               </ul>
+              <ul className="chat_modal">
+                {isChatModalOpen && (
+                  <ChatRoom
+                    isOpen={isChatModalOpen}
+                    onClose={handleCloseChatModal}
+                  />
+                )}
+              </ul>
             </div>
+
             {userId === dbUserId ? (
               <div className="product_btn">
                 <p onClick={deleteItemFunc}>삭제하기</p>
@@ -319,12 +329,6 @@ export default function ProductDetailsPage() {
             ) : (
               <div className="product_btn">
                 <p onClick={handleOpenChatModal}>1:1 채팅하기</p>
-                {/* {isChatModalOpen && (
-                  <ChatModal
-                    isOpen={isChatModalOpen}
-                    onClose={handleCloseChatModal}
-                  />
-                )} */}
                 {wish === '위시리스트 담기' ? (
                   <p onClick={wishList}>{wish}</p>
                 ) : (
