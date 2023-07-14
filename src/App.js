@@ -19,6 +19,7 @@ import LoginRequire from './pages/LoginRequire';
 import ScrollReset from './components/ScrollReset';
 import UserStore from './pages/UserStore';
 import StatusChangeModal from './components/userStore/StatusChangeModal';
+import NotUpdating from './pages/NotUpdating';
 
 function App() {
   // 로그인 상태
@@ -75,6 +76,7 @@ function App() {
           path="/user_store"
           element={isLogin ? <UserStore /> : <LoginRequire />}
         />
+        <Route path="/notupdating" element={<NotUpdating />} />
       </Routes>
       {/* <LoginRequire /> */}
       {/* <Footer /> */}

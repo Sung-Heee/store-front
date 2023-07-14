@@ -324,7 +324,7 @@ export default function ProductDetailsPage() {
             {userId === dbUserId ? (
               <div className="product_btn">
                 <p onClick={deleteItemFunc}>삭제하기</p>
-                <p>ㅇㅇ하기</p>
+                <Link to="/notupdating">공유하기</Link>
               </div>
             ) : (
               <div className="product_btn">

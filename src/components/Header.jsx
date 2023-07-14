@@ -238,7 +238,7 @@ export default function Header() {
                         setDropDown(!dropDown);
                       }}
                     >
-                      임시텍스트{' '}
+                      SHOP{' '}
                       {dropDown ? (
                         <FontAwesomeIcon
                           icon={faAngleUp}
@@ -269,7 +269,7 @@ export default function Header() {
                         setDropDown(!dropDown);
                       }}
                     >
-                      임시텍스트{' '}
+                      SHOP{' '}
                       {dropDown ? (
                         <FontAwesomeIcon
                           icon={faAngleUp}

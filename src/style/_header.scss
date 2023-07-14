@@ -119,6 +119,8 @@
         }
       }
       .header_dropdown_menu{
+        padding-left: 20px;
+        width: 100px;
         ul{
           height: 30px;
           line-height: 30px;
@@ -128,9 +130,11 @@
           background: none;
           letter-spacing: 0.5px;
           transition: all .2s;
+          font-weight: 700;
           .dropdown_icon{ 
-            stroke-width: 35px;
+            stroke-width: 25px;
             stroke: #f4f6ff;
+            color: black;
           }
         }
       }
