@@ -2,49 +2,59 @@ import { async } from 'q';
 import React, { useEffect, useState } from 'react';
 import { getLike } from '../../apis/mypage';
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
+import axios from 'axios';
 
 export default function Like() {
   const [itemLike, setItemsLike] = useState([]);
-
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-  const getLikeInfo = async () => {
+  const getWishList = async () => {
     try {
-      const userId = sessionStorage.getItem('userId');
-      const resLike = await getLike(userId);
+      const resLike = await axios.get('/main/allwishlist', {
+        params: {
+          id: sessionStorage.getItem('userId'),
+        },
+      });
+
       const dbLikeInfo = resLike.data;
+
+      // 로그인한 유저가 위시리스트에 담은 itemId가 들어있는 배열
+      const itemIdArr = dbLikeInfo.map((item) => item.itemId);
+
+      const resMyPageWish = await axios.get('/main/mypagewish', {
+        params: {
+          itemID: itemIdArr.join(','),
+        },
+      });
+
+      const myPageWish = resMyPageWish.data;
+      console.log(myPageWish);
 
       const itemsPerPage = 4;
       const startIndex = currentPage * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
-
-      console.log(dbLikeInfo);
-
-      let filteredItems = dbLikeInfo;
-
-      const itemsToShow = filteredItems.slice(startIndex, endIndex);
+      const itemsToShow = myPageWish.slice(startIndex, endIndex);
 
       const renderedItems = itemsToShow.map((item) => (
-        <tr key={item.itemId}>
+        <tr key={item.itemID}>
           <th>
             <input type="checkbox"></input>
           </th>
-          <th>{item.title}</th>
-          <th>{item.price}</th>
-          <th>{item.user}</th>
+          <th>{item.itemTitle}</th>
+          <th>{item.itemPrice}</th>
+          <th>{item.userID}</th>
         </tr>
       ));
-
       setItemsLike(renderedItems);
-      setTotalPages(Math.ceil(filteredItems.length / itemsPerPage));
+      setTotalPages(Math.ceil(myPageWish.length / itemsPerPage));
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    getLikeInfo();
+    getWishList();
   }, []);
 
   const PageNumbers = () => {
