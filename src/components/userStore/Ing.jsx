@@ -59,7 +59,51 @@ export default function Ing() {
     <>
       <div className="userStore_ing">
         <div className="userStore_content">
-          <div className="title">판매중</div>
+          <div className="title">
+            <p>판매중</p>
+            <div className="pagination">
+              <button
+                onClick={previousPage}
+                disabled={currentPage === 1}
+                className="ing_prev_btn"
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <GoChevronLeft
+                    style={{
+                      stroke: '#f4f6ff',
+                      strokeWidth: '1px',
+                    }}
+                  />
+                </div>
+              </button>
+              <button
+                onClick={nextPage}
+                disabled={currentPage * itemsPerPage >= totalItems}
+                className="ing_next_btn"
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <GoChevronRight
+                    style={{
+                      stroke: '#f4f6ff',
+                      strokeWidth: '1px',
+                    }}
+                  />
+                </div>
+              </button>
+            </div>
+          </div>
           <table border={0}>
             <thead>
               <tr>
@@ -71,48 +115,6 @@ export default function Ing() {
             </thead>
             <tbody>{items}</tbody>
           </table>
-        </div>
-        <div className="pagination">
-          <button
-            onClick={previousPage}
-            disabled={currentPage === 1}
-            className="ing_prev_btn"
-          >
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <GoChevronLeft
-                style={{
-                  stroke: '#f4f6ff',
-                  strokeWidth: '1px',
-                }}
-              />
-            </div>
-          </button>
-          <button
-            onClick={nextPage}
-            disabled={currentPage * itemsPerPage >= totalItems}
-            className="ing_next_btn"
-          >
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <GoChevronRight
-                style={{
-                  stroke: '#f4f6ff',
-                  strokeWidth: '1px',
-                }}
-              />
-            </div>
-          </button>
         </div>
       </div>
     </>
