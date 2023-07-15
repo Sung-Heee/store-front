@@ -56,7 +56,7 @@ export default function WomanProductPage() {
     try {
       const resAllItems = await showAllItems();
       const itemsData = resAllItems.data;
-      setItems(itemsData);
+      setItems(itemsData.reverse());
     } catch (error) {
       console.error(error);
     }
@@ -229,11 +229,13 @@ export default function WomanProductPage() {
                             </div>
                             {/* 하트 추후 수정 */}
                             {/* <div className="heart_icon" onClick={clickHeart}></div> */}
-                            {isWishList ? (
-                              <FontAwesomeIcon icon={solidHeart} />
-                            ) : (
-                              <FontAwesomeIcon icon={regularHeart} />
-                            )}
+                            <div className="heart_icon">
+                              {isWishList ? (
+                                <FontAwesomeIcon icon={solidHeart} />
+                              ) : (
+                                <FontAwesomeIcon icon={regularHeart} />
+                              )}
+                            </div>
                           </div>
                         </div>
                       );

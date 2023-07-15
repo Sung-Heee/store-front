@@ -77,7 +77,7 @@ export default function AllProductPage() {
     try {
       const resAllItems = await showAllItems();
       const itemsData = resAllItems.data;
-      setItems(itemsData);
+      setItems(itemsData.reverse());
     } catch (error) {
       console.error(error);
     }
@@ -339,7 +339,8 @@ export default function AllProductPage() {
                         (wishListItem) =>
                           wishListItem.itemId === String(item.itemID),
                       );
-
+                      const isMyItem =
+                        item.userID === sessionStorage.getItem('userId');
                       return (
                         <div className="itemContainer" key={index}>
                           <Link
@@ -386,6 +387,7 @@ export default function AllProductPage() {
                             {/* 하트 추후 수정 */}
                             {/* 통신 후 하트 수정 */}
                             {/* <div className="heart_icon" onClick={clickHeart}> */}
+
                             <div className="heart_icon">
                               {isWishList ? (
                                 <FontAwesomeIcon icon={solidHeart} />
