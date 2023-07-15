@@ -175,10 +175,16 @@ export default function Category() {
                   ) : (
                     <div className="no_image_div">
                       <div className="no_image">
-                        <FontAwesomeIcon
+                        {/* <FontAwesomeIcon
                           icon={faCircleExclamation}
                           size="4x"
                           style={{ color: '#2d2f45' }}
+                        /> */}
+                        <img
+                          src="/images/logo.png"
+                          alt="로고"
+                          className="header_logo_img"
+                          width={150}
                         />
                         <p>No Image</p>
                       </div>
