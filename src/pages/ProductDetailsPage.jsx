@@ -316,6 +316,7 @@ export default function ProductDetailsPage() {
                   <ChatRoom
                     isOpen={isChatModalOpen}
                     onClose={handleCloseChatModal}
+                    sellerID={selectedItem.userID}
                   />
                 )}
               </ul>
