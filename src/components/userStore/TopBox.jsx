@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-export default function TopBox() {
+export default function TopBox({ totalIngItems, totalEndItems }) {
   const [userName, setUserName] = useState();
   const [userImg, setUserImg] = useState();
 
@@ -23,10 +23,11 @@ export default function TopBox() {
       console.error(error);
     }
   };
-
+  console.log(totalEndItems);
   useEffect(() => {
     getUserInfo();
   }, []);
+
   return (
     <>
       <div className="top_container">
@@ -69,13 +70,13 @@ export default function TopBox() {
                 <li>
                   <li>판매중</li>
                   <strong>
-                    <li>0</li>
+                    <li>{totalIngItems}</li>
                   </strong>
                 </li>
                 <li>
                   <li>판매완료</li>
                   <strong>
-                    <li>0</li>
+                    <li>{totalEndItems}</li>
                   </strong>
                 </li>
                 <li>

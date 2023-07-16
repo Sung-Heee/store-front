@@ -229,7 +229,7 @@ export default function Header() {
                     <Link onClick={logout}>LOGOUT</Link>
                   </li>
                   <li className="header_sub_menu_li">
-                    <Link to="/faq">FAQ</Link>
+                    <Link to="/notupdating">FAQ</Link>
                   </li>
                   <li className="header_dropdown_menu header_sub_menu_li">
                     <ul

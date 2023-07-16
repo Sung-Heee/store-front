@@ -4,9 +4,10 @@ import { getLike } from '../../apis/mypage';
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 import { getMain } from '../../apis/mypage';
 
-export default function Ing() {
+export default function End({ totalEndItems }) {
   const [items, setItems] = useState([]);
-  const [customerId, setCustomerId] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(4);
 
   const getEndInfo = async () => {
     try {
@@ -14,15 +15,22 @@ export default function Ing() {
       const resEnd = await getMain(userId);
       const dbEndInfo = resEnd.data;
 
-      const renderedItems = dbEndInfo
-        .filter((item) => item.status === 1)
-        .map((item) => (
-          <tr key={item.itemId}>
-            <td>{item.item_title}</td>
-            <td>{item.item_date}</td>
-            <td>{item.item_title}</td>
-          </tr>
-        ));
+      const filteredEndItems = dbEndInfo.filter((item) => item.status === 1);
+
+      const indexOfLastItem = currentPage * itemsPerPage;
+      const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+      const currentItems = filteredEndItems.slice(
+        indexOfFirstItem,
+        indexOfLastItem,
+      );
+
+      const renderedItems = currentItems.map((item) => (
+        <tr key={item.itemId}>
+          <td>{item.item_title}</td>
+          <td>{item.item_date}</td>
+          <td>{item.item_price}</td>
+        </tr>
+      ));
 
       setItems(renderedItems);
     } catch (error) {
@@ -31,12 +39,65 @@ export default function Ing() {
   };
   useEffect(() => {
     getEndInfo();
-  }, []);
+  }, [currentPage]);
+
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const previousPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
 
   return (
     <>
-      <div className="like">
-        <div className="content">
+      <div className="userStore_end">
+        <div className="userStore_content">
+          <div className="title">
+            <p>판매완료</p>
+            <div className="pagination">
+              <button
+                onClick={previousPage}
+                disabled={currentPage === 1}
+                className="ing_prev_btn"
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <GoChevronLeft
+                    style={{
+                      stroke: '#f4f6ff',
+                      strokeWidth: '1px',
+                    }}
+                  />
+                </div>
+              </button>
+              <button
+                onClick={nextPage}
+                disabled={currentPage * itemsPerPage >= totalEndItems}
+                className="ing_next_btn"
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <GoChevronRight
+                    style={{
+                      stroke: '#f4f6ff',
+                      strokeWidth: '1px',
+                    }}
+                  />
+                </div>
+              </button>
+            </div>
+          </div>
           <table border={0}>
             <thead>
               <tr>

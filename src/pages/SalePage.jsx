@@ -220,8 +220,15 @@ export default function SalePage(props) {
   };
 
   // X버튼 클릭 시 이미지 삭제
+  // const handleDeleteImage = (id) => {
+  //   setShowImages(showImages.filter((_, index) => index !== id));
+  // };
   const handleDeleteImage = (id) => {
-    setShowImages(showImages.filter((_, index) => index !== id));
+    const updatedImages = showImages.filter((_, index) => index !== id);
+    const updatedFiles = imageFiles.filter((_, index) => index !== id);
+
+    setShowImages(updatedImages);
+    setImageFiles(updatedFiles);
   };
 
   const handleComplete = (data) => {
