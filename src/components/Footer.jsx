@@ -43,7 +43,7 @@ export default function Footer() {
               점심시간 평일 12:00 - 13:00
             </p>
             <p>1:1 문의하기는 앱에서만 가능합니다.</p>
-            <Link to="/faq" className="faq_move">
+            <Link to="/notupdating" className="faq_move">
               <p>자주묻는질문</p>
             </Link>
           </div>

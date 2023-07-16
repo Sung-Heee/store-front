@@ -4,21 +4,18 @@ import { getLike } from '../../apis/mypage';
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 import { getMain } from '../../apis/mypage';
 
-export default function Ing() {
+export default function Ing({ totalIngItems }) {
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(4);
-  const [totalItems, setTotalItems] = useState(0);
 
   const getIngInfo = async () => {
     try {
       const userId = sessionStorage.getItem('userId');
       const resIng = await getMain(userId);
       const dbIngInfo = resIng.data;
-      console.log(dbIngInfo);
 
       const filteredItems = dbIngInfo.filter((item) => item.status === 0);
-      setTotalItems(filteredItems.length);
 
       const indexOfLastItem = currentPage * itemsPerPage;
       const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -84,7 +81,7 @@ export default function Ing() {
               </button>
               <button
                 onClick={nextPage}
-                disabled={currentPage * itemsPerPage >= totalItems}
+                disabled={currentPage * itemsPerPage >= totalIngItems}
                 className="ing_next_btn"
               >
                 <div

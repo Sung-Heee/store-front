@@ -9,11 +9,36 @@ import TopBtn from '../components/TopBtn';
 import BottomBtn from '../components/BottomBtn';
 import Ing from '../components/userStore/Ing';
 import End from '../components/userStore/End';
+import { getMain } from '../apis/mypage';
 
 export default function UserStore() {
   const [activeTab, setActiveTab] = useState('main');
   const [ScrollY, setScrollY] = useState(0); // window 의 pageYOffset값을 저장
   const [ScrollActive, setScrollActive] = useState(false);
+  const [totalIngItems, setTotalIngItems] = useState(0);
+  const [totalEndItems, setTotalEndItems] = useState(0);
+  const [dbIngInfo, setdbIngInfo] = useState([]);
+
+  const getIngInfo = async () => {
+    try {
+      const userId = sessionStorage.getItem('userId');
+      const resIng = await getMain(userId);
+      const dbIngInfo = resIng.data;
+      setdbIngInfo(dbIngInfo);
+
+      const filteredItems = dbIngInfo.filter((item) => item.status === 0);
+      setTotalIngItems(filteredItems.length);
+      const filteredEndItems = dbIngInfo.filter((item) => item.status === 1);
+      console.log(filteredEndItems);
+      console.log(filteredEndItems.length);
+      setTotalEndItems(filteredEndItems.length);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getIngInfo();
+  }, []);
 
   const handleScroll = () => {
     if (ScrollY > 350) {
@@ -25,15 +50,15 @@ export default function UserStore() {
     }
   };
 
-  useEffect(() => {
-    const scrollListener = () => {
-      window.addEventListener('scroll', handleScroll);
-    }; //  window 에서 스크롤을 감시 시작
-    scrollListener(); // window 에서 스크롤을 감시
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    }; //  window 에서 스크롤을 감시를 종료
-  });
+  // useEffect(() => {
+  //   const scrollListener = () => {
+  //     window.addEventListener('scroll', handleScroll);
+  //   }; //  window 에서 스크롤을 감시 시작
+  //   scrollListener(); // window 에서 스크롤을 감시
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   }; //  window 에서 스크롤을 감시를 종료
+  // });
 
   // console.log(ScrollY);
   // console.log(ScrollActive);
@@ -56,7 +81,7 @@ export default function UserStore() {
     <>
       <ScrollReset />
       <div className="all_content">
-        <TopBox />
+        <TopBox totalIngItems={totalIngItems} totalEndItems={totalEndItems} />
         <div className="bottom_box">
           <div className="left_box">
             <div className="left_controller">
@@ -84,11 +109,10 @@ export default function UserStore() {
             <div className="right_controller">
               <div className={getClassName('main')}>
                 <div className="content">
-                  <Ing />
+                  <Ing totalIngItems={totalIngItems} />
                 </div>
                 <div className="content">
-                  <div className="title">판매완료</div>
-                  <End />
+                  <End totalEndItems={totalEndItems} />
                 </div>
               </div>
               <div className={getClassName('ready')}>
