@@ -112,7 +112,6 @@ export default function Update() {
       } else {
         return alert(message);
       }
-      location.reload();
     } catch (error) {
       // console.log(userInfo);
       console.error(error);
@@ -185,8 +184,8 @@ export default function Update() {
           <div className="title">
             <p>기본정보</p>
             <p className="please">
-              <span className="required">*</span>
-              <p>필수입력사항</p>
+              <span className="required star">*</span>
+              <p className="write">필수입력사항</p>
             </p>
           </div>
           <table className="update_form">
@@ -310,11 +309,9 @@ export default function Update() {
               <a className="white_button" onClick={handleCancel}>
                 취소
               </a>
-              <Link to="/">
-                <a className="gray_button" type="submit" onClick={updateUser}>
-                  확인
-                </a>
-              </Link>
+              <a className="gray_button" onClick={updateUser}>
+                확인
+              </a>
             </div>
             <a className="white_button end" onClick={handleWd}>
               회원 탈퇴
