@@ -172,6 +172,9 @@
                 justify-content: center;
                 .item_desc {
                   width: 88%;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
                   .category_desc {
                     font-size: 13px;
                     color: #a09b9b;
