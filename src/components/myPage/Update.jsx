@@ -104,11 +104,13 @@ export default function Update() {
 
       const message = resUpdate.message; // 객체에 있는 message
 
-      if (resUpdate.status === 200) {
+      // console.log(resUpdate.status);
+
+      if (resUpdate.status === '200') {
         alert(message);
-        navigate('/update');
-        console.log('수정');
         window.location.reload();
+        // navigate('/update');
+        console.log('수정');
       } else {
         return alert(message);
       }
@@ -151,6 +153,7 @@ export default function Update() {
   // 취소버튼
   const handleCancel = () => {
     const isConfirmed = window.confirm('회원 정보 수정을 취소하시겠습니까?');
+
     if (isConfirmed) {
       // 이전 데이터를 유지
       setNewPw('');
@@ -158,6 +161,8 @@ export default function Update() {
       setNewGender('');
       setNewPhoneNumber('');
       setNickName('');
+
+      window.location.reload();
     }
   };
 
@@ -170,6 +175,7 @@ export default function Update() {
         const resUserId = await Withdrawal(userId);
 
         alert('탈퇴 되셨습니다');
+        window.location.reload();
         console.log(resUserId);
       }
     } catch (error) {
