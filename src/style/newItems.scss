@@ -12,12 +12,12 @@
   $width: 80vw;
   .swiper-container {
     margin: 30px auto;
-    height: calc(($width - 50px)/5 + 30px);
+    height: calc(($width - 50px) / 5 + 30px);
     width: $width;
     position: relative;
 
     .swiper-slide {
-      height: calc(($width - 50px)/5);
+      height: calc(($width - 50px) / 5);
       overflow: hidden;
       position: relative;
       &:hover {
@@ -82,6 +82,12 @@
             font-size: 12px;
           }
           .title_desc {
+            display: flex;
+            justify-content: flex-start;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
             height: 35%;
             color: white;
             font-size: 15px;

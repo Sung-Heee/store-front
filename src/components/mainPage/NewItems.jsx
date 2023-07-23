@@ -90,11 +90,11 @@ export default function NewItems() {
 
           <Swiper
             ref={swiperRef}
-            modules={[Navigation, Pagination, Mousewheel, Scrollbar, Autoplay]}
+            modules={[Mousewheel, Scrollbar, Autoplay]}
             mousewheel={{ forceToAxis: true }}
             spaceBetween={10}
             slidesPerView={5}
-            scrollbar={{ dragSize: 100 }}
+            scrollbar={{ draggable: true, dragSize: 150 }}
           >
             {recentItems.map((item) => (
               <>
@@ -128,11 +128,11 @@ export default function NewItems() {
                   </Link>
                   <div className="img_desc">
                     <div className="img_text_desc">
-                      <div className="category_desc">
+                      <p className="category_desc">
                         {item.itemGender.toUpperCase()} &gt; {item.categoryId}
-                      </div>
-                      <div className="title_desc">{item.itemName}</div>
-                      <div className="price_desc">{item.itemPrice} 원</div>
+                      </p>
+                      <p className="title_desc">{item.itemName}</p>
+                      <p className="price_desc">{item.itemPrice} 원</p>
                     </div>
                   </div>
                 </SwiperSlide>
