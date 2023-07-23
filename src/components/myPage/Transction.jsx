@@ -27,7 +27,7 @@ export default function Transction() {
 
       const itemsToShow = filteredItems.slice(startIndex, endIndex);
 
-      console.log(dbresItemInfo);
+      // console.log(dbresItemInfo);
 
       const renderedItems = itemsToShow.map((item) => (
         <tr key={item.itemId}>
@@ -41,7 +41,8 @@ export default function Transction() {
       setItems(renderedItems);
       setTotalPages(Math.ceil(filteredItems.length / itemsPerPage));
     } catch (error) {
-      console.log(items);
+      // console.log(items);
+      console.error(error);
     }
   };
 
@@ -75,26 +76,28 @@ export default function Transction() {
       <div className="transaction">
         <div className="content">
           {items.length > 0 ? (
-            <table border={0}>
-              <thead>
-                <tr>
-                  <th>상품정보</th>
-                  <th>거래일자</th>
-                  <th>거래금액</th>
-                  <th>
-                    <select
-                      value={selectedStatus}
-                      onChange={handleStatusChange}
-                    >
-                      <option value="all">상태</option>
-                      <option value="selling">구매완료</option>
-                      <option value="sold">판매완료</option>
-                    </select>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>{items}</tbody>
-            </table>
+            <div className="controller">
+              <table border={0}>
+                <thead>
+                  <tr>
+                    <th>상품정보</th>
+                    <th>거래일자</th>
+                    <th>거래금액</th>
+                    <th>
+                      <select
+                        value={selectedStatus}
+                        onChange={handleStatusChange}
+                      >
+                        <option value="all">상태</option>
+                        <option value="selling">구매완료</option>
+                        <option value="sold">판매완료</option>
+                      </select>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>{items}</tbody>
+              </table>
+            </div>
           ) : (
             <p className="msg">거래 내역이 없습니다</p>
           )}

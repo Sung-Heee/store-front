@@ -88,10 +88,13 @@
       .right_controller{
         text-align: left;
         width: 920px;
+        height: 1100px;
         //content title 공통
           .content {
             width: 100%;
-            margin-bottom: 30px;
+            height: 400px;
+            // background-color: orange;
+            margin-bottom: 100px;
             .title {
             font-size: 17px;
             font-weight: 700;
@@ -102,6 +105,19 @@
             letter-spacing: -0.5px;
             display: flex;
             justify-content: space-between;
+            .write {
+              font-size: 13px;
+              font-weight: 700;
+              color: #2d2f45;
+              height: 44px;
+              line-height: 44px;
+              letter-spacing: -0.5px;
+              display: flex;
+              justify-content: space-between;
+            }
+            }
+            .controller {
+              height: 350px;
             }
             ul{
               display: flex;
@@ -133,6 +149,7 @@
               text-align: center;
               font-size: 14px;
               font-weight: 400;
+              // background-color: orange;
               thead {
                 th {
                   color: #98989f;
@@ -156,7 +173,7 @@
                 td {
                   padding: 25px 15px;
                   // border-bottom: 1px solid #dfdfdf;
-                  color: #000;
+                  color: orange;
                   width: 25%;
                 }
               input[type=checkbox] {
@@ -164,7 +181,7 @@
                 height: 18px;
                 border: 0;
                 vertical-align: middle;
-                border-radius: 50%;
+                // border-radius: 50%;
             }
                     
             }
@@ -202,6 +219,33 @@
       margin-top: 25px;
       .btn {
         cursor: pointer;
+      }
+    }
+
+    // 관심상품 버튼
+    .like_button {
+      display: flex;    
+      justify-content: space-between;
+      margin-top: 50px;
+      a {
+        cursor: pointer;
+        background-color: #fff;
+        border: 1px solid #b4b5c1;
+        color: #2d2f43;    
+        width: 180px;
+        height: 46px;
+        line-height: 46px;
+        padding: 0 20px;
+        border-radius: 50px;
+        display: inline-block;
+        margin: 0;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 700;
+        vertical-align: middle;
+        :hover{        background-color: black;
+
+        }
       }
     }
   }
