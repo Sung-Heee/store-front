@@ -113,7 +113,7 @@ const ChatRoom = ({ sellerID }) => {
       {/* 메시지 입력 폼과 전송 버튼을 포함한 폼 요소 */}
 
       <SockJsClient
-        url="/chat"
+        url="/ws"
         topics={['/topic/chat']}
         onMessage={handleMessageReceive} // 메시지 수신
         onConnect={handleConnect} // 연결 성공
