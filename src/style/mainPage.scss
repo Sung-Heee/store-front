@@ -1,11 +1,11 @@
-@import './_reset';
+@import "./_reset";
 
 .swiper {
   background-color: #fff;
   height: 660px;
 
   //송민영 수정
-  margin-top: 120px;
+  margin-top: 110px;
   .swiper-slide {
     img {
       width: 44vw;
@@ -49,15 +49,14 @@
   }
 }
 
-  .view-more {
-    color: #2d2f43;
-    font-size: 1.2rem;
-    position: absolute;
-    z-index: 2;
-    top: 750px;
-    right: 28vw;
-    .view-more-arrow {
-      margin-left: 10px;
-    }
+.view-more {
+  color: #2d2f43;
+  font-size: 1.2rem;
+  position: absolute;
+  z-index: 2;
+  top: 750px;
+  right: 28vw;
+  .view-more-arrow {
+    margin-left: 10px;
   }
-
+}
