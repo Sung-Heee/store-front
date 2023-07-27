@@ -14,11 +14,13 @@ import { faComment } from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from './header/Dropdown';
+import ChatList from './header/ChatList';
 // import logo from '../images/logo.png';
 
 export default function Header() {
   // 검색창 토글을 위한 state
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isChatListOpen, setIsChatListOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -217,6 +219,16 @@ export default function Header() {
     };
   }, []);
 
+  const chatList = () => {};
+
+  const handleOpenChatList = () => {
+    setIsChatListOpen((prevState) => !prevState);
+  };
+
+  const handleCloseChatList = () => {
+    setIsChatListOpen(false);
+  };
+
   return (
     <>
       <div className={`all_container ${isHeaderScrolled ? 'scrolled' : ''}`}>
@@ -329,7 +341,7 @@ export default function Header() {
                 </p>
               </li>
               <li>
-                <p>
+                <p onClick={handleOpenChatList}>
                   <FontAwesomeIcon
                     icon={faComment}
                     className="header_comment_icon"
@@ -421,6 +433,10 @@ export default function Header() {
           </div>
         </div>
       </div>
+
+      {isChatListOpen && (
+        <ChatList isOpen={isChatListOpen} onClose={handleCloseChatList} />
+      )}
     </>
   );
 }
