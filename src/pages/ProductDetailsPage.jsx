@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../style/productDetails.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faWonSign } from '@fortawesome/free-solid-svg-icons';
@@ -215,6 +215,25 @@ export default function ProductDetailsPage() {
     setIsChatModalOpen(false);
   };
 
+  // 채팅 요청
+  const handleChatRequest = async () => {
+    const confirmed = window.confirm('채팅을 요청하시겠습니까?');
+    if (confirmed) {
+      try {
+        // 확인 버튼을 눌렀을 때
+        const resChatReq = await axios.post('/chat/request', {
+          params: {
+            itemID: itemID,
+            userID: sessionStorage.getItem('userId'),
+          },
+        });
+        console.log(resChatReq.data); // 응답
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   return (
     <>
       <ScrollReset />
@@ -329,7 +348,8 @@ export default function ProductDetailsPage() {
               </div>
             ) : (
               <div className="product_btn">
-                <p onClick={handleOpenChatModal}>1:1 채팅하기</p>
+                {/* <p onClick={handleOpenChatModal}>1:1 채팅하기</p> */}
+                <p onClick={handleChatRequest}>채팅 요청</p>
                 {wish === '위시리스트 담기' ? (
                   <p onClick={wishList}>{wish}</p>
                 ) : (

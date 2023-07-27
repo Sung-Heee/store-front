@@ -1,8 +1,7 @@
-@import './_reset';
+@import "./_reset";
 @font-face {
-  font-family: 'YdestreetB';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/YdestreetB.woff2')
-    format('woff2');
+  font-family: "YdestreetB";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/YdestreetB.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
@@ -118,10 +117,10 @@
           }
         }
       }
-      .header_dropdown_menu{
+      .header_dropdown_menu {
         padding-left: 20px;
         width: 100px;
-        ul{
+        ul {
           height: 30px;
           line-height: 30px;
           font-size: 13.5px;
@@ -129,9 +128,9 @@
           cursor: pointer;
           background: none;
           letter-spacing: 0.5px;
-          transition: all .2s;
+          transition: all 0.2s;
           font-weight: 700;
-          .dropdown_icon{ 
+          .dropdown_icon {
             stroke-width: 25px;
             stroke: #f4f6ff;
             color: black;
@@ -220,7 +219,7 @@
         &::before {
           position: absolute;
           right: 0.9vw;
-          content: ' ';
+          content: " ";
           height: 2.2rem;
           width: 2px;
           background-color: #2d2f43;
@@ -305,4 +304,12 @@
       }
     }
   }
+}
+.chat_list_container {
+  position: absolute;
+  z-index: 999;
+  width: 30%;
+  right: 0;
+  background-color: #f4f6ff;
+  padding: 10px;
 }
