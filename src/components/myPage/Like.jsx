@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function Like() {
   const [itemLike, setItemsLike] = useState([]);
@@ -19,6 +20,7 @@ export default function Like() {
 
       const dbLikeInfo = resLike.data;
       const itemIdArr = dbLikeInfo.map((item) => item.itemId);
+      console.log(dbLikeInfo);
 
       const resMyPageWish = await axios.get('/main/mypagewish', {
         params: {
@@ -183,7 +185,10 @@ export default function Like() {
                             checked={checkItems.has(item.itemID)}
                           />
                         </td>
-                        <td>{item.itemTitle}</td>
+
+                        <Link to={`/productdetails/${item.itemID}`}>
+                          <td>{item.itemTitle}</td>
+                        </Link>
                         <td>{item.itemPrice}</td>
                         <td>{item.userID}</td>
                       </tr>

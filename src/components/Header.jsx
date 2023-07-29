@@ -389,24 +389,21 @@ export default function Header() {
                 <p>최근 검색어</p>
                 <ul>
                   {recentSearches.length > 0 ? (
-                    recentSearches.map((search, index) => (
-                      <li key={index}>{search}</li>
+                    recentSearches.map((search, sindex) => (
+                      <li key={index}>
+                        {search}
+                        <button className="delete-recent-search">
+                          <FontAwesomeIcon
+                            icon={faTrashCan}
+                            onClick={deleteRecentSearch}
+                          />
+                        </button>
+                      </li>
                     ))
                   ) : (
                     <li className="no-recent-search">
                       최근 검색어 내역이 없습니다.
                     </li>
-                  )}
-
-                  {recentSearches.length > 0 ? (
-                    <button className="delete-recent-search">
-                      <FontAwesomeIcon
-                        icon={faTrashCan}
-                        onClick={deleteRecentSearch}
-                      />
-                    </button>
-                  ) : (
-                    ''
                   )}
                 </ul>
               </div>
