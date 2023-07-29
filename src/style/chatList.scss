@@ -1,0 +1,68 @@
+.chat_list_container {
+  position: absolute;
+  z-index: 999;
+  width: 25%;
+  top: 110px;
+  right: 0;
+  max-height: 40%;
+  overflow-y: scroll;
+  color: black;
+  background-color: #d8d8d872;
+  position: fixed;
+  ul {
+    .chat_list_empty_div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      border-radius: 5px;
+    }
+    .chat_list_div {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      // background-color: #ffffff;
+      border-radius: 5px;
+      transition: 0.3s;
+      cursor: pointer;
+      .img_box {
+        width: 15%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .profile_img {
+          width: 100%;
+          background-color: #ffffff;
+          border-radius: 50%;
+        }
+      }
+
+      &:hover {
+        background-color: #ffffff;
+      }
+      .chat_list {
+        margin-left: 20px;
+        // width: 85%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .chat_sender_id {
+          font-size: 17px;
+          color: black;
+        }
+        .chat_message {
+          font-size: 14px;
+          color: #4b4b4b;
+        }
+      }
+      .accept_btn {
+        width: 20%;
+        background-color: #ffffff;
+        border-radius: 3px;
+        border: 0.5px solid #2d2f43;
+        padding: 7px 10px;
+      }
+    }
+  }
+}

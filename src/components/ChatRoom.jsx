@@ -2,25 +2,52 @@ import React, { useState, useEffect, useRef } from 'react';
 import SockJsClient from 'react-stomp';
 import '../style/chatRoom.scss';
 import axios from 'axios';
+import CryptoJS, { SHA256 } from 'crypto-js';
 
-const ChatRoom = ({ sellerID }) => {
+const ChatRoom = ({ sellerID, itemID, senderID }) => {
   const [messages, setMessages] = useState([]); // 메시지 목록을 담을 상태 변수
   const [connected, setConnected] = useState(false); // 연결 상태를 담을 상태 변수
   const [userImg, setUserImg] = useState();
   const [userNickName, setUserNickName] = useState();
   const [roomId, setRoomId] = useState(null); // 채팅방 식별자를 담을 상태 변수
   const clientRef = useRef(null); // SockJsClient 컴포넌트의 참조를 담을 변수
+  const container_scroll = useRef();
+
+  // 아이디 암호화
+  const aes128Encode = (secretKey, Iv, data) => {
+    const cipher = CryptoJS.AES.encrypt(
+      data,
+      CryptoJS.enc.Utf8.parse(secretKey),
+      {
+        iv: CryptoJS.enc.Utf8.parse(Iv),
+        padding: CryptoJS.pad.Pkcs7,
+        mode: CryptoJS.mode.CBC,
+      },
+    );
+    return cipher.toString();
+  };
+
+  const senderIdEncode = aes128Encode(
+    // eslint-disable-next-line no-undef
+    process.env.REACT_APP_EMAIL_AES_SECRET_KEY,
+    // eslint-disable-next-line no-undef
+    process.env.REACT_APP_AES_SECRET_IV,
+    senderID,
+  );
 
   useEffect(() => {
     const getData = async () => {
       try {
         // 채팅방 생성 또는 입장 요청
         const response = await axios.post('/chat/room', {
-          sellerId: sellerID.split('@')[0],
-          // buyerId: sessionStorage.getItem('userId').split('/')[0],
-          buyerId: 'test',
+          senderId:
+            senderID == null
+              ? sessionStorage.getItem('userId').split('/')[0]
+              : senderIdEncode.split('/')[0],
+          itemId: itemID,
         });
         setRoomId(response.data.roomId);
+        console.log(roomId);
 
         const userResponse = await axios.get('/user/userInfo', {
           params: {
@@ -28,23 +55,24 @@ const ChatRoom = ({ sellerID }) => {
           },
         });
         const dbUserInfo = userResponse.data;
-        console.log(dbUserInfo);
-        // 프로필 이미지
+
         setUserImg(dbUserInfo[0].user_img);
         setUserNickName(dbUserInfo[0].user_nickname);
-        // 채팅 정보 가져오기
-        // const messageResponse = await axios.get(
-        //   `/chat/messages/${response.data.roomId}`,
-        // );
-        // const dbMessages = messageResponse.data;
-        // setMessages(dbMessages);
       } catch (error) {
         console.error(error);
       }
     };
 
     getData();
-  }, [sellerID]);
+  }, [itemID]);
+
+  useEffect(() => {
+    // 새로운 메시지가 추가될 때마다 스크롤을 아래로 이동
+    if (container_scroll.current) {
+      container_scroll.current.scrollTop =
+        container_scroll.current.scrollHeight;
+    }
+  }, [messages]);
 
   const handleSendMessage = (message) => {
     // connected로 현재 웹소켓 연결 상태를 확인
@@ -53,6 +81,7 @@ const ChatRoom = ({ sellerID }) => {
       const newMessage = {
         userId: userNickName,
         message: message,
+        userProfile: userImg,
       };
       // 서버로 메시지를 전송
       console.log('웹소캣이 연결되었습니다.');
@@ -84,20 +113,38 @@ const ChatRoom = ({ sellerID }) => {
 
   return (
     <div className="chat_container">
-      {messages.map((message, index) => (
-        <div
-          className={message.userId === userNickName ? 'me' : 'you'}
-          key={index}
-        >
-          <div className="chat_content">
-            <p>
-              <strong>{message.userId}: </strong>
-            </p>
-            <p>{message.message}</p>
+      <div className="chat_message_container" ref={container_scroll}>
+        {messages.map((message, index) => (
+          <div
+            className={message.userId === userNickName ? 'me' : 'you'}
+            key={index}
+          >
+            <div className="user_profile">
+              {/* <strong>{message.userId}</strong> */}
+              {message.userProfile ? (
+                <img
+                  className="profile_img"
+                  src={`/${message.userProfile.replace(
+                    /.*[\\/]profile_image[\\/]/,
+                    'profile_image/',
+                  )}`}
+                  alt="프로필사진"
+                />
+              ) : (
+                <img
+                  className="profile_img"
+                  src={`/images/profile.png`}
+                  alt="프로필사진"
+                />
+              )}
+            </div>
+            <div className="chat_content">
+              <p className="message">{message.message}</p>
+            </div>
           </div>
-        </div>
-      ))}
-      {/* 메시지 목록을 반복하여 렌더링 */}
+        ))}
+        {/* 메시지 목록을 반복하여 렌더링 */}
+      </div>
       <form
         className="chat_form"
         onSubmit={(e) => {
