@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../style/productDetails.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faWonSign } from '@fortawesome/free-solid-svg-icons';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { deleteItem, showItems } from '../apis/item';
 import ReactHtmlParser from 'react-html-parser';
@@ -13,18 +13,22 @@ import { Swiper, SwiperSlide } from 'swiper/react'; // basic
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import ScrollReset from '../components/ScrollReset';
 import CryptoJS, { SHA256 } from 'crypto-js';
-import ChatModal from '../components/ChatModal';
 import ChatRoom from '../components/ChatRoom';
 
 SwiperCore.use([Navigation, Pagination]);
 
 export default function ProductDetailsPage() {
+  const location = useLocation();
+  const { isChatModalOpen_seller } = location.state || {};
   const { itemID } = useParams();
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
   const [userId, setUserId] = useState();
   const [wish, setWishList] = useState();
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
+  const [userNickName, setUserNickName] = useState();
+  const [userImg, setUserImg] = useState();
+  const { sender_id } = location.state || {};
 
   const navigate = useNavigate();
 
@@ -147,7 +151,6 @@ export default function ProductDetailsPage() {
 
   //위시리스트에 담겨 있지 않다면 추가 요청.
   const wishList = async () => {
-    console.log('클릭');
     try {
       const resWish = await axios.post('/main/wishlist', null, {
         params: {
@@ -205,8 +208,6 @@ export default function ProductDetailsPage() {
     itemImageArr.push(imagePath || null);
   }
 
-  console.log(itemImageArr);
-
   const handleOpenChatModal = () => {
     setIsChatModalOpen((prevState) => !prevState);
   };
@@ -215,19 +216,44 @@ export default function ProductDetailsPage() {
     setIsChatModalOpen(false);
   };
 
+  // 유저 닉네임, 이미지 (채팅 요청할때)
+  const getUserInfo = async () => {
+    try {
+      const resUser = await axios.get('/user/userInfo', {
+        params: {
+          userId: sessionStorage.getItem('userId'),
+        },
+      });
+      const dbUserInfo = resUser.data;
+      console.log(dbUserInfo);
+      setUserNickName(dbUserInfo[0].user_nickname);
+      setUserImg(dbUserInfo[0].user_img);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
   // 채팅 요청
   const handleChatRequest = async () => {
     const confirmed = window.confirm('채팅을 요청하시겠습니까?');
     if (confirmed) {
       try {
         // 확인 버튼을 눌렀을 때
-        const resChatReq = await axios.post('/chat/request', {
+        const resChatReq = await axios.post('/chat/request', null, {
           params: {
             itemID: itemID,
             userID: sessionStorage.getItem('userId'),
+            sellerID: dbUserId,
+            // userNickName: userNickName,
+            // userImg: userImg,
           },
         });
         console.log(resChatReq.data); // 응답
+        setIsChatModalOpen((prevState) => !prevState);
       } catch (error) {
         console.error(error);
       }
@@ -331,11 +357,13 @@ export default function ProductDetailsPage() {
                 <li>{selectedItem.itemExchange}</li>
               </ul>
               <ul className="chat_modal">
-                {isChatModalOpen && (
+                {(isChatModalOpen_seller || isChatModalOpen) && (
                   <ChatRoom
                     isOpen={isChatModalOpen}
                     onClose={handleCloseChatModal}
                     sellerID={selectedItem.userID}
+                    itemID={itemID}
+                    senderID={sender_id}
                   />
                 )}
               </ul>

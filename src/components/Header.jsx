@@ -219,8 +219,6 @@ export default function Header() {
     };
   }, []);
 
-  const chatList = () => {};
-
   const handleOpenChatList = () => {
     setIsChatListOpen((prevState) => !prevState);
   };
@@ -435,7 +433,11 @@ export default function Header() {
       </div>
 
       {isChatListOpen && (
-        <ChatList isOpen={isChatListOpen} onClose={handleCloseChatList} />
+        <ChatList
+          isOpen={isChatListOpen}
+          onClose={handleCloseChatList}
+          // chatRequestData={chatRequestData}
+        />
       )}
     </>
   );
