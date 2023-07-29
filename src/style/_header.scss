@@ -246,15 +246,16 @@
           font-size: 1.1rem;
         }
         ul {
-          display: flex;
           width: 40vw;
 
-          &:hover {
-            background-color: #dbdde3;
-          }
+          
           li {
+            display: flex;
             padding-right: 25px;
             color: #888888;
+            &:hover {
+            background-color: #dbdde3;
+          }
           }
           .no-recent-search {
             color: #888888;

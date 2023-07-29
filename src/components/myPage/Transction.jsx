@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getMain } from '../../apis/mypage';
 
 export default function Transction() {
@@ -19,19 +20,21 @@ export default function Transction() {
 
       let filteredItems = dbresItemInfo;
 
-      if (selectedStatus !== 'all') {
-        filteredItems = dbresItemInfo.filter(
-          (item) => item.state === (selectedStatus === 'selling' ? 0 : 1),
-        );
-      }
+      // if (selectedStatus !== 'all') {
+      //   filteredItems = dbresItemInfo.filter(
+      //     (item) => item.state === (selectedStatus === 'selling' ? 0 : 1),
+      //   );
+      // }
 
       const itemsToShow = filteredItems.slice(startIndex, endIndex);
 
-      // console.log(dbresItemInfo);
+      console.log(dbresItemInfo);
 
       const renderedItems = itemsToShow.map((item) => (
-        <tr key={item.itemId}>
-          <td>{item.item_title}</td>
+        <tr key={item.itemID}>
+          <Link to={`/productdetails/${item.item_id}`}>
+            <td>{item.item_title}</td>
+          </Link>
           <td>{item.item_content}</td>
           <td>{item.item_price}</td>
           <td>{item.status === 0 ? '판매중' : '판매완료'}</td>
